@@ -1,0 +1,155 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---- Misma variable de padding-x que Input/Textarea, por variante ---- */
+.select--rounded {
+  --input-x: var(--form-control-padding-x-rounded, 18px);
+}
+
+.select--square {
+  --input-x: var(--form-control-padding-x-square, 14px);
+}
+
+.select__label {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  margin-left: var(--input-x);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+
+.select__required {
+  margin-left: 2px;
+  color: var(--color-error);
+}
+
+.select__wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select__field {
+  width: 100%;
+  height: var(--form-control-height);
+  padding: var(--space-3) var(--input-x);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  background: var(--form-control-bg, #ffffff);
+  border: 1px solid var(--border-color-grey);
+  box-shadow: var(--shadow-xs);
+  outline: none;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base);
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.select__field--rounded {
+  border-radius: var(--form-control-radius-rounded);
+}
+
+.select__field--square {
+  border-radius: var(--form-control-radius-square);
+}
+
+.select__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.select__icon--left {
+  left: var(--input-x);
+}
+
+.select__icon--right {
+  right: var(--input-x);
+}
+
+.select__field--left-icon {
+  padding-left: calc(var(--input-x) + 28px);
+}
+
+.select__field--right-icon {
+  padding-right: calc(var(--input-x) + 28px);
+}
+
+.select__field:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.select__field--error {
+  border-color: var(--color-error);
+}
+
+.select__field--error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+}
+
+.select__field:disabled {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+.select__field:disabled ~ .select__icon {
+  opacity: var(--opacity-disabled);
+}
+
+.select__field option {
+  color: var(--text-primary);
+}
+
+.select__field option[value=""] {
+  color: var(--text-muted);
+}
+
+/* ---- Slot único de ayuda/error (igual que Input/Textarea) ---- */
+.select__meta {
+  min-height: 20px;
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-2);
+  margin-left: var(--input-x);
+}
+
+.select__helper {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.select__error {
+  font-size: var(--fs-xs);
+  line-height: 1.2;
+  color: var(--color-error);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.select__error--visible {
+  opacity: 1;
+  visibility: visible;
+}

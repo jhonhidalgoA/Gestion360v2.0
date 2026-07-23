@@ -1,0 +1,74 @@
+.navbar-enrollment{
+  height: var(--navbar-h);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+  padding: 0 5%;  
+  background: var(--color-primary); 
+}
+
+ .navbar-enrollment p{
+  font-size: var(--fs-xl);
+  text-align:center;
+  color: var(--text-on-primary, #ffffff);
+}
+
+.enrollment-page__stepper {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: var(--space-6);
+}
+
+.enrollment-page__title{
+  font-size: 30px;
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.enrollment-wizard-page__content {
+  max-width: 900px;
+  margin: -80px auto;
+  padding: 0 var(--space-6) var(--space-12);  
+}
+
+.enrollment-wizard-page__step-card {
+  background: #FFFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-xs);
+  padding: var(--space-3);
+  height: 53vh;
+}
+
+.enrollment-wizard-page__placeholder {
+  padding: var(--space-6);
+  text-align: center;
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+}
+
+.enrollment-wizard-page__nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 480px) {
+  .enrollment-wizard-page__header-inner {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .enrollment-wizard-page__stepper {
+    padding: var(--space-4);
+  }
+
+  .enrollment-wizard-page__content {
+    padding: 0 var(--space-4) var(--space-8);
+  }
+}

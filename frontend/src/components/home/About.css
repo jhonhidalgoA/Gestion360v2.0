@@ -1,0 +1,128 @@
+
+.about {
+  margin: var(--space-12) auto var(--space-16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 98%;
+  max-width: var(--container-max);
+  gap: var(--space-10);
+}
+
+
+.about-left {
+  flex-basis: 40%;
+  position: relative;
+}
+
+.about-img {
+  width: 100%;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-base);
+  height: 420px;
+  object-fit: cover;
+}
+
+.about-img:hover {
+  transform: scale(1.02);
+}
+
+/* icono de play */
+.play-icon {
+  width: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.play-icon:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Contenido (lado derecho) */
+.about-right {
+  flex-basis: 56%;
+}
+
+.about h3 {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-2);
+}
+
+.about h2 {
+  font-size: clamp(1.5rem, 2.6vw, var(--fs-2xl));
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  max-width: 400px;
+  line-height: var(--lh-tight);
+}
+
+.about p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+  line-height: var(--lh-loose);
+  font-size: clamp(0.95rem, 1.6vw, var(--fs-base));
+}
+
+/* responsive*/
+
+/* Tablets y móviles (hasta 850px) */
+@media (max-width: 850px) {
+  .about {
+    flex-direction: column;
+    width: 95%;
+    gap: var(--space-8);
+  }
+
+  .about-left {
+    flex-basis: 100%;
+    order: 2;
+    margin-top: var(--space-6);
+  }
+
+  .about-right {
+    flex-basis: 100%;
+  }
+
+  .about h2 {
+    font-size: clamp(1.25rem, 3.2vw, var(--fs-lg));
+    max-width: 100%;
+  }
+
+  .about p {
+    font-size: clamp(0.9rem, 2.4vw, var(--fs-sm));
+  }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  .about {
+    margin: var(--space-8) auto var(--space-10);
+  }
+
+  .about h3 {
+    font-size: var(--fs-xs);
+  }
+
+  .about h2 {
+    font-size: clamp(1rem, 4.5vw, var(--fs-base));
+  }
+
+  .play-icon {
+    width: 50px;
+  }
+
+  .about-img {
+    height: 260px;
+  }
+}

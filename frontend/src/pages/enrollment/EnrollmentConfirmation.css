@@ -1,0 +1,178 @@
+
+.enrollment-confirmation {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-xl, 2rem) var(--space-lg, 1.5rem);
+  text-align: center;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius-lg, 12px);
+}
+
+.enrollment-confirmation__icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-md, 1rem);
+  border-radius: 50%;
+  background: var(--color-success-bg, #e6f4ea);
+  color: var(--color-success, #1e8e3e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enrollment-confirmation__title {
+  margin: 0 0 6px;
+  font-size: var(--font-size-lg, 18px);
+  font-weight: 500;
+  color: var(--color-text-primary, #111827);
+}
+
+.enrollment-confirmation__subtitle {
+  margin: 0 0 var(--space-lg, 1.5rem);
+  font-size: var(--font-size-sm, 13px);
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.enrollment-confirmation__code-box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px;
+  margin-bottom: var(--space-lg, 1.5rem);
+  background: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-md, 8px);
+}
+
+.enrollment-confirmation__code-label {
+  font-size: 11px;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.enrollment-confirmation__code-value {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--color-text-primary, #111827);
+}
+
+.enrollment-confirmation__steps {
+  text-align: left;
+  padding-top: var(--space-lg, 1.25rem);
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+.enrollment-confirmation__steps-title {
+  margin: 0 0 12px;
+  font-size: var(--font-size-sm, 13px);
+  font-weight: 500;
+  color: var(--color-text-primary, #111827);
+}
+
+.enrollment-confirmation__step {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.enrollment-confirmation__step:last-child {
+  margin-bottom: 0;
+}
+
+.enrollment-confirmation__step-number {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--color-primary-bg, #e8f0fe);
+  color: var(--color-primary, #1a73e8);
+}
+
+.enrollment-confirmation__step-title {
+  margin: 0;
+  font-size: var(--font-size-sm, 13px);
+  color: var(--color-text-primary, #111827);
+}
+
+.enrollment-confirmation__step-description {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.enrollment-confirmation__email-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  margin-top: var(--space-lg, 1.5rem);
+  padding: 12px 14px;
+  background: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-md, 8px);
+  color: var(--color-text-secondary, #6b7280);
+  font-size: var(--font-size-sm, 13px);
+}
+
+.enrollment-confirmation__email-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.enrollment-confirmation__email-note p {
+  margin: 0;
+}
+
+.enrollment-confirmation__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--space-lg, 1.25rem);
+}
+
+.enrollment-confirmation__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-size: var(--font-size-sm, 14px);
+  font-weight: 500;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--color-border, #d1d5db);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.enrollment-confirmation__btn--secondary {
+  background: var(--color-surface, #fff);
+  color: var(--color-text-primary, #111827);
+}
+
+.enrollment-confirmation__btn--secondary:hover {
+  background: var(--color-surface-muted, #f3f4f6);
+}
+
+.enrollment-confirmation__btn--primary {
+  background: var(--color-primary, #0c2f52);
+  border-color: var(--color-primary, #0c2f52);
+  color: var(--color-on-primary, #fff);
+}
+
+.enrollment-confirmation__btn--primary:hover {
+  background: var(--color-primary-hover, #0a253f);
+}
+
+@media (max-width: 480px) {
+  .enrollment-confirmation__actions {
+    flex-direction: column;
+  }
+
+  .enrollment-confirmation__btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

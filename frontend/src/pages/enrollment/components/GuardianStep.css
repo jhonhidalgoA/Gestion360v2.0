@@ -1,0 +1,18 @@
+.guardian-data-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.guardian-data-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+@media (max-width: 480px) {
+  .guardian-data-form__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

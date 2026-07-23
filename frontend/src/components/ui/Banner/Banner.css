@@ -1,0 +1,45 @@
+.banner {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+}
+
+
+.banner-header {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    z-index: 2;
+}
+
+.banner-header h1 {
+  color: white;
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  font-weight: var(--fw-xbold, 800); 
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.banner-header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 2.0vw, 1.5rem);
+  max-width: 800px;
+  margin: 0;
+}

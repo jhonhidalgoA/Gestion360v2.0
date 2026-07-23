@@ -1,0 +1,131 @@
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-subtle);
+  width: 100%;
+  max-width: 450px;
+  height: 280px;
+  padding: var(--space-10);
+  margin: 0 auto;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color-grey);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base);
+  z-index: 1;
+}
+
+.service-card:hover {
+  background-color: var(--color-accent);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card .icon {
+  position: relative;
+  font-size: 70px;
+  color: var(--color-primary);
+  align-items: end;
+}
+
+.service-title {
+  font-size: var(--fs-lg);
+  margin-top: var(--space-2);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  color: var(--color-primary-dark);
+  transition: color var(--transition-fast);
+}
+
+.service-subtitle {
+  font-size: var(--fs-base);
+  margin-top: var(--space-2);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary-dark);
+  transition: color var(--transition-fast);
+}
+
+.service-link {
+  font-size: var(--fs-base);
+  text-align: center;
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  color: var(--color-accent);
+  align-self: center;
+  margin-bottom: calc(-1 * var(--space-2));
+  transition: color var(--transition-fast);
+}
+
+.service-card:hover .service-link {
+  color: white;
+}
+
+/* Móviles (hasta 480px) */
+@media (max-width: 480px) {
+  .service-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+    margin: 20px 0 0 0;
+    justify-content: center;
+  }
+
+  .service-card {
+    width: 90%;
+    height: auto;
+    max-width: 300px;
+    padding: 30px;
+    font-size: 14px;
+  }
+
+  .service-card .icon {
+    font-size: 50px;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+
+  .service-link {
+    font-size: 0.8rem;
+    margin-top: 60px;
+  }
+}
+
+/* Tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .service-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    padding: 0 20px;
+    margin: 20px 0 0 0;
+    justify-content: center;
+  }
+
+  .service-card {
+    width: 100%;
+    max-width: 300px;
+    padding: 35px;
+    font-size: 15px;
+  }
+
+  .service-card .icon {
+    font-size: 60px;
+  }
+
+  .service-title {
+    font-size: 1.2rem;
+    margin-top: 18px;
+  }
+
+  .service-link {
+    font-size: 0.9rem;
+    margin-top: 65px;
+  }
+}

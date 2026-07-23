@@ -1,0 +1,16 @@
+export const GRADE_OPTIONS = [
+  "Prejardín",
+  "Jardín",
+  "Transición",
+  "Primero",
+  "Segundo",
+  "Tercero",
+  "Cuarto",
+  "Quinto",
+  "Sexto",
+  "Séptimo",
+  "Octavo",
+  "Noveno",
+  "Décimo",
+  "Once",
+];

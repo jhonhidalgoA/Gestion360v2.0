@@ -1,0 +1,1 @@
+export const RELATIONSHIP_OPTIONS = ["Madre", "Padre", "Acudiente"];

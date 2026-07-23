@@ -1,0 +1,295 @@
+.application-status-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top:50px;
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-tint) 0%,
+    var(--bg-page) 45%
+  );
+}
+
+.application-status-page__content {
+  flex: 1;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+  padding: calc(var(--navbar-h) + var(--space-8)) var(--space-5) var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- Ícono de contexto ---- */
+.application-status-page__icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary-tint);
+  border: 1px solid var(--border-color);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-2xl);
+  margin-bottom: var(--space-4);
+}
+
+.application-status-page__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+  text-align: center;
+}
+
+.application-status-page__subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-normal);
+  text-align: center;
+  margin: 0 0 var(--space-8) 0;
+  max-width: 420px;
+}
+
+/* ---- Formulario de búsqueda ---- */
+.application-status-page__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--bg-page);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+}
+
+.application-status-page__form .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.application-status-page__not-found {
+  background: var(--color-error-tint);
+  color: var(--color-error);
+  font-size: var(--fs-sm);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--border-radius-md);
+  margin: 0;
+}
+
+.application-status-page__help {
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: var(--space-2) 0 0;
+}
+
+.application-status-page__help a {
+  color: var(--color-accent-dark);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+
+.application-status-page__help a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Footer ---- */
+.application-status-page__footer {
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.application-status-page__footer p {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ---- Resultado ---- */
+.application-status-result {
+  width: 100%;
+  background: var(--bg-page);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+}
+
+.application-status-result__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-5);
+}
+
+.application-status-result__label {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.application-status-result__radicado {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.application-status-result__badge {
+  background: var(--color-accent-tint);
+  color: var(--color-accent-dark);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--border-radius-full);
+  white-space: nowrap;
+}
+
+.application-status-result__info {
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--space-4) 0;
+  margin-bottom: var(--space-5);
+}
+
+.application-status-result__info p {
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.application-status-result__info p:last-child {
+  margin-bottom: 0;
+}
+
+.application-status-result__info strong {
+  color: var(--text-secondary);
+  font-weight: var(--fw-medium);
+  margin-right: var(--space-1);
+}
+
+/* ---- Línea de tiempo vertical ---- */
+.application-status-result__timeline {
+  list-style: none;
+  margin: 0 0 var(--space-6) 0;
+  padding: 0;
+}
+
+.application-status-result__step {
+  display: flex;
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+  position: relative;
+}
+
+.application-status-result__step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  width: 2px;
+  bottom: -4px;
+  background: var(--border-color);
+}
+
+.application-status-result__step-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  z-index: 1;
+}
+
+.application-status-result__step-icon--done {
+  background: var(--color-success);
+  color: var(--text-on-primary);
+}
+
+.application-status-result__step-icon--active {
+  background: var(--color-primary);
+  color: var(--text-on-primary);
+}
+
+.application-status-result__step-icon--pending {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+}
+
+.application-status-result__step-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.application-status-result__step-text strong {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.application-status-result__step-text small {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+/* ---- Acciones ---- */
+.application-status-result__actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.application-status-result__actions .btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.application-status-result__home-link {
+  display: block;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: var(--fw-medium);
+}
+
+.application-status-result__home-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .application-status-page__content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .application-status-page__content {
+    padding: calc(var(--navbar-h) + var(--space-6)) var(--space-4) var(--space-6);
+  }
+
+  .application-status-page__form,
+  .application-status-result {
+    padding: var(--space-5);
+  }
+
+  .application-status-result__actions {
+    flex-direction: column;
+  }
+}

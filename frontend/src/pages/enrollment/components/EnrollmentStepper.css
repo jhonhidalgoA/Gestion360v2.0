@@ -1,0 +1,90 @@
+.enrollment-stepper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.enrollment-stepper__item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.enrollment-stepper__item:last-child {
+  flex: 0 0 auto;
+}
+
+.enrollment-stepper__node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.enrollment-stepper__node {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  border: 1.5px solid var(--text-muted); 
+  color: var(--text-muted);
+  background: #ffffff;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.enrollment-stepper__node--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-on-primary);
+}
+
+.enrollment-stepper__node--done {
+  background: var(--color-primary-tint); /* antes blanco puro; ahora tinte azul sutil para diferenciar "hecho" de "pendiente" sin depender solo del ícono */
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.enrollment-stepper__connector {
+  flex: 1;
+  height: 2px;
+  background: var(--text-muted); /* antes var(--border-color) → invisible; ahora visible y consistente con el nodo pendiente */
+  margin: 0 var(--space-2) 22px;
+}
+
+.enrollment-stepper__connector--done {
+  background: var(--color-primary);
+}
+
+.enrollment-stepper__label {
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.enrollment-stepper__label--active {
+  color: var(--text-primary);
+  font-weight: var(--fw-medium);
+}
+
+.enrollment-stepper__connector {
+  flex: 1;
+  height: 2px;
+  background: var(--border-color);
+  margin: 0 var(--space-2) 22px;
+}
+
+.enrollment-stepper__connector--done {
+  background: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .enrollment-stepper__label {
+    display: none;
+  }
+}

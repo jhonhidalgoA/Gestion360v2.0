@@ -1,0 +1,35 @@
+.news-section { 
+  background: var(--bg-page);
+}
+
+.news-section__header {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.news-section__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-8);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.news-section__button {
+  text-align: center;
+  margin-top: var(--space-10);  
+  margin-bottom: var(--space-12);  
+}
+
+
+
+@media (max-width: 768px) {
+  .news-section {
+    padding: var(--space-10) 0;
+  }
+
+  .news-section__grid {
+    grid-template-columns: 1fr;
+  }
+}

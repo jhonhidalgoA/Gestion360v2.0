@@ -1,0 +1,125 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---- Misma variable de padding-x que Input, por variante ---- */
+.textarea--rounded {
+  --input-x: var(--form-control-padding-x-rounded, 18px);
+}
+
+.textarea--square {
+  --input-x: var(--form-control-padding-x-square, 14px);
+}
+
+.textarea__label {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  margin-left: var(--input-x);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+
+.textarea__required {
+  margin-left: 2px;
+  color: var(--color-error);
+}
+
+.textarea__field {
+  width: 100%;
+  padding: var(--space-3) var(--input-x);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+  background: var(--form-control-bg, #ffffff);
+  border: 1px solid var(--border-color-grey);
+  box-shadow: var(--shadow-xs);
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* ---- Mismo radius que Input, no border-radius-lg/md sueltos ---- */
+.textarea__field--rounded {
+  border-radius: var(--border-radius-lg);
+}
+
+.textarea__field--square {
+  border-radius: var(--border-radius-sm);
+}
+
+.textarea__field--none {
+  resize: none;
+}
+
+.textarea__field--vertical {
+  resize: vertical;
+}
+
+.textarea__field--horizontal {
+  resize: horizontal;
+}
+
+.textarea__field--both {
+  resize: both;
+}
+
+.textarea__field::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea__field:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.textarea__field--error {
+  border-color: var(--color-error);
+}
+
+.textarea__field--error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+}
+
+.textarea__field:disabled {
+  background: var(--bg-subtle);
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* ---- Slot único de ayuda/error (igual que Input.css) ---- */
+.textarea__meta {
+  min-height: 20px;
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-2);
+  margin-left: var(--input-x);
+}
+
+.textarea__helper {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.textarea__error {
+  font-size: var(--fs-base);
+  line-height: 1.2;
+  color: var(--color-error);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.textarea__error--visible {
+  opacity: 1;
+  visibility: visible;
+}

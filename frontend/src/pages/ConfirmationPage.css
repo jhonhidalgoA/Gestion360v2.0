@@ -1,0 +1,244 @@
+.confirmation-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-6);
+  background: var(--bg-subtle);
+}
+
+.confirmation-card {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-8) var(--space-6);
+  background: var(--bg-page);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- Ícono de éxito ---- */
+.confirmation-card__icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-success-tint);
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-2xl);
+  margin-bottom: var(--space-4);
+}
+
+.confirmation-card__title {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.confirmation-card__subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6) 0;
+}
+
+/* ---- Bloque de radicado ---- */
+.confirmation-card__radicado {
+  width: 100%;
+  padding: var(--space-4);
+  background: var(--color-info-tint);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--space-6);
+}
+
+.confirmation-card__radicado-label {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.confirmation-card__radicado-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.confirmation-card__radicado-value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  letter-spacing: 0.5px;
+}
+
+.confirmation-card__copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: var(--space-1);
+  color: var(--color-primary);
+  cursor: pointer;
+  border-radius: var(--border-radius-xs);
+  transition: background var(--transition-fast);
+}
+
+.confirmation-card__copy-btn:hover {
+  background: rgba(2, 62, 138, 0.1);
+}
+
+.confirmation-card__copied-msg {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-success);
+  margin-top: var(--space-1);
+}
+
+/* ---- QR ---- */
+.confirmation-card__qr {
+  padding: var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--space-3);
+  display: flex;
+}
+
+.confirmation-card__qr-caption {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: var(--lh-normal);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.confirmation-card__qr-caption a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.confirmation-card__qr-caption a:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+/* ---- Línea de tiempo ---- */
+.confirmation-card__timeline {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0 0 var(--space-5) 0;
+  padding: 0;
+  position: relative;
+}
+
+.confirmation-card__timeline::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: var(--border-color);
+  z-index: 0;
+}
+
+.confirmation-card__timeline-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.confirmation-card__timeline-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-success);
+  color: var(--text-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+}
+
+.confirmation-card__timeline-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.confirmation-card__timeline-dot--pending {
+  background: var(--border-color);
+}
+
+.confirmation-card__timeline-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.confirmation-card__timeline-label small {
+  font-size: 10px;
+  font-weight: var(--fw-regular);
+  color: var(--text-muted);
+}
+
+.confirmation-card__timeline-label--muted {
+  color: var(--text-muted);
+}
+
+/* ---- Estimado y correo ---- */
+.confirmation-card__estimate {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.confirmation-card__email-note {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.confirmation-card__email-note span{
+  font-size: var(--fs-xs);
+  color: var(--text-primary);
+}
+
+/* ---- Acciones ---- */
+.confirmation-card__actions {
+  width: 100%;
+  display: flex;
+  gap: var(--space-3);
+}
+
+.confirmation-card__actions .btn {
+  flex: 1;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+  .confirmation-card {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .confirmation-card__actions {
+    flex-direction: column;
+  }
+}
