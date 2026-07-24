@@ -16,8 +16,7 @@ const CreativeWebDesign = () => {
             </span>
           </h1>
         </div>
-        <div className="block-right">
-          
+        <div className="block-right">          
         </div>
       </div>
     </div>

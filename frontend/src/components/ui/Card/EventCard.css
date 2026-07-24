@@ -1,17 +1,12 @@
 .event-card {
   display: flex;
-  width: 100%;
   align-items: stretch;
   gap: var(--space-16);
-  margin-top: var(--space-16);
   cursor: pointer;
   border-radius: var(--border-radius-md);
   transition: box-shadow var(--transition-base);
-  width: 1200px;
-  margin-inline: auto; 
-
+  width: 100%;
 }
-
 
 /* date */
 .event-date {
@@ -88,7 +83,7 @@
   flex-shrink: 0;
   padding: 4px var(--space-3);
   border-radius: var(--border-radius-full);
-  width: 180px;
+  width: auto;
   color: var(--text-on-primary);
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
@@ -115,14 +110,12 @@
   line-height: var(--lh-normal);
 }
 
-/* mobile (hasta 480px) */
-@media (max-width: 480px) {
+/* MOBILE: hasta 599px */
+@media (max-width: 599px) {
   .event-card {
     flex-direction: row;
-    align-items: flex-start; /* en mobile la fecha no debe estirarse a la altura del contenido */
+    align-items: flex-start;
     gap: var(--space-3);
-    width: 100%;
-    margin: var(--space-6) 0;
   }
 
   .event-date {
@@ -165,8 +158,8 @@
   }
 }
 
-/* Tablets (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* TABLET: 600px – 1023px */
+@media (min-width: 600px) and (max-width: 1023px) {
   .event-card {
     gap: var(--space-10);
   }
@@ -203,4 +196,3 @@
     font-size: var(--fs-base);
   }
 }
-

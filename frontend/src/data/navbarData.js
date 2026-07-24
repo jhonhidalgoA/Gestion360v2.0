@@ -1,10 +1,9 @@
-
 export const MenuData = [
   {
     title: "Inicio",
     to: "inicio",
     cName: "nav-links",
-    type: "section",  
+    type: "section",
   },
   {
     title: "Noticias",
@@ -36,13 +35,13 @@ export const MenuData = [
     cName: "nav-links",
     type: "section",
   },
-]
+];
 
 export const MenuActions = [
   {
     title: "Ingresar",
-    to: "/login",  
+    to: "/login",
     cName: "btn-ingresar",
     type: "page",
   },
-]
+];

@@ -1,16 +1,17 @@
-.title{
-    text-align:center;
-    color:#212EA0;
-    font-size:16px;
-    font-weight:bold;
-    text-transform: uppercase;
-    margin: 10px 0 30px;
+.title {
+  text-align: center;
+  color: #212ea0;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 10px 0 30px;
+  /* leave space for fixed navbar when scrolling to this element */
+  scroll-margin-top: calc(var(--navbar-h) + 12px);
 }
 
-.title h2{
-    font-size:var(--fs-2xl);
-    color: #e2a926;
-    margin-top: 5px;
-    text-transform:none;
-
+.title h2 {
+  font-size: var(--fs-2xl);
+  color: #e2a926;
+  margin-top: 5px;
+  text-transform: none;
 }

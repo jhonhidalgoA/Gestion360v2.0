@@ -183,12 +183,57 @@
   .footer {
     padding: 3rem 1.5rem 0;
   }
+  
   .footer-main {
     grid-template-columns: 1fr;
     justify-items: start;
   }
+  
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Centrar el componente CreativeWebDesign */
+  .footer-bottom > div:first-child {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Iconos de redes sociales más pequeños en móvil */
+  .footer-social-dev .contact-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+  
+  /* Reducir gap entre iconos */
+  .footer-social-dev {
+    gap: 12px;
+  }
+}
+
+/* Para pantallas muy pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 1rem 0;
+  }
+  
+  /* Iconos aún más pequeños */
+  .footer-social-dev .contact-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+  
+  .footer-social-dev {
+    gap: 10px;
+  }
+  
+  .footer-bottom {
+    font-size: 12px;
   }
 }

@@ -121,7 +121,7 @@
   --transition-slow: 400ms ease;
 
   /* layout */
-  --container-max: 1400px;
+  --container-max: 1450px;
   --navbar-h: 68px;
   --sidebar-w: 260px;
 
@@ -147,11 +147,6 @@
   --bp-lg: 1024px;
   --bp-xl: 1280px;
   --bp-2xl: 1536px;
-  /* semantic breakpoints used across the app */
-  --bp-mobile: 480px; /* móviles pequeños */
-  --bp-tablet: 768px; /* tablets / móviles grandes */
-  --bp-pc: 1024px; /* PC / laptops */
-  --bp-desktop: 1280px; /* pantallas grandes / desktop */
   --focus-ring: 0 0 0 3px rgba(2, 62, 138, 0.3);
   --opacity-disabled: 0.5;
   --opacity-hover: 0.9;

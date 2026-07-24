@@ -1,5 +1,5 @@
 .container-newPage { 
-  width: min(82%, 1400px);
+  width: min(95%, 1400px);
   min-height: 100vh;
   margin: 4rem auto;
   background: var(--bg-page, #f7f8fb);
