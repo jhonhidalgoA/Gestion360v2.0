@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TbUser, TbLock } from "react-icons/tb";
 import Input from "@/components/ui/Input/Input";
 import { loginSchema, loginDefaultValues } from "@schemas/loginSchema";
+import usersData from "@/data/usersData";
 import "./Login.css";
 
 const MAX_INTENTOS = 5;
 const BLOQUEO_SEGUNDOS = 30;
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [intentosFallidos, setIntentosFallidos] = useState(0);
   const [bloqueado, setBloqueado] = useState(false);
@@ -35,11 +38,13 @@ const Login = () => {
     const timer = setTimeout(() => {
       setSegundosRestantes((s) => {
         const next = s - 1;
+
         if (next <= 0) {
           setBloqueado(false);
           setIntentosFallidos(0);
           clearErrors("root");
         }
+
         return next;
       });
     }, 1000);
@@ -47,24 +52,59 @@ const Login = () => {
     return () => clearTimeout(timer);
   }, [bloqueado, segundosRestantes, clearErrors]);
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     if (bloqueado) return;
+
     setLoading(true);
 
-    // Simulación temporal mientras no hay backend conectado
     setTimeout(() => {
       setLoading(false);
+
+      const usuario = usersData.find(
+        (user) =>
+          user.username === data.username &&
+          user.password === data.password
+      );
+
+      if (usuario) {
+        switch (usuario.role) {
+          case "administrador":
+            navigate("/admin");
+            break;
+
+          case "docente":
+            navigate("/teacher");
+            break;
+
+          case "padre":
+            navigate("/padre");
+            break;
+
+          case "estudiante":
+            navigate("/estudiante");
+            break;
+
+          default:
+            navigate("/");
+        }
+
+        return;
+      }
+
       const nuevosIntentos = intentosFallidos + 1;
       setIntentosFallidos(nuevosIntentos);
 
       if (nuevosIntentos >= MAX_INTENTOS) {
         setBloqueado(true);
         setSegundosRestantes(BLOQUEO_SEGUNDOS);
+
         setError("root", {
           message: `Demasiados intentos. Intenta de nuevo en ${BLOQUEO_SEGUNDOS}s`,
         });
       } else {
-        setError("root", { message: "Documento o Contraseña incorrectos" });
+        setError("root", {
+          message: "Documento o Contraseña incorrectos",
+        });
       }
 
       setFocus("username");
@@ -129,6 +169,7 @@ const Login = () => {
               />
               <label htmlFor="checkbox">Recordar</label>
             </div>
+
             <div className="forgot-password">
               <Link to="/reset" className="forgot-password">
                 ¿Olvidó la contraseña?
@@ -139,14 +180,13 @@ const Login = () => {
           <div className="input-btn btn-login">
             <button
               type="submit"
-              aria-label="ingresar"
               disabled={loading || bloqueado || isSubmitting}
             >
               {bloqueado
                 ? `Espera ${segundosRestantes}s`
                 : loading || isSubmitting
-                  ? "Ingresando..."
-                  : "Ingresar"}
+                ? "Ingresando..."
+                : "Ingresar"}
             </button>
           </div>
 
@@ -157,7 +197,7 @@ const Login = () => {
                 Vinicius Imbroisi
               </a>{" "}
               from{" "}
-              <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099">
+              <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099">
                 Pixabay
               </a>
             </p>

@@ -1,15 +1,14 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext";
-import { useClickOutside } from "../../../hooks/useClickOutside";
+import { useState } from "react";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useAuth } from "@/components/hooks/useAuth";
+import { useClickOutside } from "@/components/hooks/useClickOutside";
 import { roleConfig, defaultRoleConfig, userMenuActions } from "@/data/navbarModuloData";
 import Modal from "@/components/ui/Modal/Modal";
-import logo from "../../icons/espiral.svg";
-
+import logo from "@/assets/icons/espiral.svg";
 import "./NavbarModulo.css";
 
 const NavbarModulo = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -28,20 +27,24 @@ const NavbarModulo = () => {
     navigate(to);
   };
 
+  
+
   const handleLogout = () => {
-    // TODO: reemplazar por logout() real del AuthContext cuando esté conectado a la BD
+    logout();
     window.location.href = "/";
   };
 
   return (
     <nav className="navbar-modulo">
-      <div className="nav-logo">
-        <img src={logo} alt="logo" className="logo" />
+      <RouterLink to={currentRole.homePath} className="navbar-logo">
+        <img src={logo} alt="logo" className="logo-icon" />
         <div className="nav-logo-text">
-          <h3>Gestión 360</h3>
+          <h3>
+            Gestión <span className="danger">360</span>
+          </h3>
           <p>Módulo {currentRole.moduleLabel}</p>
         </div>
-      </div>
+      </RouterLink>
 
       <ul>
         <li className="nav-item">
@@ -59,10 +62,7 @@ const NavbarModulo = () => {
             aria-label="Menú de usuario"
             onClick={() => setIsUserMenuOpen((prev) => !prev)}
           >
-            <span className="user-name">
-              {/* Placeholder: cuando el login esté conectado a la BD, reemplazar por user?.fullName */}
-              {user?.fullName || "Jhon Fredy Hidalgo Arango"}
-            </span>
+            <span className="user-name">{user?.fullName}</span>
           </button>
 
           {isUserMenuOpen && (

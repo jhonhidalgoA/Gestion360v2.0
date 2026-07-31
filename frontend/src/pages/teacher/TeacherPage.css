@@ -1,0 +1,41 @@
+.teacher-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.teacher-header {   
+    margin-top: 1.5rem;
+}
+
+.teacher-header h1 {
+  font-size: 2.0rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 10px auto;
+}
+
+.current-date {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;  
+}
+
+@media (max-width: 1100px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}

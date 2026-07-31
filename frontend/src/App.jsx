@@ -10,6 +10,8 @@ import ScrollToTop from "@/components/common/ScrollToTop";
 import EnrollmentWizardPage from '@pages/enrollment/EnrollmentWizardPage';
 import ConfirmationPage from '@pages/ConfirmationPage'
 import ApplicationStatusPage from '@pages/ApplicationStatusPage';
+import TeacherPage from "./pages/teacher/TeacherPage";
+import AssessmentPage from "./pages/teacher/AssessmentPage";
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/matricula/nueva" element={<EnrollmentWizardPage />} />
         <Route path="/matricula/confirmacion" element={<ConfirmationPage />} />
         <Route path="/matricula/seguimiento" element={<ApplicationStatusPage />} />
+        <Route path="/teacher" element={<TeacherPage />} />
+        <Route path="/assessmentPage" element={<AssessmentPage />} />
       </Routes>
     </Router>
   );

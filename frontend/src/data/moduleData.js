@@ -1,0 +1,106 @@
+export const moduleData = {
+  admin: [
+    {
+      id: 1,
+      icon: "how_to_reg",
+      title: "Matrícula Estudiante",
+      path: "/matricula",
+      gradient: "linear-gradient(135deg, #F57C00)",
+    },
+    {
+      id: 2,
+      icon: "app_registration",
+      title: "Registro Docente",
+      path: "/registro-docente",
+      gradient: "linear-gradient(135deg, #388E3C)",
+    },
+    {
+      id: 3,
+      icon: "hourglass_bottom",
+      title: "Horario Grados",
+      path: "/horario-grados",
+      gradient: "linear-gradient(135deg, #A9A9A9 )",
+    },
+    {
+      id: 4,
+      icon: "schedule",
+      title: "Horario Docentes",
+      path: "/horario-docentes",
+      gradient: "linear-gradient(135deg, #FF00FF)",
+    },
+    {
+      id: 5,
+      icon: "calendar_month",
+      title: "Editar Calendario",
+      path: "/calendario",
+      gradient: "linear-gradient(135deg, #0D47A1)",
+    },
+    {
+      id: 6,
+      icon: "restaurant",
+      title: "Editar Menú Escolar",
+      path: "/menu-escolar",
+      gradient: "linear-gradient(135deg, #7B1FA2)",
+    },
+  ],
+
+  teacher: [
+    {
+      id: 1,
+      icon: "diamond_shine",
+      title: "Calificaciones",
+      path: "/assessmentPage",
+      gradient: "linear-gradient(135deg, #1D6FB8)",
+    },
+    {
+      id: 2,
+      icon: "app_registration",
+      title: "Asistencia",
+      path: "/asistencia",
+      gradient: "linear-gradient(135deg, #1E9E74)",
+    },
+    {
+      id: 3,
+      icon: "checklist_rtl",
+      title: "Planeación",
+      path: "/planeacion",
+      gradient: "linear-gradient(135deg, #7B4FB0)",
+    },
+    {
+      id: 4,
+      icon: "format_list_numbered",
+      title: "Asignar Tareas",
+      path: "/tareas",
+      gradient: "linear-gradient(135deg, #C97A22)",
+    },
+    {
+      id: 5,
+      icon: "table_view",
+      title: "Reportes Académicos",
+      path: "/reportes",
+      gradient: "linear-gradient(135deg, #0B3D73)",
+    },
+    {
+      id: 6,
+      icon: "calendar_month",
+      title: "Ver Calendario",
+      path: "/calendario",
+      gradient: "linear-gradient(135deg, #2F8F87)",
+    },
+    {
+      id: 7,
+      icon: "forum",
+      title: "Comunicación con Padres",
+      path: "/comunicacion",
+      gradient: "linear-gradient(135deg, #B93368)",
+    },
+
+    {
+      id: 8,
+      icon: "folder_eye",
+      title: "Observador",
+      path: "/observador",
+      gradient: "linear-gradient(135deg, #55708C)",
+    },
+  ],
+};

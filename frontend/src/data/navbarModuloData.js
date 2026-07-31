@@ -1,8 +1,4 @@
-// Data del Navbar del MÓDULO interno (post-login).
-// No confundir con navbarData.js (ese es el navbar público del landing).
 
-// 1) Acciones de menú de usuario. Se definen UNA sola vez.
-//    Cada rol solo referencia las claves que le aplican (ver roleConfig más abajo).
 export const userMenuActions = {
   editarPerfil: {
     title: "Editar perfil",
@@ -54,21 +50,25 @@ export const roleConfig = {
   administrador: {
     moduleLabel: "Administrador",
     roleTitle: "Administrador del Sistema",
+    homePath: "/admin",
     menuItems: ["editarPerfil", "cambiarPassword", "configuracion"],
   },
   docente: {
     moduleLabel: "Docente",
     roleTitle: "Docente",
+    homePath: "/teacher",
     menuItems: ["editarPerfil", "cambiarPassword", "misGrupos"],
   },
   estudiante: {
     moduleLabel: "Estudiante",
     roleTitle: "Estudiante",
+    homePath: "/student",
     menuItems: ["editarPerfil", "cambiarPassword", "misCalificaciones"],
   },
   padre: {
     moduleLabel: "Padre de Familia",
     roleTitle: "Padre de Familia",
+    homePath: "/parent",
     menuItems: ["editarPerfil", "cambiarPassword", "misHijos"],
   },
 };
@@ -77,5 +77,6 @@ export const roleConfig = {
 export const defaultRoleConfig = {
   moduleLabel: "Usuario",
   roleTitle: "Usuario",
+  homePath: "/",
   menuItems: ["editarPerfil", "cambiarPassword"],
 };

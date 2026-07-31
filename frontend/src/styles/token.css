@@ -32,7 +32,7 @@
   --bg-page: #ffff; /* fondo general           */
   --bg-card: #eef2f7; /* tarjetas                */
   --bg-subtle: #eef2f7; /* filas alternas, inputs  */
-  --bg-overlay: rgba(3, 4, 94, 0.55);
+  --bg-overlay: rgba(15, 23, 42, 0.6);
 
   /* border */
   --border-color: #d9e2ef;
@@ -72,6 +72,10 @@
 
   --btn-submit: #00897b;
   --btn-submit-h: #00695c;
+
+  --btn-logout: #ff6f61;
+  --btn-logout-h: #e85d50;
+  --btn-logout-a: #d94f42;
 
   /* shadow */
   --shadow-xs: 0 1px 2px rgba(2, 62, 138, 0.06);
@@ -138,8 +142,8 @@
   --form-control-padding-x-rounded: 18px;
   --form-control-padding-x-square: 14px;
   --form-control-radius-rounded: 999px;
-  --form-control-bg: #ffffff;
-  --form-control-height: 44px;
+  --form-control-bg: #faf8f8;
+  --form-control-height: 40px;
 
   /* breakpoints */
   --bp-sm: 640px;

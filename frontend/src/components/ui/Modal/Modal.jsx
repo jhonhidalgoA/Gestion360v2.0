@@ -1,24 +1,30 @@
 import { useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 import { Button } from "../Button/Button";
-import { modalConfig, cancelVariant } from "../../data/modalData";
+import { modalConfig, modalMessages, cancelVariant } from "../../../data/modalData";
 import "./Modal.css";
 
 const Modal = ({
   isOpen,
   onClose,
   onConfirm,
-  variant = "confirm", // clave de modalConfig: confirm | edit | delete | logout | success
-  title, // opcional: sobreescribe el título por defecto de la variante
-  message, // pregunta principal
-  description, // texto secundario gris
+  variant = "confirm", 
+  message, 
+  description, 
   entityLabel, // opcional: "Estudiante: ..." / "Eliminando: Matrícula #1234"
   confirmText, // opcional: sobreescribe el texto del botón primario
   children, // opcional: contenido custom del body (ej. textarea de retroalimentación)
 }) => {
   const dialogRef = useRef(null);
   const config = modalConfig[variant] ?? modalConfig.confirm;
+  const defaults = modalMessages[variant] ?? {};
   const Icon = config.icon;
+
+  // Si no llega message/description por props, usa el texto por defecto de esta variante
+  const finalMessage = message ?? defaults.message;
+  const finalDescription = description ?? defaults.description;
+
+  
 
   // Cerrar con Escape
   useEffect(() => {
@@ -30,7 +36,6 @@ const Modal = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Foco inicial dentro del modal (accesibilidad básica)
   useEffect(() => {
     if (isOpen) dialogRef.current?.focus();
   }, [isOpen]);
@@ -49,17 +54,27 @@ const Modal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
-          <h2 className="modal-title" id="modal-title">
-            {title || config.defaultTitle}
-          </h2>
-          <button className="modal-close" onClick={onClose} aria-label="Cerrar">
-            <IoClose />
-          </button>
+          <div className="modal-brand">
+            <div className="modal-title">
+              <h3>Colegio</h3>
+              <span className="modal-subtitle">STEAM 360</span>
+            </div>
+            <button
+              className="modal-close"
+              onClick={onClose}
+              aria-label="Cerrar"
+            >
+              <IoClose size={30} />
+            </button>
+          </div>
         </div>
 
         <div className="modal-body">
           {Icon && (
-            <div className="modal-icon-wrap">
+            <div
+              className="modal-icon-wrap"
+              style={{ background: config.iconBg, color: config.iconColor }}
+            >
               <Icon className="modal-icon" />
             </div>
           )}
@@ -70,8 +85,10 @@ const Modal = ({
             children
           ) : (
             <>
-              {message && <p className="modal-message">{message}</p>}
-              {description && <p className="modal-description">{description}</p>}
+              {finalMessage && <p className="modal-message">{finalMessage}</p>}
+              {finalDescription && (
+                <p className="modal-description">{finalDescription}</p>
+              )}
             </>
           )}
         </div>
@@ -83,7 +100,7 @@ const Modal = ({
             </Button>
           )}
           <Button
-            variant={config.primaryVariant}
+            variant={config.primaryVariant}            
             onClick={onConfirm || onClose}
           >
             {confirmText || config.primaryText}

@@ -1,0 +1,25 @@
+.assessment-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 124px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.assessment-button {
+  display: flex;
+  justify-content:center;
+  gap: 16px;
+  margin-top: 50px;
+}
+
+.assessment-button .btn {
+  flex: 1; 
+  min-width: 180px; 
+  max-width: 250px; 
+  justify-content: center; 
+  
+}
