@@ -6,7 +6,7 @@ export const filterFormsData = {
         id: "grupo",
         type: "select",
         label: "Grupo:",
-        optionsKey: "grupos", // debe coincidir con la key que le pases en optionsData
+        optionsKey: "grupos", 
         required: true,
       },
       {

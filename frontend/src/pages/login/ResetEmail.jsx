@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { TbMail } from "react-icons/tb";
 import Input from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 import "./ResetEmail.css";
 
 const COOLDOWN_SEGUNDOS = 60;
@@ -76,8 +77,8 @@ const ResetEmail = () => {
               <>
                 <h1>¿No recuerdas tu contraseña?</h1>
                 <h4>
-                  ¡No te preocupes! <span>Nos sucede a todos.</span> Ingresa
-                  tu Email y te ayudaremos
+                  ¡No te preocupes! <span>Nos sucede a todos.</span> Ingresa tu
+                  Email y te ayudaremos
                 </h4>
               </>
             )}
@@ -94,22 +95,25 @@ const ResetEmail = () => {
               <h3 className="reset-success__title">¡Revisa tu correo!</h3>
 
               <p>
-                Si el correo ingresado existe en nuestro sistema, recibirás
-                un enlace para restablecer tu contraseña en unos minutos.
+                Si el correo ingresado existe en nuestro sistema, recibirás un
+                enlace para restablecer tu contraseña en unos minutos.
               </p>
 
-              <button
+              <Button
+                variant="primary"
+                shape="pill"
+                className="btn-width-full"
+                size="md"
                 type="button"
-                className="reset-success__resend"
                 onClick={handleReenviar}
                 disabled={cooldown > 0 || loading}
               >
                 {loading
                   ? "Enviando..."
                   : cooldown > 0
-                  ? `¿No recibiste nada? Reenviar en ${cooldown}s`
-                  : "¿No recibiste nada? Reenviar correo"}
-              </button>
+                    ? `¿No recibiste nada? Reenviar en ${cooldown}s`
+                    : "¿No recibiste nada? Reenviar correo"}
+              </Button>
             </div>
           ) : (
             <>
@@ -126,14 +130,21 @@ const ResetEmail = () => {
                   setError("");
                 }}
                 error={error}
-                variant="rounded"
+                variant="square"
               />
 
-              <div className="input-btn">
-                <button type="submit" className="btn" disabled={loading}>
+              
+                <Button
+                  variant="primary"
+                  shape="pill"
+                  size="md"
+                  width="full"
+                  type="submit"
+                  disabled={loading}
+                >
                   {loading ? "Enviando..." : "Restablecer contraseña"}
-                </button>
-              </div>
+                </Button>
+            
             </>
           )}
 

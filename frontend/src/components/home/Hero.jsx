@@ -21,7 +21,8 @@ const Hero = () => {
           to="/enrollment"
           variant="primary"
           shape="pill"
-          size="lg"
+          size="md"
+          className="btn-uniform-width"
           icon={TbArrowRight}
         >
           Más información

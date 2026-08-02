@@ -34,7 +34,8 @@ const NewPrevious = ({ cardsToShow = 3, showMoreButton = true }) => {
           to="/news"
           variant="primary"
           shape="pill"
-          size="lg"
+          size="md"
+          className="btn-uniform-width"
           icon={TbArrowRight}
         >
           Ver más

@@ -37,9 +37,10 @@ const EnrollmentPage = () => {
             </h1>
             <div className="cta-group-admissions">
               <Button
-                variant="edit"
-                shape="semi"
-                size="lg"
+                variant="new-request"
+                shape="pill"
+                width="uniform"
+                size="md"                
                 icon={TbArrowRight}
                 onClick={() => navigate("/matricula/nueva")}
               >
@@ -47,8 +48,9 @@ const EnrollmentPage = () => {
               </Button>
               <Button
                 variant="outline-white" 
-                shape="semi" 
-                size="lg" 
+                shape="pill" 
+                width="uniform"
+                size="md" 
                 icon={TbSearch} 
                 iconPosition="left" 
                 onClick={() => navigate("/matricula/seguimiento")}

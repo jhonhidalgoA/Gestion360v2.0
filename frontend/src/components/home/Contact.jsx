@@ -104,6 +104,7 @@ const Contact = () => {
             register={register}
             error={errors.name}
             autoComplete="name"
+            variant="square"
             required
           />
           <Input
@@ -114,6 +115,7 @@ const Contact = () => {
             register={register}
             error={errors.email}
             autoComplete="email"
+            variant="square"
             required
           />
 
@@ -126,14 +128,15 @@ const Contact = () => {
             error={errors.message}
             maxLength={500}
             helperText="Máximo 500 caracteres."
+            variant="square"
             required
           />
 
-          <Button
-            type="submit"
+          <Button           
             variant="primary"
             shape="pill"
-            size="lg"
+            size="md"
+            type="submit"
             icon={TbArrowRight}
             disabled={isSubmitting}
           >

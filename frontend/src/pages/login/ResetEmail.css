@@ -45,20 +45,6 @@
   margin-left: var(--space-2);
 }
 
-/* botón */
-.input-btn {
-  width: 100%;
-  margin-top: var(--space-2);
-}
-
-/* Usar el .btn de global.css */
-.input-btn .btn {
-  width: 100%;
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--border-radius-full);
-  font-weight: var(--fw-bold);
-  font-size: var(--fs-sm);
-}
 
 .reset-success {
   display: flex;
@@ -169,10 +155,7 @@
     font-size: var(--fs-base);
   }
 
-  .input-btn .btn {
-    font-size: var(--fs-sm);
-    padding: var(--space-3);
-  }
+  
 }
 
 @media (max-width: 768px) {

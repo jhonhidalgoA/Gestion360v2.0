@@ -37,7 +37,8 @@ const Event = ({
             to="/school-events"
             variant="primary"
             shape="pill"
-            size="lg"
+            size="md"
+            className="btn-uniform-width"
             icon={TbArrowRight}
           >
             Ver detalles

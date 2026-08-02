@@ -1,4 +1,4 @@
-import { Check, Mail, Download, ArrowRight } from 'lucide-react';
+import { Check, Mail } from 'lucide-react';
 import './EnrollmentConfirmation.css';
 
 /**
@@ -15,8 +15,7 @@ function EnrollmentConfirmation({
   studentName,
   guardianEmail,
   trackingCode,
-  onDownloadReceipt,
-  onViewStatus,
+  
 }) {
   const steps = [
     {
@@ -68,24 +67,7 @@ function EnrollmentConfirmation({
         <p>Enviamos una copia de este número de radicado a {guardianEmail}.</p>
       </div>
 
-      <div className="enrollment-confirmation__actions">
-        <button
-          type="button"
-          className="enrollment-confirmation__btn enrollment-confirmation__btn--secondary"
-          onClick={onDownloadReceipt}
-        >
-          <Download size={16} strokeWidth={2} />
-          Descargar comprobante
-        </button>
-        <button
-          type="button"
-          className="enrollment-confirmation__btn enrollment-confirmation__btn--primary"
-          onClick={onViewStatus}
-        >
-          Ver estado de mi solicitud
-          <ArrowRight size={16} strokeWidth={2} />
-        </button>
-      </div>
+      
     </div>
   );
 }

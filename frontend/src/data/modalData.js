@@ -45,10 +45,10 @@ export const modalConfig = {
     icon: IoLogOutOutline,
     iconBg: "var(--bg-subtle)",
     iconColor: "var(--btn-print)",
-    defaultTitle: "Cerrar sesión",
-    primaryText: "Cerrar sesión",
+    defaultTitle: "Logout",
+    primaryText: "Logout",
     primaryVariant: "logout", 
-    btnIcon: IoLogOutOutline,
+    
     
   },
   success: {

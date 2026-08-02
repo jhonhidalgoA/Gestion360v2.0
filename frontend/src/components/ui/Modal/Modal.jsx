@@ -1,39 +1,41 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { Button } from "../Button/Button";
-import { modalConfig, modalMessages, cancelVariant } from "../../../data/modalData";
+import { modalConfig, modalMessages, modalBrand} from "../../../data/modalData";
 import "./Modal.css";
 
 const Modal = ({
   isOpen,
   onClose,
   onConfirm,
-  variant = "confirm", 
-  message, 
-  description, 
-  entityLabel, // opcional: "Estudiante: ..." / "Eliminando: Matrícula #1234"
-  confirmText, // opcional: sobreescribe el texto del botón primario
-  children, // opcional: contenido custom del body (ej. textarea de retroalimentación)
+  variant = "confirm",
+  message,
+  description,
+  entityLabel,
+  confirmText,
+  isLoading = false, 
+  children,
 }) => {
   const dialogRef = useRef(null);
   const config = modalConfig[variant] ?? modalConfig.confirm;
   const defaults = modalMessages[variant] ?? {};
   const Icon = config.icon;
+  const BtnIcon = config.btnIcon;
 
-  // Si no llega message/description por props, usa el texto por defecto de esta variante
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
-  
-
-  // Cerrar con Escape
   useEffect(() => {
     if (!isOpen) return;
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") onClose?.();
-    };
+    const handleKeyDown = (e) => e.key === "Escape" && onClose?.();
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    // Bloquear scroll del body cuando el modal está abierto
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
   }, [isOpen, onClose]);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Modal = ({
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="modal-content"
@@ -56,59 +58,59 @@ const Modal = ({
         <div className="modal-header">
           <div className="modal-brand">
             <div className="modal-title">
-              <h3>Colegio</h3>
-              <span className="modal-subtitle">STEAM 360</span>
+              <h3>{modalBrand.schoolName}</h3>
+              <span className="modal-subtitle">{modalBrand.moduleName}</span>
             </div>
-            <button
-              className="modal-close"
-              onClick={onClose}
-              aria-label="Cerrar"
-            >
-              <IoClose size={30} />
-            </button>
           </div>
+          <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+            <IoClose size={24} />
+          </button>
         </div>
 
         <div className="modal-body">
           {Icon && (
-            <div
-              className="modal-icon-wrap"
-              style={{ background: config.iconBg, color: config.iconColor }}
-            >
+            <div className="modal-icon-wrap" style={{ background: config.iconBg, color: config.iconColor }}>
               <Icon className="modal-icon" />
             </div>
           )}
 
           {entityLabel && <p className="modal-entity">{entityLabel}</p>}
 
-          {children ? (
-            children
-          ) : (
+          {children ? children : (
             <>
               {finalMessage && <p className="modal-message">{finalMessage}</p>}
-              {finalDescription && (
-                <p className="modal-description">{finalDescription}</p>
-              )}
+              {finalDescription && <p className="modal-description">{finalDescription}</p>}
             </>
           )}
         </div>
 
         <div className="modal-footer">
           {!config.hideSecondary && (
-            <Button variant={cancelVariant} onClick={onClose}>
+            <Button 
+              variant="outline-primary"
+              onClick={onClose}
+              disabled={isLoading}
+              className="btn-uniform-width" >
               Cancelar
             </Button>
           )}
           <Button
-            variant={config.primaryVariant}            
+            variant={config.primaryVariant}
             onClick={onConfirm || onClose}
+            disabled={isLoading}
+            icon={BtnIcon}
+            className="btn-uniform-width"
+            iconPosition="left"
           >
-            {confirmText || config.primaryText}
+            {isLoading ? "Procesando..." : (confirmText || config.primaryText)}
           </Button>
         </div>
       </div>
     </div>
   );
+
+  
+  return createPortal(modalContent, document.body);
 };
 
 export default Modal;

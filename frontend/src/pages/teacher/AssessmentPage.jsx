@@ -1,12 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {FaSave, FaPlus, FaTable } from "react-icons/fa"; 
+import { FaSave, FaPlus, FaTable } from "react-icons/fa";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
-import FilterForm from "@/components/ui/FilterForm/FilterForm";
-import { Button } from "@/components/ui/Button/Button"; // Importas tu Button existente
+import { Button } from "@/components/ui/Button/Button";
+import Select from "@/components/ui/Select/Select";
 import "./AssessmentPage.css";
+
+const grupos = [
+  { value: "10-1", label: "10-1" },
+  { value: "10-2", label: "10-2" },
+];
+
+const asignaturas = [
+  { value: "matematicas", label: "Matemáticas" },
+  { value: "ciencias", label: "Ciencias" },
+];
+
+const periodos = [
+  { value: "1", label: "Periodo 1" },
+  { value: "2", label: "Periodo 2" },
+];
 
 const AssessmentPage = () => {
   const navigate = useNavigate();
@@ -19,21 +34,22 @@ const AssessmentPage = () => {
 
   const {
     register,
-   
+    handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: { grupo: "", asignatura: "", periodo: "" },
     mode: "onChange",
   });
 
- 
-
   const handleBack = () => navigate("/teacher");
 
-  const handleCargar = () => {
+  const onFiltroValido = (data) => {
+    console.log("Filtro válido:", data);
     setLoading((prev) => ({ ...prev, cargar: true }));
     setTimeout(() => setLoading((prev) => ({ ...prev, cargar: false })), 1000);
   };
+
+  const handleCargar = handleSubmit(onFiltroValido);
 
   const handleGuardar = () => {
     setLoading((prev) => ({ ...prev, guardar: true }));
@@ -54,15 +70,41 @@ const AssessmentPage = () => {
       />
 
       <div className="assessment-container">
-        <FilterForm
-          sectionKey="calificaciones"
-          optionsData={{ /* tus datos */ }}
-          register={register}
-          errors={errors}
-        />        
+        <div className="filter-card">
+          <div className="form-row">
+            <Select
+              label="Grupo:"
+              name="grupo"
+              options={grupos}
+              register={register}
+              error={errors.grupo}
+              variant="square"
+              required
+            />
+            <Select
+              label="Asignatura:"
+              name="asignatura"
+              options={asignaturas}
+              register={register}
+              error={errors.asignatura}
+              variant="square"
+              required
+            />
+            <Select
+              label="Periodo:"
+              name="periodo"
+              options={periodos}
+              register={register}
+              error={errors.periodo}
+              variant="square"
+              required
+            />
+          </div>
+        </div>
+
         <div className="assessment-button">
           <Button
-            variant="secondary"
+            variant="load"
             icon={FaPlus}
             iconPosition="left"
             disabled={loading.cargar}

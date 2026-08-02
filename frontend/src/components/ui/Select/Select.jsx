@@ -14,6 +14,7 @@ const Select = forwardRef(
       onChange,
       onBlur,
       register,
+      rules,
       error,
       variant = "square", // "rounded" | "square"
       helperText,
@@ -32,12 +33,14 @@ const Select = forwardRef(
     const generatedId = useId();
     const fieldId = id || name || generatedId;
 
-    // Mismo contrato unificado que Input y Textarea
     const errorMessage = typeof error === "string" ? error : error?.message;
+
+    const effectiveRules =
+      rules ?? (required ? { required: "Este campo es obligatorio" } : {});
 
     const registerProps =
       register && name
-        ? register(name)
+        ? register(name, effectiveRules)
         : {
             value,
             onChange,
@@ -48,7 +51,7 @@ const Select = forwardRef(
       "select__field",
       `select__field--${variant}`,
       iconLeft && "select__field--left-icon",
-      "select__field--right-icon", // siempre reserva espacio para el chevron
+      "select__field--right-icon",
       errorMessage && "select__field--error",
       className,
     ]
@@ -57,7 +60,6 @@ const Select = forwardRef(
 
     return (
       <div className={`select select--${variant} ${wrapperClassName}`}>
-        {/* Label */}
         {label && (
           <label htmlFor={fieldId} className="select__label">
             {label}
@@ -69,7 +71,6 @@ const Select = forwardRef(
           </label>
         )}
 
-        {/* Wrapper */}
         <div className="select__wrapper">
           {iconLeft && (
             <span className="select__icon select__icon--left" aria-hidden="true">
@@ -121,13 +122,11 @@ const Select = forwardRef(
             })}
           </select>
 
-          {/* Chevron: siempre visible, indica que es un desplegable */}
           <span className="select__icon select__icon--right" aria-hidden="true">
             <TbChevronDown />
           </span>
         </div>
 
-        {/* Slot único: error tiene prioridad; si no, helper; si no, reserva espacio */}
         <div className="select__meta">
           {errorMessage ? (
             <span id={`${fieldId}-error`} className="select__error select__error--visible">

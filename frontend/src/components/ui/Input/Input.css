@@ -43,17 +43,18 @@
   width: 100%;
   height: var(--form-control-height);
   padding: var(--space-3) var(--input-x);
-  border: 1px solid var(--border-color-grey);
-  font-size: var(--fs-sm);
-  border: 1px solid var(--border-color-grey); 
-  box-shadow: var(--shadow-xs);  
+  border: var(--form-control-border-width) solid var(--border-color-grey);
+  box-shadow: var(--shadow-xs);
   outline: none;
   box-sizing: border-box;
   font-family: var(--font-body);
+  font-size: var(--fs-base);
   color: var(--text-primary);
+  background: var(--bg-page);
   transition:
     border-color var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    background-color var(--transition-base);
 }
 
 .input__field--rounded {

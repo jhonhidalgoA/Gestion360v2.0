@@ -1,102 +1,88 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@500;600;700&display=swap");
 
 :root {
-  /* base */
-  --color-primary: #023e8a; /* azul institucional     */
-  --color-primary-light: #0077b6; /* hover / énfasis        */
-  --color-primary-dark: #03045e; /* dark mode / activo     */
-  --color-primary-tint: #e8f1fb; /* fondo sutil azul       */
+  /* 1. COLORS (Brand & Semantic) */
 
-  --color-accent: #e2a926; /* dorado / CTA secundario */
-  --color-accent-dark: #c68f10; /* hover del dorado        */
-  --color-accent-tint: #fdf6e3; /* fondo sutil dorado      */
+  --color-primary: #023e8a;
+  --color-primary-light: #0077b6;
+  --color-primary-dark: #03045e;
+  --color-primary-tint: #e8f1fb;
+
+  --color-accent: #e2a926;
+  --color-accent-dark: #c68f10;
+  --color-accent-tint: #fdf6e3;
 
   --color-success: #1a9d6f;
   --color-success-tint: #e6f7f2;
+
   --color-error: #d32f2f;
   --color-error-tint: #fdecea;
+
+  --color-neutral: #6b7280;
+
+  --color-warning: #f59e0b;
   --color-warning-tint: #fdf6e3;
   --color-info: #023e8a;
   --color-info-tint: #e8f1fb;
 
-  /* text */
-  --text-primary: #0c0908; /* títulos, body principal */
-  --text-secondary: #3d3d3d; /* subtítulos, párrafos    */
-  --text-muted: #717171; /* hints, placeholders     */
-  --text-on-primary: #ffffff; /* texto sobre azul        */
-  --text-on-accent: #0c0908; /* texto sobre dorado      */
+  /* 2. TEXT COLORS */
+
+  --text-primary: #0c0908;
+  --text-secondary: #3d3d3d;
+  --text-muted: #717171;
+  --text-on-primary: #ffffff;
+  --text-on-accent: #0c0908;
   --text-link: #023e8a;
   --text-link-hover: #0077b6;
 
-  /* background */
-  --bg-page: #ffff; /* fondo general           */
-  --bg-card: #eef2f7; /* tarjetas                */
-  --bg-subtle: #eef2f7; /* filas alternas, inputs  */
+  /* 3. BACKGROUNDS & SURFACES */
+
+  --bg-page: #ffffff;
+  --bg-card: #eef2f7;
+  --bg-subtle: #eef2f7;
   --bg-overlay: rgba(15, 23, 42, 0.6);
 
-  /* border */
-  --border-color: #d9e2ef;
-  --border-color-grey: #b0b0b0;
-  --border-color-dark: #1a1b1b;
-  --border-focus: #023e8a;
-  --border-radius-xs: 4px;
-  --border-radius-sm: 8px;
-  --border-radius-md: 12px;
-  --border-radius-lg: 16px;
-  --border-radius-full: 9999px;
+  /* 4. BORDERS & RADIUS */
 
-  /* buttons */
-  --btn-save: #1a9d6f;
-  --btn-save-h: #157a57;
+--border-color: #d9e2ef;
+--border-color-grey: #b0b0b0;
+--border-color-dark: #1a1b1b;
+--border-focus: #023e8a;
 
-  --btn-delete: #d32f2f;
-  --btn-delete-h: #b71c1c;
+--border-radius-xs: 4px;
+--border-radius-sm: 8px;
+--border-radius-md: 12px;
+--border-radius-lg: 16px;
+--border-radius-xl: 18px;
+--border-radius-full: 9999px;
 
-  --btn-edit: #e2a926;
-  --btn-edit-h: #c68f10;
+/* Form Controls */
 
-  --btn-view: #0077b6;
-  --btn-view-h: #023e8a;
+--form-control-height: 48px;
 
-  --btn-print: #546e7a;
-  --btn-print-h: #37474f;
+--form-control-radius-rounded: var(--border-radius-lg);
+--form-control-radius-square: var(--border-radius-sm);
 
-  --btn-next: #2563eb;
-  --btn-next-h: #1d4ed8;
+--form-control-padding-x-rounded: 18px;
+--form-control-padding-x-square: 16px;
 
-  --btn-back: #6b7280;
-  --btn-back-h: #4b5563;
+--form-control-border-width: 1px;
 
-  --btn-pdf: #7c3aed;
-  --btn-pdf-h: #6d28d9;
+  /* 5. TYPOGRAPHY (Fonts, Sizes, Weights)*/
 
-  --btn-submit: #00897b;
-  --btn-submit-h: #00695c;
-
-  --btn-logout: #ff6f61;
-  --btn-logout-h: #e85d50;
-  --btn-logout-a: #d94f42;
-
-  /* shadow */
-  --shadow-xs: 0 1px 2px rgba(2, 62, 138, 0.06);
-  --shadow-sm: 0 2px 6px rgba(2, 62, 138, 0.08);
-  --shadow-md: 0 4px 12px rgba(2, 62, 138, 0.1);
-  --shadow-lg: 0 8px 24px rgba(2, 62, 138, 0.14);
-
-  /* typography */
   --font-body: "Inter", sans-serif;
   --font-heading: "Lexend", sans-serif;
-  --font-display: "Namaku", "Lexend", sans-serif; /* hero únicamente */
+  --font-display: "Namaku", "Lexend", sans-serif;
 
-  --fs-xs: 0.75rem; /*  12px */
-  --fs-sm: 0.875rem; /*  14px */
-  --fs-base: 1rem; /*  16px */
-  --fs-md: 1.125rem; /*  18px */
-  --fs-lg: 1.25rem; /*  20px */
-  --fs-xl: 1.5rem; /*  24px */
-  --fs-2xl: 1.875rem; /*  30px */
-  --fs-3xl: 2.25rem; /*  36px */
-  --fs-4xl: 3rem; /*  48px */
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px */
+  --fs-md: 1.125rem; /* 18px */
+  --fs-lg: 1.25rem; /* 20px */
+  --fs-xl: 1.5rem; /* 24px */
+  --fs-2xl: 1.875rem; /* 30px */
+  --fs-3xl: 2.25rem; /* 36px */
+  --fs-4xl: 3rem; /* 48px */
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -107,9 +93,10 @@
   --lh-normal: 1.5;
   --lh-loose: 1.75;
 
-  /* spacing */
-  --space-1: 0.25rem; /*  4px */
-  --space-2: 0.5rem; /*  8px */
+  /* 6. SPACING (4px Base Grid) */
+
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
   --space-3: 0.75rem; /* 12px */
   --space-4: 1rem; /* 16px */
   --space-5: 1.25rem; /* 20px */
@@ -119,51 +106,64 @@
   --space-12: 3rem; /* 48px */
   --space-16: 4rem; /* 64px */
 
-  /* transitions */
+  /* 7. SHADOWS & EFFECTS */
+
+  --shadow-xs: 0 1px 2px rgba(2, 62, 138, 0.06);
+  --shadow-sm: 0 2px 6px rgba(2, 62, 138, 0.08);
+  --shadow-md: 0 4px 12px rgba(2, 62, 138, 0.1);
+  --shadow-lg: 0 8px 24px rgba(2, 62, 138, 0.14);
+
+  --focus-ring: 0 0 0 3px rgba(2, 62, 138, 0.3);
+
+  /* 8. TRANSITIONS */
+
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
 
-  /* layout */
+  /* 9. LAYOUT & UTILITIES */
+
   --container-max: 1450px;
   --navbar-h: 68px;
   --sidebar-w: 260px;
 
-  /* z-index */
+  --opacity-disabled: 0.5;
+  --opacity-hover: 0.9;
+  --opacity-overlay: 0.55;
+
+  /* 10. Z-INDEX SCALE */
+
   --z-dropdown: 100;
   --z-sticky: 200;
-  --z-fixed: 300; /* navbar, sidebar */
+  --z-fixed: 300;
   --z-modal-back: 400;
   --z-modal: 500;
   --z-popover: 600;
   --z-tooltip: 700;
   --z-toast: 800;
 
-  --form-control-padding-x-rounded: 18px;
-  --form-control-padding-x-square: 14px;
-  --form-control-radius-rounded: 999px;
-  --form-control-bg: #faf8f8;
-  --form-control-height: 40px;
+  /* 11. BREAKPOINTS */
 
-  /* breakpoints */
   --bp-sm: 640px;
   --bp-md: 768px;
   --bp-lg: 1024px;
   --bp-xl: 1280px;
   --bp-2xl: 1536px;
-  --focus-ring: 0 0 0 3px rgba(2, 62, 138, 0.3);
-  --opacity-disabled: 0.5;
-  --opacity-hover: 0.9;
-  --opacity-overlay: 0.55;
 }
+
+/* 12. DARK MODE OVERRIDES */
 
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-page: #0f172a;
     --bg-card: #1e293b;
     --bg-subtle: #334155;
+
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
     --border-color: #334155;
+    --border-color-grey: #475569;
   }
 }

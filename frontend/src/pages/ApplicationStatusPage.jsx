@@ -11,6 +11,7 @@ import {
 } from "react-icons/tb";
 import Navbar from "@/components/navbar/Navbar";
 import Input from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 import {
   applicationStatusSchema,
   applicationStatusDefaultValues,
@@ -111,7 +112,6 @@ function ApplicationStatusPage() {
               style={{ textTransform: "uppercase" }}
               required
             />
-
             <Input
               label="Documento del acudiente"
               name="document"
@@ -128,20 +128,17 @@ function ApplicationStatusPage() {
                 radicado y el documento e intenta de nuevo.
               </p>
             )}
-            <button
-              type="submit"
-              className="btn btn-primary btn-shape-pill btn-size-lg"
+            <Button
+              variant="submit"
+              shape="pill"
+              className="btn-uniform-width"
+              size="md"
+              icon={TbSearch}
+              iconPosition="left"
               disabled={isSubmitting || isSearching}
             >
-              {isSearching ? (
-                "Consultando..."
-              ) : (
-                <>
-                  <TbSearch aria-hidden="true" />
-                  Consultar
-                </>
-              )}
-            </button>
+              {isSearching ? "Consultando..." : <>Consultar</>}
+            </Button>
 
             <p className="application-status-page__help">
               ¿No encuentras tu radicado?{" "}

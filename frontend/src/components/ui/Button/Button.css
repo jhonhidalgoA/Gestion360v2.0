@@ -1,356 +1,201 @@
 .btn {
+  --btn-bg: var(--color-surface);
+  --btn-bg-hover: color-mix(in srgb, var(--color-surface) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-surface) 80%, black);
+  --btn-fg: var(--text-on-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-6);
-  font-family: var(--font-body);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--space-6, 24px);
+  font-family: var(--font-body, inherit);
+  font-size: var(--fs-sm, 14px);
+  font-weight: var(--fw-medium, 500);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm, 8px);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   cursor: pointer;
-  transition: all var(--transition-fast);
-  border: 2px solid transparent;
   text-decoration: none;
   white-space: nowrap;
-  color: var (--text-on-primary);
-  transition: transform 0.3s ease;  
+  transition:
+    background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    border-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.1s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-
-.btn:hover {
-  transform: scale(1.05);
+.btn:hover:not(:disabled) {
+  background: var(--btn-bg-hover);
+  border-color: var(--btn-bg-hover);
+  transform: scale(1.02);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.btn:hover .btn-icon {
-  transform: none !important; 
+.btn:active:not(:disabled) {
+  background: var(--btn-bg-active);
+  border-color: var(--btn-bg-active);
+  transform: scale(0.98); /* Efecto de "presionar" */
+  box-shadow: none;
 }
 
-/* Shapes */
-.btn-shape-pill {
-  border-radius: var(--border-radius-full);
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-.btn-shape-semi {
-  border-radius: var(--border-radius-sm);
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-bg) 40%, transparent);
+  z-index: 10;
 }
 
 .btn-shape-square {
-  border-radius: var(--border-radius-xs);
+  border-radius: var(--border-radius-xs); /* 4px */
 }
 
-/* Sizes */
+.btn-shape-rounded {
+  border-radius: var(--border-radius-sm); /* 8px */
+}
+
+.btn-shape-pill {
+  border-radius: var(--border-radius-full); /* 9999px - Círculo completo */
+}
+
+.btn-width-full {
+  width: 100%;
+}
+
+.btn-uniform-width {
+  min-width: 220px;
+  justify-content: center;
+}
+
 .btn-size-sm {
   padding: var(--space-2) var(--space-4);
   font-size: var(--fs-xs);
 }
 
 .btn-size-md {
-  padding: var(--space-2) var(--space-6);
-  font-size: var(--fs-md);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--fs-sm);
 }
 
 .btn-size-lg {
-  padding: var(--space-2) var(--space-6);
+  padding: var(--space-4) var(--space-6);
   font-size: var(--fs-base);
-  width: 250px;
 }
 
-/* variants */
-.btn-fill-center {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-  background: transparent;
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
 
-.btn-fill-center::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: var(--color-primary);
-  border-radius: inherit;
-  transform: scale(0);
-  transform-origin: center;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: -1;
-}
-
-.btn-fill-center:hover {
-  color: var(--text-on-primary);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-fill-center:hover::before {
-  transform: scale(1);
-}
-
-.btn-white-fill-center {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: var(--color-primary);
-}
-.btn-white-fill-center::before {
-  background: var(--color-primary);
-}
-.btn-white-fill-center:hover {
-  color: #ffffff;
-}
-
-/* Colors - Variants */
 .btn-primary {
-  background: var(--color-primary);
-  color: var(--text-on-primary);
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+  --btn-bg: var(--color-primary);
+  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
 }
 
-.btn-primary:hover {
-  background: var(--color-primary-light);
-  transform: scale(1.03);
-  box-shadow: var(--shadow-md);
+.btn-success,
+.btn-save,
+.btn-submit {
+  --btn-bg: var(--color-success, #22c55e);
+  --btn-bg-hover: color-mix(in srgb, var(--color-success, #22c55e) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-success, #22c55e) 80%, black);
 }
 
-.btn-secondary {
-  background: var(--color-accent);
-  color: var(--text-on-primary);
+.btn-danger,
+.btn-delete {
+  --btn-bg: var(--color-error, #ef4444);
+  --btn-bg-hover: color-mix(in srgb, var(--color-error, #ef4444) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-error, #ef4444) 80%, black);
 }
 
-.btn-secondary:hover {
-  background: var(--color-accent-dark);
-  
+.btn-logout {
+  --btn-bg: var(--color-warning, #f59e0b);
+  --btn-bg-hover: color-mix(in srgb, var(--color-warning, #f59e0b) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-warning, #f59e0b) 80%, black);
 }
 
-.btn-white {
-  background: #ffffff;
-  color: var(--color-primary);
+.btn-load {
+  --btn-bg: #1f4e79;
+  --btn-bg-hover: color-mix(in srgb, #1f4e79 90%, black);
+  --btn-bg-active: color-mix(in srgb, #1f4e79 80%, black);
 }
 
-.btn-white:hover {
-  background: var(--color-primary-tint);
-  
+.btn-new-request {
+  --btn-bg: var(--color-accent);
+  --btn-bg-hover: color-mix(in srgb, var(--color-accent) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-accent) 80%, black);
+  --btn-fg: var(--text-on-primary, #ffffff);
+}
+
+.btn-back {
+  --btn-bg: var(--color-neutral, #6b7280);
+  --btn-bg-hover: color-mix(in srgb, var(--color-neutral, #6b7280) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-neutral, #6b7280) 80%, black);
 }
 
 .btn-outline-primary {
-  background: transparent;
-  border-color: var(--border-color);
-  color: var(--text-secondary);
-  width: 200px;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.btn-outline-primary:hover {
-  background: var(--btn-back);       
-  border-color: var(--btn-back);
-  color: var(--text-on-primary);
-  transform: scale(1.05);
-}
-
-.btn-outline-primary:active {
-  background: var(--btn-back-h);     /* #4b5563 */
-  border-color: var(--btn-back-h);
-}
-
-.btn-outline-primary:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
+  --btn-bg: transparent;
+  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --btn-bg-active: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  --btn-fg: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .btn-outline-white {
-  background: transparent;
+  --btn-bg: transparent;
+  --btn-bg-hover: color-mix(in srgb, white 10%, transparent);
+  --btn-bg-active: color-mix(in srgb, white 20%, transparent);
+  --btn-fg: #ffffff;
   border-color: #ffffff;
-  color: #ffffff;
 }
 
-.btn-outline-white:hover {
-  background: #ffffff;
-  color: var(--color-primary);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-secondary);
-}
-
-.btn-ghost:hover {
-  background: var(--bg-subtle);
-  color: var(--text-primary);
-}
-
-/* States */
-.btn:disabled {
-  opacity: var(--opacity-disabled);
-  cursor: not-allowed;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-/* Icon inside button */
-.btn-icon { 
-  transition: transform var(--transition-fast);
-}
-
-.btn:hover .btn-icon {
-  transform: scale(0.98);
-}
-
-/* --- Action Buttons --- */
-
-/* Guardar */
-.btn-save {
-  background: var(--btn-save);
-  border-color: var(--btn-save);
-  color: var(--text-on-primary);
-  width: 150px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-save:hover:not(:disabled) {
-  background: var(--btn-save-h);
-  border-color: var(--btn-save-h);
-  transform: scale(1.05);
-}
-
-/* Eliminar */
-.btn-delete {
-  background: var(--btn-delete);
-  border-color: var(--btn-delete);
-  color: var(--text-on-primary);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-delete:hover:not(:disabled) {
-  background: var(--btn-delete-h);
-  border-color: var(--btn-delete-h);
-}
-
-/* Editar */
-.btn-edit {
-  background: var(--btn-edit);
-  border-color: var(--btn-edit);
-  color: var(--text-on-accent);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-edit:hover:not(:disabled) {
-  background: var(--btn-edit-h);
-  border-color: var(--btn-edit-h);
-  transform: scale(1.03) !important;
-}
-
-/* Ver */
-.btn-view {
-  background: var(--btn-view);
-  border-color: var(--btn-view);
-  color: var(--text-on-primary);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-view:hover:not(:disabled) {
-  background: var(--btn-view-h);
-  border-color: var(--btn-view-h);
-}
-
-/* Imprimir */
-.btn-print {
-  background: var(--btn-print);
-  border-color: var(--btn-print);
-  color: var(--text-on-primary);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-print:hover:not(:disabled) {
-  background: var(--btn-print-h);
-  border-color: var(--btn-print-h);
-}
-
-/* Continuar */
-.btn-next {
-  background: var(--btn-next);
-  border-color: var(--btn-next);
-  color: var(--text-on-primary);
-  width: 150px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-next:hover:not(:disabled) {
-  background: var(--btn-next-h);
-  border-color: var(--btn-next-h);
-  transform: scale(1.03) !important;
-}
-
-/* Atrás */
-.btn-back {
-  background: var(--btn-back);
-  border-color: var(--btn-back);
-  color: var(--text-on-primary);
-  width: 150px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-back:hover:not(:disabled) {
-  background: var(--btn-back-h);
-  border-color: var(--btn-back-h);
-  transform: scale(1.03) !important;
-}
-
-/* PDF */
+.btn-secondary,
+.btn-edit,
+.btn-view,
+.btn-print,
 .btn-pdf {
-  background-color: var(--btn-pdf);
-  color: var(--text-on-primary);
-  transition: background-color 0.2s ease;
+  --btn-bg: var(--color-surface-variant, #f3f4f6);
+  --btn-bg-hover: color-mix(
+    in srgb,
+    var(--color-surface-variant, #f3f4f6) 90%,
+    black
+  );
+  --btn-bg-active: color-mix(
+    in srgb,
+    var(--color-surface-variant, #f3f4f6) 80%,
+    black
+  );
+  --btn-fg: var(--text-primary, #111827); /* Texto oscuro para fondos claros */
 }
 
-.btn-pdf:hover:not(:disabled) {
-  background-color: var(--btn-pdf-h);
+/* 4. Outline (Borde) */
+.btn-outline-primary {
+  --btn-bg: transparent;
+  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --btn-bg-active: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  --btn-fg: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-/* Submit */
-.btn-submit {
-  background: var(--btn-submit);
-  border-color: var(--btn-submit);
-  color: var(--text-on-primary);
-  width: 150px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+/* 5. Botón Solo Ícono (Para tablas) */
+.btn-icon-only {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circular */
+}
+.btn-size-sm.btn-icon-only {
+  width: 32px;
+  height: 32px;
+}
+.btn-size-lg.btn-icon-only {
+  width: 48px;
+  height: 48px;
 }
 
-.btn-submit:hover:not(:disabled) {
-  background: var(--btn-submit-h);
-  border-color: var(--btn-submit-h);
-}
-
-/* Logout */
-.btn-logout {
-  background: var(--btn-logout);
-  border-color: var(--btn-logout);
-  color: var(--text-on-primary);
-  width: 220px;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.btn-logout:hover:not(:disabled) {
-  background: var(--btn-logout-h);
-  border-color: var(--btn-logout-h);
-  transform: scale(1.03);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-logout:active:not(:disabled) {
-  background: var(--btn-logout-a);
-  border-color: var(--btn-logout-a);
-  transform: scale(0.98);
-}
-
-.btn-logout:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}

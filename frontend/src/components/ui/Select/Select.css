@@ -10,7 +10,7 @@
 }
 
 .select--square {
-  --input-x: var(--form-control-padding-x-square, 14px);
+  --input-x: var(--form-control-padding-x-square, 30px);
 }
 
 .select__label {
@@ -36,7 +36,7 @@
 
 .select__field {
   width: 100%;
-  height: var(--form-control-height);
+  height: 44px;
   padding: var(--space-3) var(--input-x);
   font-family: var(--font-body);
   font-size: var(--fs-sm);
@@ -99,6 +99,7 @@
 
 .select__field--error {
   border-color: var(--color-error);
+  background: rgba(211, 47, 47, 0.08);
 }
 
 .select__field--error:focus {

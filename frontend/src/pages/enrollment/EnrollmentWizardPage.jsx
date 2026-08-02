@@ -213,13 +213,15 @@ function EnrollmentWizardPage() {
           </span>
         </RouterLink>
         <p>Matrícula 2026</p>
-        <button
-          type="button"
-          className="btn btn-outline-white btn-shape-pill btn-size-xs"
+        <Button
+          variant="outline-white"
+          shape="pill"          
+          size="md"
+          type="button"          
           onClick={handleSaveAndExit}
         >
           Guardar y salir
-        </button>
+        </Button>
       </div>
 
       <div className="enrollment-page__stepper">
@@ -264,7 +266,8 @@ function EnrollmentWizardPage() {
           <Button
             variant="back"
             shape="pill"
-            size="xs"
+            className="btn-uniform-width"
+            size="md"
             onClick={goBack}
             disabled={currentStep === 1}
           >
@@ -272,16 +275,23 @@ function EnrollmentWizardPage() {
           </Button>
           {isLastStep ? (
             <Button
-              variant="submit"
-              shape="semi"
-              size="xs"
+              variant="primary"
+              shape="rounded"
+              className="btn-uniform-width"
+              size="md"
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
               {isSubmitting ? "Enviando..." : "Enviar solicitud"}
             </Button>
           ) : (
-            <Button variant="next" shape="pill" size="xs" onClick={goNext}>
+            <Button
+              variant="primary"
+              shape="pill"
+              className="btn-uniform-width"
+              size="md"
+              onClick={goNext}
+            >
               Continuar
             </Button>
           )}

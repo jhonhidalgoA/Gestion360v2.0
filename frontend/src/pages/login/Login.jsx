@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TbUser, TbLock } from "react-icons/tb";
 import Input from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 import { loginSchema, loginDefaultValues } from "@schemas/loginSchema";
 import usersData from "@/data/usersData";
 import "./Login.css";
@@ -62,8 +63,7 @@ const Login = () => {
 
       const usuario = usersData.find(
         (user) =>
-          user.username === data.username &&
-          user.password === data.password
+          user.username === data.username && user.password === data.password,
       );
 
       if (usuario) {
@@ -143,7 +143,7 @@ const Login = () => {
             leftIcon={TbUser}
             error={errors.username}
             disabled={bloqueado}
-            variant="rounded"
+            variant="square"
             register={register}
           />
 
@@ -155,7 +155,7 @@ const Login = () => {
             leftIcon={TbLock}
             error={errors.password}
             disabled={bloqueado}
-            variant="rounded"
+            variant="square"
             register={register}
           />
 
@@ -177,18 +177,20 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="input-btn btn-login">
-            <button
-              type="submit"
-              disabled={loading || bloqueado || isSubmitting}
-            >
-              {bloqueado
-                ? `Espera ${segundosRestantes}s`
-                : loading || isSubmitting
+          <Button
+            type="submit"
+            variant="primary"
+            shape="pill"
+            size="md"
+            width="full"
+            disabled={loading || bloqueado || isSubmitting}
+          >
+            {bloqueado
+              ? `Espera ${segundosRestantes}s`
+              : loading || isSubmitting
                 ? "Ingresando..."
                 : "Ingresar"}
-            </button>
-          </div>
+          </Button>
 
           <div className="social-photo">
             <p className="author">

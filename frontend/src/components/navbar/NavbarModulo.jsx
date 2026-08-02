@@ -104,7 +104,6 @@ const NavbarModulo = () => {
           </button>
         </li>
       </ul>
-
       <Modal
         isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
