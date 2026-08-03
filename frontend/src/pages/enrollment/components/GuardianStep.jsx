@@ -17,7 +17,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           error={errors.relationship}
           options={RELATIONSHIP_OPTIONS}
           placeholder="Selecciona el parentesco"
-          variant="rounded"
+          variant="square"
           required
         />
 
@@ -29,7 +29,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           value={data.document}
           onChange={(e) => onChange("document", e.target.value)}
           error={errors.document}
-          variant="rounded"
+          variant="square"
           required
         />
       </div>
@@ -44,7 +44,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           value={data.firstName}
           onChange={(e) => onChange("firstName", e.target.value)}
           error={errors.firstName}
-          variant="rounded"
+          variant="square"
           required
         />
 
@@ -56,7 +56,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           value={data.lastName}
           onChange={(e) => onChange("lastName", e.target.value)}
           error={errors.lastName}
-          variant="rounded"
+          variant="square"
           required
         />
       </div>
@@ -71,7 +71,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           value={data.phone}
           onChange={(e) => onChange("phone", e.target.value)}
           error={errors.phone}
-          variant="rounded"
+          variant="square"
           required
         />
 
@@ -84,7 +84,7 @@ function GuardianDataForm({ data, errors, onChange }) {
           value={data.email}
           onChange={(e) => onChange("email", e.target.value)}
           error={errors.email}
-          variant="rounded"
+          variant="square"
           required
         />
       </div>

@@ -7,10 +7,7 @@ import {
   IoCheckmarkOutline,
 } from "react-icons/io5";
 
-// El color de cada botón NO se define aquí. "primaryVariant" es el mismo
-// nombre de variant que ya entiende <Button/> (btn-save, btn-delete, etc),
-// y ese componente ya lee los colores reales desde tokens.css.
-// El botón "Cancelar" SIEMPRE es transparente/outline, sin importar la variante.
+
 export const cancelVariant = "outline-primary";
 
 export const modalConfig = {
@@ -21,7 +18,7 @@ export const modalConfig = {
     defaultTitle: "Confirmar acción",
     primaryText: "Confirmar",
     primaryVariant: "primary",
-    btnIcon: IoCheckmarkOutline, // ícono dentro del botón de acción, no en Cancelar
+    btnIcon: IoCheckmarkOutline, 
   },
   edit: {
     icon: IoSaveOutline,
@@ -47,8 +44,7 @@ export const modalConfig = {
     iconColor: "var(--btn-print)",
     defaultTitle: "Logout",
     primaryText: "Logout",
-    primaryVariant: "logout", 
-    
+    primaryVariant: "logout",     
     
   },
   success: {
@@ -56,10 +52,9 @@ export const modalConfig = {
     iconBg: "var(--color-success-tint)",
     iconColor: "var(--color-success)",
     defaultTitle: "Listo",
-    primaryText: "Entendido",
-    primaryVariant: "submit",
-    btnIcon: IoCheckmarkOutline,
-    hideSecondary: true, // este tipo no necesita botón "Cancelar"
+    primaryText: "Cerrar",
+    primaryVariant: "submit",    
+    hideSecondary: true, 
   },
 };
 

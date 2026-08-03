@@ -151,7 +151,7 @@ const Login = () => {
             label="Contraseña"
             name="password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="off"
             leftIcon={TbLock}
             error={errors.password}
             disabled={bloqueado}

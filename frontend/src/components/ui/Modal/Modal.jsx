@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { Button } from "../Button/Button";
-import { modalConfig, modalMessages, modalBrand} from "../../../data/modalData";
+import { modalConfig, modalMessages, modalBrand } from "@/data/modalData";
 import "./Modal.css";
 
 const Modal = ({
@@ -14,10 +14,14 @@ const Modal = ({
   description,
   entityLabel,
   confirmText,
-  isLoading = false, 
+  isLoading = false,
+  autoCloseMs, // NUEVO: ms para autocierre (ej. 5000). undefined = sin autocierre
   children,
 }) => {
   const dialogRef = useRef(null);
+  const timerRef = useRef(null);
+  const remainingRef = useRef(autoCloseMs);
+  const startedAtRef = useRef(null);
   const config = modalConfig[variant] ?? modalConfig.confirm;
   const defaults = modalMessages[variant] ?? {};
   const Icon = config.icon;
@@ -26,11 +30,39 @@ const Modal = ({
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
+  // Autocierre con pausa en hover
+  useEffect(() => {
+    if (!isOpen || !autoCloseMs) return;
+
+    remainingRef.current = autoCloseMs;
+
+    const start = () => {
+      startedAtRef.current = Date.now();
+      timerRef.current = setTimeout(() => onClose?.(), remainingRef.current);
+    };
+
+    start();
+
+    return () => clearTimeout(timerRef.current);
+  }, [isOpen, autoCloseMs, onClose]);
+
+  const handleMouseEnter = () => {
+    if (!autoCloseMs) return;
+    clearTimeout(timerRef.current);
+    const elapsed = Date.now() - startedAtRef.current;
+    remainingRef.current = Math.max(remainingRef.current - elapsed, 0);
+  };
+
+  const handleMouseLeave = () => {
+    if (!autoCloseMs) return;
+    startedAtRef.current = Date.now();
+    timerRef.current = setTimeout(() => onClose?.(), remainingRef.current);
+  };
+
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e) => e.key === "Escape" && onClose?.();
     document.addEventListener("keydown", handleKeyDown);
-    // Bloquear scroll del body cuando el modal está abierto
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -54,6 +86,8 @@ const Modal = ({
         tabIndex={-1}
         ref={dialogRef}
         onClick={(e) => e.stopPropagation()}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="modal-header">
           <div className="modal-brand">
@@ -69,28 +103,36 @@ const Modal = ({
 
         <div className="modal-body">
           {Icon && (
-            <div className="modal-icon-wrap" style={{ background: config.iconBg, color: config.iconColor }}>
+            <div
+              className="modal-icon-wrap"
+              style={{ background: config.iconBg, color: config.iconColor }}
+            >
               <Icon className="modal-icon" />
             </div>
           )}
 
           {entityLabel && <p className="modal-entity">{entityLabel}</p>}
 
-          {children ? children : (
+          {children ? (
+            children
+          ) : (
             <>
               {finalMessage && <p className="modal-message">{finalMessage}</p>}
-              {finalDescription && <p className="modal-description">{finalDescription}</p>}
+              {finalDescription && (
+                <p className="modal-description">{finalDescription}</p>
+              )}
             </>
           )}
         </div>
 
         <div className="modal-footer">
           {!config.hideSecondary && (
-            <Button 
+            <Button
               variant="outline-primary"
               onClick={onClose}
               disabled={isLoading}
-              className="btn-uniform-width" >
+              className="btn-uniform-width"
+            >
               Cancelar
             </Button>
           )}
@@ -102,14 +144,13 @@ const Modal = ({
             className="btn-uniform-width"
             iconPosition="left"
           >
-            {isLoading ? "Procesando..." : (confirmText || config.primaryText)}
+            {isLoading ? "Procesando..." : confirmText || config.primaryText}
           </Button>
         </div>
       </div>
     </div>
   );
 
-  
   return createPortal(modalContent, document.body);
 };
 

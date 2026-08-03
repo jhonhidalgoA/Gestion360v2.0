@@ -97,7 +97,7 @@ const Select = forwardRef(
             {...registerProps}
             {...props}
           >
-            <option value="" disabled hidden>
+            <option value="" disabled>
               {placeholder}
             </option>
 

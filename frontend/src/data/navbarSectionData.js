@@ -8,7 +8,7 @@ export const navbarSectionData = {
     asistencia: {
       title: "Asistencia",
       icon: "app_registration",
-      color: "#32cd32",
+      color: "#1E9E74",
     },
     planeacion: {
       title: "Planeación",

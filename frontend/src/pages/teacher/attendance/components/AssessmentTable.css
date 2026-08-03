@@ -1,0 +1,157 @@
+.assessment-table-wrapper {
+  overflow-x: auto;
+}
+
+.assessment-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+.assessment-table thead th {
+  background: #4a5568;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.assessment-table thead th.th-estudiante {
+  width: 220px;
+  text-align: left;
+  border-radius: 8px 0 0 0;
+}
+
+.assessment-table thead th.th-nota {
+  width: 60px;
+  text-align: center;
+}
+
+.assessment-table thead th.th-promedio {
+  width: 90px;
+}
+
+.assessment-table thead th.th-accion {
+  width: 110px;
+  border-radius: 0 8px 0 0;
+}
+
+.assessment-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.assessment-table tbody tr.row-even {
+  background: #f7fafc;
+}
+
+.assessment-table tbody tr.row-odd {
+  background: white;
+}
+
+.assessment-table td.td-estudiante {
+  padding: 10px;
+  font-weight: bold;
+  color: #2d3748;
+  font-size: 13px;
+}
+
+.assessment-table td.td-nota {
+  text-align: center;
+  position: relative;
+  padding: 4px;
+}
+
+.nota-input-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.nota-input {
+  width: 50px;
+  text-align: center;
+  padding: 6px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  outline: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.nota-input.is-active {
+  border: 2px solid #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.nota-tooltip {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2d3748;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.nota-tooltip-arrow {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #2d3748;
+}
+
+.td-promedio {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.td-promedio.promedio-rojo {
+  color: red;
+}
+
+.td-promedio.promedio-naranja {
+  color: orange;
+}
+
+.td-promedio.promedio-verde {
+  color: green;
+}
+
+.td-accion {
+  text-align: center;
+  padding: 8px;
+}
+
+.btn-accion {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  width: 90px;
+}
+
+.btn-accion.con-retro {
+  background: #48bb78;
+}
+
+.btn-accion.sin-retro {
+  background: #3182ce;
+}
+
+.celda-verde { background-color: var(--color-success-tint); }
+.celda-amarilla { background-color: var(--color-warning-tint); }
+.celda-roja { background-color: var(--color-error-tint); }

@@ -56,7 +56,7 @@ export const moduleData = {
       id: 2,
       icon: "app_registration",
       title: "Asistencia",
-      path: "/asistencia",
+      path: "/attendancePage",
       gradient: "linear-gradient(135deg, #1E9E74)",
     },
     {

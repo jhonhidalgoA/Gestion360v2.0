@@ -69,8 +69,11 @@
   color: var(--text-muted);
 }
 
-.input__field:focus {
-  border-color: var(--border-focus);
+.input__field:focus,
+.select__field:focus,
+.textarea__field:focus {
+  border-color: var(--color-primary);
+  border-width: 2px;
   box-shadow: var(--focus-ring);
 }
 
@@ -167,6 +170,22 @@
 
 .input__field--date::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
+}
+
+.input__field[type="password"]::-ms-reveal,
+.input__field[type="password"]::-ms-clear {
+  display: none;
+}
+
+.input__field[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }
 
 

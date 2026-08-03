@@ -1,4 +1,3 @@
-
 export const filterFormsData = {
   calificaciones: {
     fields: [
@@ -6,7 +5,7 @@ export const filterFormsData = {
         id: "grupo",
         type: "select",
         label: "Grupo:",
-        optionsKey: "grupos", 
+        optionsKey: "grupos",
         required: true,
       },
       {
@@ -21,6 +20,39 @@ export const filterFormsData = {
         type: "select",
         label: "Periodo:",
         optionsKey: "periodos",
+        required: true,
+      },
+    ],
+  },
+
+  attendance: {
+    fields: [
+      {
+        id: "grupo",
+        type: "select",
+        label: "Grupo:",
+        optionsKey: "grupos",
+        required: true,
+      },
+      {
+        id: "asignatura",
+        type: "select",
+        label: "Asignatura:",
+        optionsKey: "asignaturas",
+        required: true,
+      },
+      {
+        id: "periodo",
+        type: "select",
+        label: "Periodo:",
+        optionsKey: "periodos",
+        required: true,
+      },
+      {
+        id: "duracion",
+        type: "select",
+        label: "Duración:",
+        optionsKey: "duraciones",
         required: true,
       },
     ],

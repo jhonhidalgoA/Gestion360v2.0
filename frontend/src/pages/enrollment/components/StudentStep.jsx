@@ -17,7 +17,7 @@ function StudentDataForm({ data, errors, onChange }) {
           value={data.firstName}
           onChange={(e) => onChange("firstName", e.target.value)}
           error={errors.firstName}
-          variant="rounded"
+          variant="square"
           required
         />
 
@@ -29,7 +29,7 @@ function StudentDataForm({ data, errors, onChange }) {
           value={data.lastName}
           onChange={(e) => onChange("lastName", e.target.value)}
           error={errors.lastName}
-          variant="rounded"
+          variant="square"
           required
         />
       </div>
@@ -43,7 +43,7 @@ function StudentDataForm({ data, errors, onChange }) {
           value={data.birthDate}
           onChange={(e) => onChange("birthDate", e.target.value)}
           error={errors.birthDate}
-          variant="rounded"
+          variant="square"
           required
         />
         <Select
@@ -54,7 +54,7 @@ function StudentDataForm({ data, errors, onChange }) {
           error={errors.grade}
           options={GRADE_OPTIONS}
           placeholder="Selecciona un grado"
-          variant="rounded"
+          variant="square"
           required
         />
       </div>
@@ -68,7 +68,7 @@ function StudentDataForm({ data, errors, onChange }) {
           placeholder="Nombre de la institución actual"
           value={data.previousSchool}
           onChange={(e) => onChange("previousSchool", e.target.value)}
-          variant="rounded"
+          variant="square"
         />
       </div>
     </div>

@@ -12,6 +12,8 @@ import ConfirmationPage from '@pages/ConfirmationPage'
 import ApplicationStatusPage from '@pages/ApplicationStatusPage';
 import TeacherPage from "./pages/teacher/TeacherPage";
 import AssessmentPage from "./pages/teacher/AssessmentPage";
+import AttendancePage from "./pages/teacher/attendance/AttendancePage";
+
 
 
 function App() {
@@ -37,6 +39,7 @@ function App() {
         <Route path="/matricula/seguimiento" element={<ApplicationStatusPage />} />
         <Route path="/teacher" element={<TeacherPage />} />
         <Route path="/assessmentPage" element={<AssessmentPage />} />
+        <Route path="/attendancePage" element={<AttendancePage />} />
       </Routes>
     </Router>
   );
