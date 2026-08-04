@@ -6,11 +6,14 @@ import { FaSave, FaPlus, FaTable } from "react-icons/fa";
 import { Button } from "@/components/ui/Button/Button";
 import { filterFormsData } from "@/data/filterFormsData";
 import { optionsMap } from "@/data/optionsData";
+import { modalConfig } from "@/data/modalData";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Select from "@/components/ui/Select/Select";
 import Modal from "@/components/ui/Modal/Modal";
 import AssessmentTable from "@/pages/teacher/attendance/components/AssessmentTable";
+import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
+import FeedbackModalContent from "@/pages/teacher/attendance/components/FeedbackModalContent";
 
 import "./AssessmentPage.css";
 
@@ -27,6 +30,14 @@ const AssessmentPage = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [estudiantes, setEstudiantes] = useState([]);
   const [numeroNotas, setNumeroNotas] = useState(10);
+
+  const [feedbackModal, setFeedbackModal] = useState({
+    isOpen: false,
+    estudianteId: null,
+    estudianteNombre: "",
+    texto: "",
+    lastUpdated: "",
+  });
 
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
@@ -92,25 +103,41 @@ const AssessmentPage = () => {
   };
 
   const handleNotaChange = (estId, index, value) => {
-  if (value === "" || /^([1-5](\.[0-9]{0,1})?)$/.test(value)) {
-    const numValue = parseFloat(value);
-    if (value === "" || (numValue >= 1.0 && numValue <= 5.0)) {
-      setEstudiantes((prev) =>
-        prev.map((est) => {
-          if (est.id !== estId) return est;
-          const notas = [...est.notas];
-          while (notas.length <= index) notas.push("");
-          notas[index] = value;
-          return { ...est, notas };
-        }),
-      );
+    if (value === "" || /^([1-5](\.[0-9]{0,1})?)$/.test(value)) {
+      const numValue = parseFloat(value);
+      if (value === "" || (numValue >= 1.0 && numValue <= 5.0)) {
+        setEstudiantes((prev) =>
+          prev.map((est) => {
+            if (est.id !== estId) return est;
+            const notas = [...est.notas];
+            while (notas.length <= index) notas.push("");
+            notas[index] = value;
+            return { ...est, notas };
+          }),
+        );
+      }
     }
-  }
-};
+  };
 
-  const handleAbrirModal = (estudiante) => {
-    // TODO: conectar con el modal de retroalimentación (pendiente de definir componente)
-    console.log("Abrir retro de:", estudiante);
+  const handleAbrirModal = (est) => {
+    setFeedbackModal({
+      isOpen: true,
+      estudianteId: est.id,
+      estudianteNombre: `${est.apellidos} ${est.nombres}`,
+      texto: est.retroalimentacion || "",
+      lastUpdated: est.retroalimentacionFecha || "",
+    });
+  };
+
+  const handleGuardarFeedback = () => {
+    setEstudiantes((prev) =>
+      prev.map((est) =>
+        est.id === feedbackModal.estudianteId
+          ? { ...est, retroalimentacion: feedbackModal.texto }
+          : est,
+      ),
+    );
+    setFeedbackModal((prev) => ({ ...prev, isOpen: false }));
   };
 
   return (
@@ -134,6 +161,7 @@ const AssessmentPage = () => {
               ))}
             </div>
           </div>
+
           <div className="assessment-button">
             <Button
               type="button"
@@ -167,13 +195,15 @@ const AssessmentPage = () => {
           </div>
 
           <div className="assessment-table">
-            {estudiantes.length > 0 && (
+            {estudiantes.length > 0 ? (
               <AssessmentTable
                 estudiantes={estudiantes}
                 numeroNotas={numeroNotas}
                 onNotaChange={handleNotaChange}
                 onAbrirModal={handleAbrirModal}
               />
+            ) : (
+              <EmptyState />
             )}
           </div>
         </div>
@@ -187,6 +217,21 @@ const AssessmentPage = () => {
         description="Las calificaciones se registraron correctamente."
         autoCloseMs={5000}
       />
+
+      <Modal
+        isOpen={feedbackModal.isOpen}
+        onClose={() => setFeedbackModal((prev) => ({ ...prev, isOpen: false }))}
+        onConfirm={handleGuardarFeedback}
+        variant="feedback"
+      >
+        <FeedbackModalContent
+          title={modalConfig.feedback.defaultTitle}
+          estudiante={feedbackModal.estudianteNombre}
+          lastUpdated={feedbackModal.lastUpdated}
+          value={feedbackModal.texto}
+          onChange={(texto) => setFeedbackModal((prev) => ({ ...prev, texto }))}
+        />
+      </Modal>
     </>
   );
 };

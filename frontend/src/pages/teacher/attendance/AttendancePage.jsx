@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FaSave, FaPlus } from "react-icons/fa";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
@@ -8,60 +8,61 @@ import Select from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import Modal from "@/components/ui/Modal/Modal";
 
+import AttendanceTable from "@/pages/teacher/attendance/components/AttendanceTable";
+import AttendanceLegend from "@/pages/teacher/attendance/components/AttendanceLegend";
+import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
+
 import { filterFormsData } from "@/data/filterFormsData";
 import { optionsMap } from "@/data/optionsData";
 
 import "./AttendancePage.css";
 
-const Attendance = () => {
-
-
-  /* ===========================
-     Configuración
-  =========================== */
-
+const AttendancePage = () => {
   const navigate = useNavigate();
   const { fields } = filterFormsData.attendance;
+
+
+  /* State */
+
+   const [loading, setLoading] = useState({
+    cargar: false,
+    guardar: false,
+  });
+
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+
+  const [estudiantes, setEstudiantes] = useState([]);
+
+  /* React Hook Form */  
 
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
     return acc;
   }, {});
 
-  /* ===========================
-     Estados
-  =========================== */
-
-  const [loading, setLoading] = useState({
-    cargar: false,
-    guardar: false,
-    nuevaColumna: false,
-  });
-
-  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-
-  /* ===========================
-     Formulario
-  =========================== */
-
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues,
     mode: "onChange",
   });
 
-  /* ===========================
-     Navegación
-  =========================== */
+ 
+  const duracion = useWatch({ control, name: "duracion" });
+  const duracionSeleccionada = Number(duracion) || 1;
+
+  // ==========================
+  // Navegación
+  // ==========================
 
   const handleBack = () => navigate("/teacher");
 
-  /* ===========================
-     Eventos
-  =========================== */
+  // ==========================
+  // Cargar estudiantes
+  // ==========================
 
   const onFiltroValido = (data) => {
     console.log("Filtro válido:", data);
@@ -72,6 +73,23 @@ const Attendance = () => {
     }));
 
     setTimeout(() => {
+      setEstudiantes([
+        {
+          id: 1,
+          apellidos: "Garcia Villadiego",
+          nombres: "Luis Alberto",
+          asistencia: Array(7).fill("P"),
+          confirmado: Array(7).fill(false),
+        },
+        {
+          id: 2,
+          apellidos: "Giraldo Giraldo",
+          nombres: "Jorge Armando",
+          asistencia: Array(7).fill("P"),
+          confirmado: Array(7).fill(false),
+        },
+      ]);
+
       setLoading((prev) => ({
         ...prev,
         cargar: false,
@@ -80,6 +98,10 @@ const Attendance = () => {
   };
 
   const handleCargar = handleSubmit(onFiltroValido);
+
+  // ==========================
+  // Guardar
+  // ==========================
 
   const handleGuardar = () => {
     setLoading((prev) => ({
@@ -97,12 +119,63 @@ const Attendance = () => {
     }, 1000);
   };
 
-  
+  // ==========================
+  // Cambiar estado asistencia
+  // ==========================
 
-  
+  const handleCambiarEstado = (estId, diaIndex) => {
+    setEstudiantes((prev) =>
+      prev.map((est) => {
+        if (est.id !== estId) return est;
+
+        const nuevaAsistencia = [...est.asistencia];
+        const nuevoConfirmado = [...est.confirmado];
+
+        const estadoActual = nuevaAsistencia[diaIndex];
+
+        let nuevoEstado;
+
+        if (!nuevoConfirmado[diaIndex]) {
+          nuevoEstado = "P";
+        } else if (duracionSeleccionada === 1) {
+          if (estadoActual === "P") nuevoEstado = "R";
+          else if (estadoActual === "R") nuevoEstado = "A";
+          else nuevoEstado = "P";
+        } else if (duracionSeleccionada === 2) {
+          if (estadoActual === "P") nuevoEstado = "PARCIAL";
+          else if (estadoActual === "PARCIAL") nuevoEstado = "A";
+          else if (estadoActual === "A") nuevoEstado = "R";
+          else nuevoEstado = "P";
+        } else {
+          if (estadoActual === "P") nuevoEstado = "PARCIAL1";
+          else if (estadoActual === "PARCIAL1") nuevoEstado = "PARCIAL2";
+          else if (estadoActual === "PARCIAL2") nuevoEstado = "A";
+          else if (estadoActual === "A") nuevoEstado = "R";
+          else nuevoEstado = "P";
+        }
+
+        nuevaAsistencia[diaIndex] = nuevoEstado;
+        nuevoConfirmado[diaIndex] = true;
+
+        return {
+          ...est,
+          asistencia: nuevaAsistencia,
+          confirmado: nuevoConfirmado,
+        };
+      })
+    );
+  };
+
+  // ==========================
+  // Render
+  // ==========================
+
   return (
     <>
-      <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
+      <NavbarSection
+        sectionKey="asistencia"
+        handleBack={handleBack}
+      />
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
@@ -144,7 +217,25 @@ const Attendance = () => {
             >
               Guardar
             </Button>
-            
+          </div>
+
+          <AttendanceLegend
+            duracionSeleccionada={duracionSeleccionada}
+          />
+
+          <div className="assessment-table">
+            {estudiantes.length > 0 ? (
+              <AttendanceTable
+                estudiantes={estudiantes}
+                duracionSeleccionada={duracionSeleccionada}
+                onCambiarEstado={handleCambiarEstado}
+              />
+            ) : (
+              <EmptyState
+                title="Selecciona grupo, asignatura, periodo y duración"
+                description="La tabla de asistencia aparecerá aquí una vez completes los cuatro filtros."
+              />
+            )}
           </div>
         </div>
       </form>
@@ -161,4 +252,4 @@ const Attendance = () => {
   );
 };
 
-export default Attendance;
+export default AttendancePage;

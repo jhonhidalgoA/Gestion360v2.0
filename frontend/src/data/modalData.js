@@ -5,8 +5,8 @@ import {
   IoLogOutOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkOutline,
+  IoCloseOutline,
 } from "react-icons/io5";
-
 
 export const cancelVariant = "outline-primary";
 
@@ -18,7 +18,7 @@ export const modalConfig = {
     defaultTitle: "Confirmar acción",
     primaryText: "Confirmar",
     primaryVariant: "primary",
-    btnIcon: IoCheckmarkOutline, 
+    btnIcon: IoCheckmarkOutline,
   },
   edit: {
     icon: IoSaveOutline,
@@ -44,8 +44,7 @@ export const modalConfig = {
     iconColor: "var(--btn-print)",
     defaultTitle: "Logout",
     primaryText: "Logout",
-    primaryVariant: "logout",     
-    
+    primaryVariant: "logout",
   },
   success: {
     icon: IoCheckmarkCircleOutline,
@@ -53,13 +52,26 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Listo",
     primaryText: "Cerrar",
-    primaryVariant: "submit",    
-    hideSecondary: true, 
+    primaryVariant: "close",
+    hideSecondary: true,
+  },
+  close: {
+  icon: IoCloseOutline,
+  iconBg: "var(--bg-subtle)",
+  iconColor: "var(--text-secondary)",
+  defaultTitle: "Cerrar",
+  primaryText: "Cerrar",
+  primaryVariant: "submit",
+  btnIcon: IoCloseOutline,
+},
+  feedback: {
+    icon: null,
+    defaultTitle: "Observación Pedagógica",
+    primaryText: "Guardar",
+    primaryVariant: "save",
   },
 };
 
-// Textos por defecto reutilizables. La clave coincide con el "variant" del modal,
-// así el Modal los toma automáticamente si no le pasas message/description a mano.
 export const modalMessages = {
   logout: {
     message: "¿Cerrar sesión?",
@@ -71,11 +83,14 @@ export const modalMessages = {
   },
   edit: {
     message: "",
-    description: "", // se usa junto con entityLabel, ej: "Estudiante: ..."
+    description: "", 
+  },
+   feedback: {
+    message: "Observación Pedagógica",
+    description: "",
   },
 };
 
-// Nombre y marca fijos del header, igual en todos los modales de la app
 export const modalBrand = {
   schoolName: "Colegio",
   moduleName: "STEM 360",

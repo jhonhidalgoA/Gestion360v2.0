@@ -15,7 +15,7 @@ const Modal = ({
   entityLabel,
   confirmText,
   isLoading = false,
-  autoCloseMs, // NUEVO: ms para autocierre (ej. 5000). undefined = sin autocierre
+  autoCloseMs, 
   children,
 }) => {
   const dialogRef = useRef(null);
@@ -30,7 +30,7 @@ const Modal = ({
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
-  // Autocierre con pausa en hover
+  
   useEffect(() => {
     if (!isOpen || !autoCloseMs) return;
 

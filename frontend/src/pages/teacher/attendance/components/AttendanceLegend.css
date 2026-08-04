@@ -1,0 +1,60 @@
+.leyenda-container {
+  background: var(--bg-subtle);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.leyenda-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  justify-content: center;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+}
+
+.estado-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-on-primary);
+}
+
+.estado-icon .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.estado-icon.presente {
+  background: var(--color-success);
+}
+
+.estado-icon.ausente {
+  background: var(--color-error);
+}
+
+.estado-icon.retardo {
+  background:var(--color-primary);
+}
+
+.estado-icon.parcial,
+.estado-icon.parcial1,
+.estado-icon.parcial2 {
+  background: var(--color-accent);
+}
+
+.leyenda-nota {
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}

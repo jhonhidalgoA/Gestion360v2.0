@@ -9,7 +9,7 @@
 }
 
 .assessment-table thead th {
-  background: #4a5568;
+  background: var(--color-primary-light);
   color: white;
   padding: 12px;
   font-size: 14px;

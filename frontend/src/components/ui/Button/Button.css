@@ -65,7 +65,7 @@
 }
 
 .btn-shape-pill {
-  border-radius: var(--border-radius-full); /* 9999px - Círculo completo */
+  border-radius: var(--border-radius-full); /*Círculo completo */
 }
 
 .btn-width-full {
@@ -107,7 +107,6 @@
   --btn-bg-active: color-mix(in srgb, var(--color-success, #22c55e) 80%, black);
 }
 
-.btn-danger,
 .btn-delete {
   --btn-bg: var(--color-error, #ef4444);
   --btn-bg-hover: color-mix(in srgb, var(--color-error, #ef4444) 90%, black);
@@ -119,6 +118,16 @@
   --btn-bg-hover: color-mix(in srgb, var(--color-warning, #f59e0b) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-warning, #f59e0b) 80%, black);
 }
+
+.btn-close {
+  --btn-bg: var(--bg-subtle, #eef2f7);
+  --btn-bg-hover: color-mix(in srgb, var(--bg-subtle, #eef2f7) 85%, black);
+  --btn-bg-active: color-mix(in srgb, var(--bg-subtle, #eef2f7) 75%, black);
+  --btn-fg: var(--text-secondary, #3d3d3d); 
+   border: 1px solid #d1d9e6; 
+}
+
+
 
 .btn-load {
   --btn-bg: #1f4e79;

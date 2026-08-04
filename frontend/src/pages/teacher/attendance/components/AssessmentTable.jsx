@@ -23,7 +23,12 @@ const getColorPromedioClass = (prom) => {
   return "promedio-verde";
 };
 
-const AssessmentTable = ({ estudiantes, numeroNotas, onNotaChange, onAbrirModal }) => {
+const AssessmentTable = ({
+  estudiantes,
+  numeroNotas,
+  onNotaChange,
+  onAbrirModal,
+}) => {
   const [celdaActiva, setCeldaActiva] = useState(null);
   const inputsRef = useRef({});
 
@@ -69,7 +74,10 @@ const AssessmentTable = ({ estudiantes, numeroNotas, onNotaChange, onAbrirModal 
           {estudiantes.map((est, estIndex) => {
             const promedio = calcularPromedio(est.notas);
             return (
-              <tr key={est.id} className={estIndex % 2 === 0 ? "row-even" : "row-odd"}>
+              <tr
+                key={est.id}
+                className={estIndex % 2 === 0 ? "row-even" : "row-odd"}
+              >
                 <td className="td-estudiante">
                   {est.apellidos} {est.nombres}
                 </td>
@@ -87,8 +95,12 @@ const AssessmentTable = ({ estudiantes, numeroNotas, onNotaChange, onAbrirModal 
                           ref={(el) => (inputsRef.current[cellKey] = el)}
                           onFocus={() => setCeldaActiva(cellKey)}
                           onBlur={() => setCeldaActiva(null)}
-                          onKeyDown={(e) => handleKeyDown(e, estIndex, notaIndex)}
-                          onChange={(e) => onNotaChange(est.id, notaIndex, e.target.value)}
+                          onKeyDown={(e) =>
+                            handleKeyDown(e, estIndex, notaIndex)
+                          }
+                          onChange={(e) =>
+                            onNotaChange(est.id, notaIndex, e.target.value)
+                          }
                           title="Rango válido: 1.0 - 5.0"
                           className={[
                             "nota-input",
@@ -109,16 +121,19 @@ const AssessmentTable = ({ estudiantes, numeroNotas, onNotaChange, onAbrirModal 
                   );
                 })}
 
-                <td className={`td-promedio ${getColorPromedioClass(promedio)}`}>
+                <td
+                  className={`td-promedio ${getColorPromedioClass(promedio)}`}
+                >
                   {promedio}
                 </td>
 
                 <td className="td-accion">
                   <button
+                    type="button"
                     onClick={() => onAbrirModal(est)}
                     className={`btn-accion ${est.retroalimentacion ? "con-retro" : "sin-retro"}`}
                   >
-                    {est.retroalimentacion ? "✓ Ver/Editar" : "Agregar"}
+                    {est.retroalimentacion ? "Ver/Editar" : "Agregar"}
                   </button>
                 </td>
               </tr>
