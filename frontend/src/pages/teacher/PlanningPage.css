@@ -1,0 +1,57 @@
+.planning-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 124px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.planning-container h2{
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+
+.planning-cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.planning-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;  
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 120px;
+  text-align: left;
+}
+
+.planning-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);  
+}
+
+
+.planning-icon{  
+  font-size: 3.5rem;
+  color: #9c27b0; 
+}
+
+.planning-card_title p {
+  color: #666;
+  margin-top: 15px;
+  font-size:1.0rem;
+  line-height: 1.5;
+}

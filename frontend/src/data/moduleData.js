@@ -63,14 +63,14 @@ export const moduleData = {
       id: 3,
       icon: "checklist_rtl",
       title: "Planeación",
-      path: "/planeacion",
+      path: "/planningPage",
       gradient: "linear-gradient(135deg, #7B4FB0)",
     },
     {
       id: 4,
       icon: "format_list_numbered",
       title: "Asignar Tareas",
-      path: "/tareas",
+      path: "/classworkPage",
       gradient: "linear-gradient(135deg, #C97A22)",
     },
     {

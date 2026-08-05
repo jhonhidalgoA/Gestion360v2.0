@@ -13,6 +13,9 @@ import ApplicationStatusPage from '@pages/ApplicationStatusPage';
 import TeacherPage from "./pages/teacher/TeacherPage";
 import AssessmentPage from "./pages/teacher/AssessmentPage";
 import AttendancePage from "./pages/teacher/attendance/AttendancePage";
+import PlanningPage from "./pages/teacher/PlanningPage";
+import ClassworkPage from "./pages/teacher/ClassworkPage";
+
 
 
 
@@ -40,6 +43,8 @@ function App() {
         <Route path="/teacher" element={<TeacherPage />} />
         <Route path="/assessmentPage" element={<AssessmentPage />} />
         <Route path="/attendancePage" element={<AttendancePage />} />
+        <Route path="/planningPage" element={<PlanningPage />} />               
+        <Route path="/classworkPage" element={<ClassworkPage />} />
       </Routes>
     </Router>
   );
