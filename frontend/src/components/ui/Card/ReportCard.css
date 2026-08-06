@@ -3,6 +3,7 @@
   align-items: flex-start;
   gap: var(--space-4);
   width: 100%;
+  height: 120px;
   padding: var(--space-5);
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -23,19 +24,10 @@
   box-shadow: var(--focus-ring);
 }
 
-.report-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--border-radius-sm);
-  background: var(--bg-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+
 
 .report-icon .icon {
-  font-size: 26px;
+  font-size: 42px;
 }
 
 .report-text {
