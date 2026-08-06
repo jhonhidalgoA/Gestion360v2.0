@@ -20,7 +20,7 @@ export const navbarSectionData = {
       icon: "format_list_numbered",
       color: "#ff9800",
     },
-    reportes: {
+    report: {
       title: "Reportes Académicos",
       icon: "table_view",
       color: "#000080",

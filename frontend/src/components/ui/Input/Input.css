@@ -79,6 +79,7 @@
 
 .input__field--error {
   border-color: var(--color-error);
+  background: rgba(211, 47, 47, 0.03);
 }
 
 .input__field--error:focus {

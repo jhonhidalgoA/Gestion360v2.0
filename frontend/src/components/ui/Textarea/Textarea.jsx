@@ -9,8 +9,9 @@ const Textarea = forwardRef(
       id,
       placeholder = "",
       register,
+      rules,
       error,
-      variant = "rounded", // "rounded" | "square"
+      variant = "rounded", 
       className = "",
       wrapperClassName = "",
       helperText,
@@ -32,8 +33,14 @@ const Textarea = forwardRef(
     const generatedId = useId();
     const fieldId = id || name || generatedId;
 
-    // Mismo contrato unificado que Input: acepta string u objeto { message }
+    
     const errorMessage = typeof error === "string" ? error : error?.message;
+
+    // Reglas efectivas: si el padre no pasa `rules` explícitas,
+    // se derivan de `required`. Sin esto, register() nunca recibía
+    // ninguna regla y el campo jamás se marcaba como inválido.
+    const effectiveRules =
+      rules ?? (required ? { required: "Este campo es obligatorio" } : {});
 
     const fieldClassName = [
       "textarea__field",
@@ -82,7 +89,7 @@ const Textarea = forwardRef(
               : undefined
           }
           className={fieldClassName}
-          {...(register ? register(name) : {})}
+          {...(register ? register(name, effectiveRules) : {})}
           {...props}
         />
 

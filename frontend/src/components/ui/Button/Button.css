@@ -127,6 +127,11 @@
    border: 1px solid #d1d9e6; 
 }
 
+.btn-send {
+  --btn-bg: var(--color-primary);
+  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
+}
 
 
 .btn-load {

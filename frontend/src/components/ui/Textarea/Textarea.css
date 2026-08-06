@@ -43,7 +43,8 @@
   box-sizing: border-box;
   transition:
     border-color var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    background-color var(--transition-base);
 }
 
 /* ---- Mismo radius que Input, no border-radius-lg/md sueltos ---- */
@@ -82,6 +83,7 @@
 
 .textarea__field--error {
   border-color: var(--color-error);
+  background: rgba(211, 47, 47, 0.03);
 }
 
 .textarea__field--error:focus {
@@ -109,7 +111,7 @@
 }
 
 .textarea__error {
-  font-size: var(--fs-base);
+  font-size: var(--fs-xs);
   line-height: 1.2;
   color: var(--color-error);
   opacity: 0;

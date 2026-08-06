@@ -11,8 +11,9 @@ const Input = forwardRef(
       type = "text",
       placeholder = "",
       register,
+      rules,
       error,
-      variant = "rounded", // "rounded" | "square"
+      variant = "rounded",
       className = "",
       wrapperClassName = "",
 
@@ -44,8 +45,14 @@ const Input = forwardRef(
     const [showPassword, setShowPassword] = useState(false);
     const generatedId = useId();
     const fieldId = id || name || generatedId;
-   
+
     const errorMessage = typeof error === "string" ? error : error?.message;
+
+    // Reglas efectivas: si el padre no pasa `rules` explícitas,
+    // se derivan de `required`. Antes esto no se conectaba con
+    // register(), así que el campo nunca quedaba validado.
+    const effectiveRules =
+      rules ?? (required ? { required: "Este campo es obligatorio" } : {});
 
     const inputType =
       type === "password" ? (showPassword ? "text" : "password") : type;
@@ -112,7 +119,7 @@ const Input = forwardRef(
                 : undefined
             }
             className={fieldClassName}
-            {...(register ? register(name) : {})}
+            {...(register ? register(name, effectiveRules) : {})}
             {...props}
           />
 
@@ -135,7 +142,7 @@ const Input = forwardRef(
           )}
         </div>
 
-        
+
         <div className="input__meta">
           {errorMessage ? (
             <span id={`${fieldId}-error`} className="input__error input__error--visible">

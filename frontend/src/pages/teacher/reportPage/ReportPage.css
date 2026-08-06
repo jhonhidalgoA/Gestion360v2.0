@@ -1,0 +1,6 @@
+.report-grid {  
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  gap: var(--space-4);
+}

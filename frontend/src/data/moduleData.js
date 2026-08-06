@@ -77,7 +77,7 @@ export const moduleData = {
       id: 5,
       icon: "table_view",
       title: "Reportes Académicos",
-      path: "/reportes",
+      path: "/reportPage",
       gradient: "linear-gradient(135deg, #0B3D73)",
     },
     {

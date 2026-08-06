@@ -1,16 +1,21 @@
+// React y librerías externas
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaSave, FaPlus, FaTable } from "react-icons/fa";
+import { FaPlus, FaSave, FaTable } from "react-icons/fa";
 
-import { Button } from "@/components/ui/Button/Button";
-import { filterFormsData } from "@/data/filterFormsData";
-import { optionsMap } from "@/data/optionsData";
-import { modalConfig } from "@/data/modalData";
-
+// Componentes compartidos
 import NavbarSection from "@/components/navbar/NavbarSection";
-import Select from "@/components/ui/Select/Select";
+import { Button } from "@/components/ui/Button/Button";
 import Modal from "@/components/ui/Modal/Modal";
+import Select from "@/components/ui/Select/Select";
+
+// Datos
+import { filterFormsData } from "@/data/filterFormsData";
+import { modalConfig } from "@/data/modalData";
+import { optionsMap } from "@/data/optionsData";
+
+// Componentes de la página
 import AssessmentTable from "@/pages/teacher/attendance/components/AssessmentTable";
 import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
 import FeedbackModalContent from "@/pages/teacher/attendance/components/FeedbackModalContent";
