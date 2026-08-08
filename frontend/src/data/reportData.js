@@ -1,50 +1,117 @@
+export const requirementLabels = {
+  grupo: "Grupo",
+  estudiante: "Estudiante",
+  asignatura: "Asignatura",
+  periodo: "Período",
+};
+
+
+
+
 export const reportsConfig = [
   {
-    id: "calificaciones",
-    icon: "menu_book",
-    title: "Calificaciones por Asignatura",
-    subtitle: "Reporte notas por materia del periodo",
-    iconColor: "var(--color-primary)",
-    handlerKey: "handleCalificacionesClick",
-  },
-  {
     id: "boletin",
+    category: "Documento",
     icon: "description",
-    title: "Boletín de Calificaciones PDF",
-    subtitle: "Boletín completo con todas las materias",
+    title: "Boletín de Calificaciones",
+    subtitle: "Resumen consolidado de todas las asignaturas del periodo.",
     iconColor: "var(--color-accent)",
+
+    requirements: [
+      "grupo",
+      "estudiante",
+      "periodo",
+    ],
+
+    format: {
+      type: "pdf",
+      icon: "picture_as_pdf",
+      label: "PDF",
+    },
+
+    action: {
+      type: "generate",
+    },
+
     handlerKey: "handleBoletinClick",
   },
+
   {
     id: "asistencia",
+    category: "Asistencia",
     icon: "calendar_today",
-    title: "Asistencia",
-    subtitle: "Control de asistencia e inasistencias",
+    title: "Control de Asistencia",
+    subtitle: "Asistencias, ausencias y llegadas tarde por fecha.",
     iconColor: "var(--color-success)",
+
+    requirements: [
+      "grupo",
+      "estudiante",
+      "periodo",
+    ],
+
+    format: {
+      type: "system",
+      icon: "desktop_windows",
+      label: "Sistema",
+    },
+
+    action: {
+      type: "open",
+    },
+
     handlerKey: "handleValidateOnly",
   },
+
   {
     id: "certificado",
+    category: "Documento",
     icon: "assignment_turned_in",
-    title: "Certificado Escolar PDF",
-    subtitle: "Certificado escolar de estudio",
+    title: "Certificado Escolar",
+    subtitle: "Constancia oficial de matrícula y estado académico.",
     iconColor: "var(--btn-pdf)",
+
+    requirements: [
+      "grupo",
+      "estudiante",
+    ],
+
+    format: {
+      type: "pdf",
+      icon: "picture_as_pdf",
+      label: "PDF",
+    },
+
+    action: {
+      type: "generate",
+    },
+
     handlerKey: "handleCertificadoClick",
   },
+
   {
     id: "observador",
+    category: "Convivencia",
     icon: "assignment",
     title: "Observador Escolar",
-    subtitle: "Comportamiento y observaciones",
+    subtitle: "Registro de convivencia, novedades y compromisos.",
     iconColor: "var(--color-error)",
-    handlerKey: "handleValidateOnly",
-  },
-  {
-    id: "historial",
-    icon: "school",
-    title: "Historial Académico",
-    subtitle: "Registro completo de todos los periodos",
-    iconColor: "var(--color-primary-dark)",
+
+    requirements: [
+      "grupo",
+      "estudiante",
+    ],
+
+    format: {
+      type: "pdf",
+      icon: "picture_as_pdf",
+      label: "PDF",
+    },
+
+    action: {
+      type: "open",
+    },
+
     handlerKey: "handleValidateOnly",
   },
 ];

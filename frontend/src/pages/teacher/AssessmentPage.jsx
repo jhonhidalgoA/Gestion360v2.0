@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaPlus, FaSave, FaTable } from "react-icons/fa";
+import { FaPlus, FaSave, FaTable, FaUndo } from "react-icons/fa";
 
 // Componentes compartidos
 import NavbarSection from "@/components/navbar/NavbarSection";
@@ -51,6 +51,7 @@ const AssessmentPage = () => {
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -86,6 +87,10 @@ const AssessmentPage = () => {
   };
 
   const handleCargar = handleSubmit(onFiltroValido);
+
+  const handleReset = () => {
+    reset(defaultValues);
+  };
 
   const handleGuardar = () => {
     setLoading((prev) => ({ ...prev, guardar: true }));
@@ -196,6 +201,15 @@ const AssessmentPage = () => {
               onClick={handleNuevaColumna}
             >
               {loading.nuevaColumna ? "Agregando..." : "Nueva Columna"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline-primary"
+              icon={FaUndo}
+              iconPosition="left"
+              onClick={handleReset}
+            >
+              Restablecer selección
             </Button>
           </div>
 

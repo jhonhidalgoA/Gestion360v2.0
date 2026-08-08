@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaSave, FaPlus } from "react-icons/fa";
+import { FaSave, FaPlus, FaUndo  } from "react-icons/fa";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Select from "@/components/ui/Select/Select";
@@ -42,6 +42,7 @@ const AttendancePage = () => {
 
   const {
     register,
+    reset,
     handleSubmit,
     control,
     formState: { errors },
@@ -60,6 +61,9 @@ const AttendancePage = () => {
 
   const handleBack = () => navigate("/teacher");
 
+   const handleReset = () => {
+    reset(defaultValues);
+  };
   // ==========================
   // Cargar estudiantes
   // ==========================
@@ -179,6 +183,12 @@ const AttendancePage = () => {
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
+          <div className="report-main">
+            <h4>Registro de Asistencia</h4>
+            <span>
+             Selecciona los campos en orden para habilitar la asistencia.
+            </span>
+          </div>
           <div className="filter-card">
             <div className="form-row">
               {fields.map((field) => (
@@ -217,6 +227,15 @@ const AttendancePage = () => {
             >
               Guardar
             </Button>
+             <Button
+              type="button"
+              variant="outline-primary"
+              icon={FaUndo }
+              iconPosition="left"
+              onClick={handleReset}
+            >
+              Restablecer selección
+            </Button>
           </div>
 
           <AttendanceLegend
@@ -232,8 +251,8 @@ const AttendancePage = () => {
               />
             ) : (
               <EmptyState
-                title="Selecciona grupo, asignatura, periodo y duración"
-                description="La tabla de asistencia aparecerá aquí una vez completes los cuatro filtros."
+                title="La Tabla de Asistencia aparecerá aquí una vez completes los filtros."
+               
               />
             )}
           </div>

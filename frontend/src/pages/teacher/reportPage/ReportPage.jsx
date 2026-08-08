@@ -1,15 +1,16 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaFileDownload } from "react-icons/fa";
+
+import { optionsMap } from "@/data/optionsData";
+import { filterFormsData } from "@/data/filterFormsData";
+import { reportsConfig, requirementLabels } from "@/data/reportData";
+
+import { FaUndo } from "react-icons/fa";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
 import ReportCard from "@/components/ui/Card/ReportCard";
 import { Button } from "@/components/ui/Button/Button";
 import Select from "@/components/ui/Select/Select";
-import { optionsMap } from "@/data/optionsData";
-import { filterFormsData } from "@/data/filterFormsData";
-import { reportsConfig } from "@/data/reportData";
 
 import "./ReportPage.css";
 
@@ -25,8 +26,6 @@ const ReportPage = () => {
 
   const fields = filterFormsData.reportes?.fields ?? [];
 
-  const [loading, setLoading] = useState({ generar: false });
-
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
     return acc;
@@ -34,21 +33,26 @@ const ReportPage = () => {
 
   const {
     register,
-    handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ defaultValues, mode: "onChange" });
 
-  const onGenerar = (data) => {
-    setLoading((prev) => ({ ...prev, generar: true }));
-    console.log("Generar reporte:", data);
-    setTimeout(() => setLoading((prev) => ({ ...prev, generar: false })), 1000);
+  const handleReset = () => {
+    reset(defaultValues);
   };
 
   return (
     <>
       <NavbarSection sectionKey="report" handleBack={handleBack} />
-      <form onSubmit={handleSubmit(onGenerar)}>
+      <form onSubmit>
         <div className="report-container">
+          <div className="report-main">
+            <h4>Contexto académico</h4>
+            <span>
+              Completa los campos en orden para habilitar los reportes
+              disponibles.
+            </span>
+          </div>
           <div className="filter-card">
             <div className="form-row">
               {fields.map((field) => (
@@ -65,6 +69,17 @@ const ReportPage = () => {
               ))}
             </div>
           </div>
+          <div className="report-button">
+            <Button
+              variant="outline-primary"
+              type="button"
+              icon={FaUndo}
+              iconPosition="left"
+              onClick={handleReset}
+            >
+              Restablecer selección
+            </Button>
+          </div>
           <div className="report-grid">
             {reportsConfig.map((reporte) => (
               <ReportCard
@@ -73,21 +88,14 @@ const ReportPage = () => {
                 title={reporte.title}
                 subtitle={reporte.subtitle}
                 iconColor={reporte.iconColor}
+                format={reporte.format}
+                category={reporte.category}
+                requirements={reporte.requirements}
+                requirementLabels={requirementLabels}
+                action={reporte.action}
                 onClick={handlers[reporte.handlerKey]}
               />
             ))}
-          </div>
-
-          <div className="reports-button">
-            <Button
-              type="submit"
-              variant="save"
-              icon={FaFileDownload}
-              iconPosition="left"
-              disabled={loading.generar}
-            >
-              {loading.generar ? "Generando..." : "Generar Reporte"}
-            </Button>
           </div>
         </div>
       </form>

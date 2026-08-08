@@ -140,6 +140,20 @@
   --btn-bg-active: color-mix(in srgb, #1f4e79 80%, black);
 }
 
+.btn-pdf {
+  --btn-bg: #d32f2f;
+  --btn-bg-hover: color-mix(in srgb, #d32f2f 90%, black);
+  --btn-bg-active: color-mix(in srgb, #d32f2f 80%, black);
+  --btn-fg: #ffffff;
+}
+
+.btn-open {
+  --btn-bg: var(--color-primary);
+  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
+  --btn-fg: #ffffff;
+}
+
 .btn-new-request {
   --btn-bg: var(--color-accent);
   --btn-bg-hover: color-mix(in srgb, var(--color-accent) 90%, black);
@@ -172,8 +186,7 @@
 .btn-secondary,
 .btn-edit,
 .btn-view,
-.btn-print,
-.btn-pdf {
+.btn-print {
   --btn-bg: var(--color-surface-variant, #f3f4f6);
   --btn-bg-hover: color-mix(
     in srgb,

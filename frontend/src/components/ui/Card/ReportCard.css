@@ -1,33 +1,38 @@
 .report-card {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-4);
   width: 100%;
-  height: 120px;
+  min-height: 120px;
   padding: var(--space-5);
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
+  border-radius: 10px;  
   text-align: left;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-.report-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-  border-color: var(--color-primary-light);
+.report-content{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+  width: 100%;
 }
-
-.report-card:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}
-
 
 
 .report-icon .icon {
-  font-size: 42px;
+  font-size: 60px;
+}
+
+.report-category{
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .report-text {
@@ -47,4 +52,60 @@
   font-size: var(--fs-sm);
   color: var(--text-secondary);
   margin: 0;
+}
+
+.report-badge {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px var(--space-2) 3px 6px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+}
+
+.report-badge__icon {
+  font-size: 20px !important;
+}
+
+
+.report-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  margin-top: auto;
+  padding-top: 16px;
+  gap:50px; 
+}
+
+.report-requirements {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.report-requirements strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.report-badge--pdf {
+  background: color-mix(in srgb, var(--btn-pdf) 15%, white);
+  color: color-mix(in srgb, var(--btn-pdf) 65%, black);
+}
+
+.report-badge--excel {
+  background: color-mix(in srgb, var(--color-success) 15%, white);
+  color: color-mix(in srgb, var(--color-success) 40%, black);
+}
+
+.report-badge--sistema {
+  background: color-mix(in srgb, var(--color-primary) 12%, white);
+  color: var(--color-primary-dark);
 }

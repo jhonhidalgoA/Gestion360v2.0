@@ -3,8 +3,8 @@ import "./EmptyState.css";
 
 const EmptyState = ({
   icon: Icon = FaTable,
-  title = "Selecciona grupo, asignatura y periodo",
-  description = "La tabla de calificaciones aparecerá aquí una vez completes los tres filtros.",
+  title = "La Tabla de Calificaciones aparecerá aquí una vez completes los filtros.",
+  
 }) => {
   return (
     <div className="empty-state">
@@ -12,7 +12,7 @@ const EmptyState = ({
         <Icon />
       </div>
       <p className="empty-state-title">{title}</p>
-      <p className="empty-state-description">{description}</p>
+      
     </div>
   );
 };

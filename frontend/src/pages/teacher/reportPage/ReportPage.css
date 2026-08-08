@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  margin: 124px auto;
+  margin: 120px auto;
   padding: 24px;
   background: #fff;
   border-radius: 0 0 10px 10px;
@@ -10,11 +10,33 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.report-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.report-main span {
+  font-size: var(--fs-sm); 
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.filter-card{
+  margin-top: 20px;
+}
+.report-button {
+  margin-top:-10px;
+  display: flex;
+  justify-content: center;
+}
 
 .report-grid {
-  margin-top: 10px;
+  margin-top: 5px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  margin-top: 20px;
   gap: var(--space-4);
 }
 
