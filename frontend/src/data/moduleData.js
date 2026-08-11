@@ -91,7 +91,7 @@ export const moduleData = {
       id: 7,
       icon: "forum",
       title: "Comunicación con Padres",
-      path: "/comunicacion",
+      path: "/comunicationPage",
       gradient: "linear-gradient(135deg, #B93368)",
     },
 

@@ -6,6 +6,7 @@ import {
   IoCheckmarkCircleOutline,
   IoCheckmarkOutline,
   IoCloseOutline,
+  IoPaperPlaneOutline,
 } from "react-icons/io5";
 
 export const cancelVariant = "outline-primary";
@@ -20,6 +21,7 @@ export const modalConfig = {
     primaryVariant: "primary",
     btnIcon: IoCheckmarkOutline,
   },
+
   edit: {
     icon: IoSaveOutline,
     iconBg: "var(--color-success-tint)",
@@ -29,6 +31,7 @@ export const modalConfig = {
     primaryVariant: "save",
     btnIcon: IoCheckmarkOutline,
   },
+
   delete: {
     icon: IoTrashOutline,
     iconBg: "var(--color-error-tint)",
@@ -38,6 +41,7 @@ export const modalConfig = {
     primaryVariant: "delete",
     btnIcon: IoTrashOutline,
   },
+
   logout: {
     icon: IoLogOutOutline,
     iconBg: "var(--bg-subtle)",
@@ -46,24 +50,38 @@ export const modalConfig = {
     primaryText: "Logout",
     primaryVariant: "logout",
   },
+
   success: {
     icon: IoCheckmarkCircleOutline,
     iconBg: "var(--color-success-tint)",
     iconColor: "var(--color-success)",
-    defaultTitle: "Listo",
+    defaultTitle: "Cerrar",
     primaryText: "Cerrar",
     primaryVariant: "close",
     hideSecondary: true,
   },
+
+  submitTask: {
+    icon: IoCheckmarkCircleOutline,
+    iconBg: "var(--color-success-tint)",
+    iconColor: "var(--color-success)",
+    defaultTitle: "Enviar tarea",
+    primaryText: "Enviar tarea",
+    primaryVariant: "send",
+    btnIcon: IoPaperPlaneOutline,
+    hideSecondary: false,
+  },
+
   close: {
-  icon: IoCloseOutline,
-  iconBg: "var(--bg-subtle)",
-  iconColor: "var(--text-secondary)",
-  defaultTitle: "Cerrar",
-  primaryText: "Cerrar",
-  primaryVariant: "submit",
-  btnIcon: IoCloseOutline,
-},
+    icon: IoCloseOutline,
+    iconBg: "var(--bg-subtle)",
+    iconColor: "var(--text-secondary)",
+    defaultTitle: "Cerrar",
+    primaryText: "Cerrar",
+    primaryVariant: "submit",
+    btnIcon: IoCloseOutline,
+  },
+
   feedback: {
     icon: null,
     defaultTitle: "Observación Pedagógica",
@@ -77,15 +95,28 @@ export const modalMessages = {
     message: "¿Cerrar sesión?",
     description: "Podrás volver a iniciar sesión cuando quieras.",
   },
+
+  success: {
+    message: "¿Enviar tarea?",
+    description: "Esta seguro de enviar esta tarea",
+  },
+
+  submitTask: {
+    message: "¿Deseas enviar esta tarea?",
+    description: "Verifica que la información sea correcta antes de continuar.",
+  },
+
   delete: {
     message: "¿Eliminar este registro?",
     description: "Esta acción no se puede deshacer.",
   },
+
   edit: {
     message: "",
-    description: "", 
+    description: "",
   },
-   feedback: {
+
+  feedback: {
     message: "Observación Pedagógica",
     description: "",
   },

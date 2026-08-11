@@ -2,6 +2,7 @@ import  ModuleCard from "@/components/ui/Card/ModuleCard";
 import NavbarModulo from "@/components/navbar/NavbarModulo";
 
 import { moduleData } from "@/data/moduleData";
+
 import "./TeacherPage.css";
 
 const TeacherPage = () => {

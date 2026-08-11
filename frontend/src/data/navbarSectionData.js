@@ -15,7 +15,7 @@ export const navbarSectionData = {
       icon: "checklist_rtl",
       color: "#9c27b0",
     },
-    tareas: {
+    tasks: {
       title: "Asignar Tareas",
       icon: "format_list_numbered",
       color: "#ff9800",

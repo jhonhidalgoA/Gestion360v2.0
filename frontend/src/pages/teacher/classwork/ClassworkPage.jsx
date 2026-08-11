@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaPaperPlane,  FaEraser  } from "react-icons/fa";
+import { FaPaperPlane, FaUndo } from "react-icons/fa";
+
+import { Button } from "@/components/ui/Button/Button";
+import { filterFormsData } from "@/data/filterFormsData";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
-import { Button } from "@/components/ui/Button/Button";
 import FormField from "@/pages/teacher/classwork/components/FormField";
-import { filterFormsData } from "@/data/filterFormsData";
+import Modal from "@/components/ui/Modal/Modal";
 
 import "./ClassworkPage.css";
 
@@ -14,14 +16,20 @@ const ClassworkPage = () => {
   const navigate = useNavigate();
   const { rows } = filterFormsData.tareas;
 
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [pendingData, setPendingData] = useState(null);
+
   const [loading, setLoading] = useState({
     guardar: false,
     borrar: false,
   });
 
   const allFields = rows.flatMap((row) => row.fields || []);
+
   const defaultValues = allFields.reduce((acc, field) => {
-    if (field.type !== "file") acc[field.id] = "";
+    if (field.type !== "file") {
+      acc[field.id] = "";
+    }
     return acc;
   }, {});
 
@@ -35,16 +43,36 @@ const ClassworkPage = () => {
     mode: "onChange",
   });
 
-  const handleBack = () => navigate("/teacher");
+  const handleReset = () => {
+    reset(defaultValues);
+    setPendingData(null);
+    setIsSubmitModalOpen(false);
+  };
+
+  const handleBack = () => {
+    navigate("/teacher");
+  };
 
   const onSubmit = (data) => {
-    setLoading((prev) => ({ ...prev, guardar: true }));
+    setPendingData(data);
+    setIsSubmitModalOpen(true);
+  };
+
+  const handleConfirmSubmit = () => {
+    if (!pendingData) return;
+
+    setLoading((prev) => ({
+      ...prev,
+      guardar: true,
+    }));
 
     const formData = new FormData();
 
-    Object.entries(data).forEach(([key, value]) => {
+    Object.entries(pendingData).forEach(([key, value]) => {
       if (value instanceof FileList) {
-        if (value.length > 0) formData.append(key, value[0]);
+        if (value.length > 0) {
+          formData.append(key, value[0]);
+        }
       } else if (value !== null && value !== undefined) {
         formData.append(key, value);
       }
@@ -53,25 +81,33 @@ const ClassworkPage = () => {
     console.log("Tarea creada:", formData);
 
     setTimeout(() => {
-      setLoading((prev) => ({ ...prev, guardar: false }));
-      reset();
-    }, 1200);
-  };
+      setLoading((prev) => ({
+        ...prev,
+        guardar: false,
+      }));
 
-  const handleDelete = () => {
-    setLoading((prev) => ({ ...prev, borrar: true }));
-    setTimeout(() => {
-      setLoading((prev) => ({ ...prev, borrar: false }));
-      reset();
-    }, 1000);
+      setIsSubmitModalOpen(false);
+      setPendingData(null);
+      reset(defaultValues);
+    }, 1200);
   };
 
   return (
     <>
-      <NavbarSection sectionKey="tareas" handleBack={handleBack} />
+      <NavbarSection sectionKey="tasks" handleBack={handleBack} />
+
       <div className="classwork-container">
         <div className="classwork-left">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="report-main">
+            <h4>Asignación de tareas</h4>
+
+            <span>
+              Selecciona los campos en orden para habilitar la asignación de
+              tareas.
+            </span>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {rows.map((row, rowIndex) => (
               <div key={rowIndex} className={row.className || undefined}>
                 {row.fields.map((field) => (
@@ -97,26 +133,48 @@ const ClassworkPage = () => {
               >
                 {loading.guardar ? "Enviando..." : "Enviar Tarea"}
               </Button>
+
               <Button
                 type="button"
-                variant="close"
-                icon={FaEraser}
+                variant="outline-primary"
+                icon={FaUndo}
                 iconPosition="left"
-                size="md"
-                className="btn-uniform-width"
-                disabled={loading.borrar}
-                onClick={handleDelete}
+                onClick={handleReset}
+                disabled={loading.guardar}
               >
-                {loading.borrar ? "Borrando..." : "Borrar Campos"}
+                Restablecer selección
               </Button>
             </div>
           </form>
         </div>
 
         <div className="classwork-right">
+          <div className="classwork-student">
+            <h4>Seleccionar Estudiantes</h4>
 
+            <div className="classwork-students_check">
+              <label htmlFor="students">Todos</label>
+
+              <input
+                type="checkbox"
+                id="students"
+                checked
+                onChange={() => {}}
+                disabled
+              />
+            </div>
+          </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isSubmitModalOpen}
+        onClose={() => setIsSubmitModalOpen(false)}
+        onConfirm={handleConfirmSubmit}
+        variant="submitTask"
+        isLoading={loading.guardar}
+        confirmText="Enviar tarea"
+      />
     </>
   );
 };

@@ -26,7 +26,6 @@ const Modal = ({
   const defaults = modalMessages[variant] ?? {};
   const Icon = config.icon;
   const BtnIcon = config.btnIcon;
-
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 

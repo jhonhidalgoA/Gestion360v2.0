@@ -92,14 +92,13 @@
   font-size: var(--fs-base);
 }
 
-
 .btn-primary {
   --btn-bg: var(--color-primary);
   --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
 }
 
-.btn-success,
+
 .btn-save,
 .btn-submit {
   --btn-bg: var(--color-success, #22c55e);
@@ -107,7 +106,7 @@
   --btn-bg-active: color-mix(in srgb, var(--color-success, #22c55e) 80%, black);
 }
 
-.btn-delete {
+.btn-delete, .btn-success {
   --btn-bg: var(--color-error, #ef4444);
   --btn-bg-hover: color-mix(in srgb, var(--color-error, #ef4444) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-error, #ef4444) 80%, black);
@@ -123,8 +122,8 @@
   --btn-bg: var(--bg-subtle, #eef2f7);
   --btn-bg-hover: color-mix(in srgb, var(--bg-subtle, #eef2f7) 85%, black);
   --btn-bg-active: color-mix(in srgb, var(--bg-subtle, #eef2f7) 75%, black);
-  --btn-fg: var(--text-secondary, #3d3d3d); 
-   border: 1px solid #d1d9e6; 
+  --btn-fg: var(--text-secondary, #3d3d3d);
+  border: 1px solid #d1d9e6;
 }
 
 .btn-send {
@@ -132,7 +131,6 @@
   --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
 }
-
 
 .btn-load {
   --btn-bg: #1f4e79;
@@ -225,4 +223,3 @@
   width: 48px;
   height: 48px;
 }
-

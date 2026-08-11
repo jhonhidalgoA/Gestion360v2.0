@@ -16,6 +16,7 @@ import AttendancePage from "./pages/teacher/attendance/AttendancePage";
 import PlanningPage from "./pages/teacher/planning/PlanningPage";
 import ClassworkPage from "./pages/teacher/classwork/ClassworkPage";
 import ReportPage from "./pages/teacher/reportPage/ReportPage";
+import ComunicationPage from "./pages/teacher/comunication/ComunicationPage"
 
 
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/planningPage" element={<PlanningPage />} />               
         <Route path="/classworkPage" element={<ClassworkPage />} />
         <Route path="/reportPage" element={<ReportPage />} />
+        <Route path="comunicationPage" element={<ComunicationPage />}/>
       </Routes>
     </Router>
   );

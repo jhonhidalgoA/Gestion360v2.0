@@ -58,7 +58,7 @@ export const filterFormsData = {
     ],
   },
 
-    reportes: {
+  reportes: {
     fields: [
       {
         id: "grupo",
@@ -134,7 +134,7 @@ export const filterFormsData = {
         ],
       },
       {
-        className: "",
+        className: "form-row",
         fields: [
           {
             id: "tema",
@@ -143,6 +143,12 @@ export const filterFormsData = {
             required: true,
             placeholder: "Escribe aquí...",
             validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "attached",
+            type: "file",
+            label: "Adjunto:",
+            required: false,
           },
         ],
       },
@@ -160,24 +166,25 @@ export const filterFormsData = {
           },
         ],
       },
+    ],
+  },
+   comunication: {
+    fields: [
       {
-        className: "form-row",
-        fields: [
-          {
-            id: "url",
-            type: "url",
-            label: "URL:",
-            required: false,
-            placeholder: "https://...",
-          },
-          {
-            id: "attached",
-            type: "file",
-            label: "Adjunto:",
-            required: false,
-          },
-        ],
+        id: "grupo",
+        type: "select",
+        label: "Grupo:",
+        optionsKey: "grupos",
+        required: true,
       },
+      {
+        id: "estudiante",
+        type: "select",
+        label: "Estudiante:",
+        optionsKey: "estudiantes",
+        required: true,
+      },
+      
     ],
   },
 };

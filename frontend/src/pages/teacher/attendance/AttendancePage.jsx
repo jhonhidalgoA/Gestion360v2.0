@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaSave, FaPlus, FaUndo  } from "react-icons/fa";
+import { FaSave, FaPlus, FaUndo } from "react-icons/fa";
+
+import { filterFormsData } from "@/data/filterFormsData";
+import { optionsMap } from "@/data/optionsData";
+import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Select from "@/components/ui/Select/Select";
-import { Button } from "@/components/ui/Button/Button";
 import Modal from "@/components/ui/Modal/Modal";
 
 import AttendanceTable from "@/pages/teacher/attendance/components/AttendanceTable";
 import AttendanceLegend from "@/pages/teacher/attendance/components/AttendanceLegend";
 import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
-
-import { filterFormsData } from "@/data/filterFormsData";
-import { optionsMap } from "@/data/optionsData";
 
 import "./AttendancePage.css";
 
@@ -21,10 +21,9 @@ const AttendancePage = () => {
   const navigate = useNavigate();
   const { fields } = filterFormsData.attendance;
 
-
   /* State */
 
-   const [loading, setLoading] = useState({
+  const [loading, setLoading] = useState({
     cargar: false,
     guardar: false,
   });
@@ -33,7 +32,7 @@ const AttendancePage = () => {
 
   const [estudiantes, setEstudiantes] = useState([]);
 
-  /* React Hook Form */  
+  /* React Hook Form */
 
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
@@ -51,7 +50,6 @@ const AttendancePage = () => {
     mode: "onChange",
   });
 
- 
   const duracion = useWatch({ control, name: "duracion" });
   const duracionSeleccionada = Number(duracion) || 1;
 
@@ -61,7 +59,7 @@ const AttendancePage = () => {
 
   const handleBack = () => navigate("/teacher");
 
-   const handleReset = () => {
+  const handleReset = () => {
     reset(defaultValues);
   };
   // ==========================
@@ -166,7 +164,7 @@ const AttendancePage = () => {
           asistencia: nuevaAsistencia,
           confirmado: nuevoConfirmado,
         };
-      })
+      }),
     );
   };
 
@@ -176,17 +174,14 @@ const AttendancePage = () => {
 
   return (
     <>
-      <NavbarSection
-        sectionKey="asistencia"
-        handleBack={handleBack}
-      />
+      <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
           <div className="report-main">
             <h4>Registro de Asistencia</h4>
             <span>
-             Selecciona los campos en orden para habilitar la asistencia.
+              Selecciona los campos en orden para habilitar la asistencia.
             </span>
           </div>
           <div className="filter-card">
@@ -217,7 +212,6 @@ const AttendancePage = () => {
             >
               {loading.cargar ? "Cargando..." : "Estudiantes"}
             </Button>
-
             <Button
               type="submit"
               variant="save"
@@ -227,10 +221,10 @@ const AttendancePage = () => {
             >
               Guardar
             </Button>
-             <Button
+            <Button
               type="button"
               variant="outline-primary"
-              icon={FaUndo }
+              icon={FaUndo}
               iconPosition="left"
               onClick={handleReset}
             >
@@ -238,9 +232,7 @@ const AttendancePage = () => {
             </Button>
           </div>
 
-          <AttendanceLegend
-            duracionSeleccionada={duracionSeleccionada}
-          />
+          <AttendanceLegend duracionSeleccionada={duracionSeleccionada} />
 
           <div className="assessment-table">
             {estudiantes.length > 0 ? (
@@ -250,10 +242,7 @@ const AttendancePage = () => {
                 onCambiarEstado={handleCambiarEstado}
               />
             ) : (
-              <EmptyState
-                title="La Tabla de Asistencia aparecerá aquí una vez completes los filtros."
-               
-              />
+              <EmptyState title="La Tabla de Asistencia aparecerá aquí una vez completes los filtros." />
             )}
           </div>
         </div>

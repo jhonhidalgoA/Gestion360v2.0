@@ -1,0 +1,27 @@
+.comunication-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 124px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.comunication-grid {
+  width:100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4px;  
+}
+
+.comunication-left {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width:95%;
+  margin:20px auto;
+  margin-left:-10px;
+}

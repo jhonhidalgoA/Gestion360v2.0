@@ -155,6 +155,12 @@ const AssessmentPage = () => {
       <NavbarSection sectionKey="calificaciones" handleBack={handleBack} />
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
+          <div className="report-main">
+            <h4>Registro de Calificaciones</h4>
+            <span>
+              Selecciona los campos en orden para habilitar las calificaciones.
+            </span>
+          </div>
           <div className="filter-card">
             <div className="form-row">
               {fields.map((field) => (
@@ -209,7 +215,7 @@ const AssessmentPage = () => {
               iconPosition="left"
               onClick={handleReset}
             >
-              Restablecer selección
+              {loading.reset ? "Restableciendo..." : "Restablecer selección"}
             </Button>
           </div>
 
