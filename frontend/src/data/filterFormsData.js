@@ -1,3 +1,8 @@
+import { FaBookOpen, FaCalendarAlt, FaPen } from "react-icons/fa";
+import { FiUsers } from "react-icons/fi";
+import { FaPenToSquare } from "react-icons/fa6";
+
+
 export const filterFormsData = {
   calificaciones: {
     fields: [
@@ -94,6 +99,8 @@ export const filterFormsData = {
   tareas: {
     rows: [
       {
+        title: "Grupo - Asignatura",
+        icon: FaBookOpen,
         className: "form-row_tasks",
         fields: [
           {
@@ -115,6 +122,8 @@ export const filterFormsData = {
         ],
       },
       {
+        title: "Fechas",
+        icon: FaCalendarAlt,
         className: "form-row",
         fields: [
           {
@@ -134,6 +143,8 @@ export const filterFormsData = {
         ],
       },
       {
+        title: "Tema e instrucciones",
+        icon: FaPen,
         className: "form-row",
         fields: [
           {
@@ -153,6 +164,7 @@ export const filterFormsData = {
         ],
       },
       {
+        
         className: "",
         fields: [
           {
@@ -168,23 +180,29 @@ export const filterFormsData = {
       },
     ],
   },
-   comunication: {
-    fields: [
-      {
-        id: "grupo",
-        type: "select",
-        label: "Grupo:",
-        optionsKey: "grupos",
-        required: true,
-      },
-      {
-        id: "estudiante",
-        type: "select",
-        label: "Estudiante:",
-        optionsKey: "estudiantes",
-        required: true,
-      },
-      
-    ],
-  },
+ comunication: {
+  rows: [
+    {
+      id: "destinatarios",
+      title: "DESTINATARIOS",
+      icon: FiUsers,
+      fields: [
+        {
+          id: "grupo",
+          type: "select",
+          label: "Grupo:",
+          optionsKey: "grados",
+          required: true,
+          placeholder: "Seleccione un grupo",
+        },
+      ],
+    },
+    {
+      id: "mensaje",
+      title: "MENSAJE",
+      icon: FaPenToSquare,
+      fields: [], 
+    },
+  ],
+},
 };

@@ -14,7 +14,7 @@
 }
 
 .card:hover {
-  transform: none;
+  transform: scale(1.05);
 }
 
 .card-icon {

@@ -4,10 +4,7 @@
   width: 100%;
 }
 
-/* ---- Padding horizontal por variante: una sola fuente de verdad ----
-   Todo (label, texto del field, iconos, helper, error) se alinea
-   contra esta variable. Cambiar el radius o el padding solo requiere
-   tocar esto en un lugar. */
+
 .input--rounded {
   --input-x: var(--form-control-padding-x-rounded, 18px);
 }
@@ -104,11 +101,13 @@
 
 .input__icon {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  font-size: 25px;
+  font-size: 18px;
   pointer-events: none;
 }
 

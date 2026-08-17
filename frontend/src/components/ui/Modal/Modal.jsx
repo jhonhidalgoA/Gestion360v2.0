@@ -14,8 +14,9 @@ const Modal = ({
   description,
   entityLabel,
   confirmText,
+  secondaryText = "Cancelar",
   isLoading = false,
-  autoCloseMs, 
+  autoCloseMs,
   children,
 }) => {
   const dialogRef = useRef(null);
@@ -29,7 +30,6 @@ const Modal = ({
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
-  
   useEffect(() => {
     if (!isOpen || !autoCloseMs) return;
 
@@ -132,7 +132,7 @@ const Modal = ({
               disabled={isLoading}
               className="btn-uniform-width"
             >
-              Cancelar
+              {secondaryText}
             </Button>
           )}
           <Button

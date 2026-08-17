@@ -118,7 +118,6 @@ const Contact = () => {
             variant="square"
             required
           />
-
           <Textarea
             label="Escribe tu mensaje"
             name="message"

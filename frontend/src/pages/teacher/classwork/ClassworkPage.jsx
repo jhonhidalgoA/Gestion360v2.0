@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaPaperPlane, FaUndo, FaThumbtack } from "react-icons/fa";
+import { FaPaperPlane, FaUndo, FaThumbtack, FaUsers } from "react-icons/fa";
+import { TbSearch } from "react-icons/tb";
 
 import { Button } from "@/components/ui/Button/Button";
 import { filterFormsData } from "@/data/filterFormsData";
 import { stepperData } from "@/data/stepperData";
 import { getStudentsByGroup } from "@/data/studentsData";
-import useStepper from "@/components/hooks/useStepper";
 
+import useStepper from "@/components/hooks/useStepper";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import FormField from "@/pages/teacher/classwork/components/FormField";
 import Modal from "@/components/ui/Modal/Modal";
 import Stepper from "@/components/ui/Stepper/Stepper";
+import Input from "@/components/ui/Input/Input";
 
 import "./ClassworkPage.css";
 
@@ -210,18 +212,30 @@ const ClassworkPage = () => {
         <div className="classwork-grid">
           <div className="classwork-left">
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="">
-              {rows.map((row, rowIndex) => (
-                <div key={rowIndex} className={row.className || undefined}>
-                  {row.fields.map((field) => (
-                    <FormField
-                      key={field.id}
-                      field={field}
-                      register={register}
-                      errors={errors}
-                    />
-                  ))}
-                </div>
-              ))}
+              {rows.map((row, rowIndex) => {
+                const Icon = row.icon;
+                return (
+                  <div key={rowIndex} className="form-section">
+                    {row.title && (
+                      <div className="form-section-title">
+                        {Icon && <Icon className="form-section-icon" />}
+                        <span>{row.title}</span>
+                      </div>
+                    )}
+
+                    <div className={row.className || undefined}>
+                      {row.fields.map((field) => (
+                        <FormField
+                          key={field.id}
+                          field={field}
+                          register={register}
+                          errors={errors}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
 
               <div className="classwork-button">
                 <Button
@@ -234,6 +248,7 @@ const ClassworkPage = () => {
                 >
                   Restablecer selección
                 </Button>
+
                 <Button
                   type="submit"
                   variant="send"
@@ -251,18 +266,26 @@ const ClassworkPage = () => {
 
           <div className="classwork-right">
             <div className="classwork-student">
-              <h4>Seleccionar Estudiantes</h4>
-              <div className="search-wrap">
-                <input
-                  type="text"
-                  placeholder="Buscar estudiante…"
-                  value={searchStudent}
-                  onChange={(e) => setSearchStudent(e.target.value)}
-                  disabled={!groupKey || loadingStudents}
-                />
+              <div className="form-section-title">
+                <FaUsers className="form-section-icon" />
+                <span>ESTUDIANTES</span>
               </div>
-              <div className="select-all-row">
-                <label className={`cbx ${!groupKey ? "dim" : ""}`}>
+              <Input
+                name="searchStudent"                
+                leftIcon={TbSearch}
+                value={searchStudent}
+                onChange={(e) => setSearchStudent(e.target.value)}
+                disabled={!groupKey || loadingStudents}
+                wrapperClassName="student-panel__search"
+                variant="square"
+              />
+
+              <div className="student-panel__select-all">
+                <label
+                  className={`student-panel__checkbox ${
+                    !groupKey ? "student-panel__checkbox--disabled" : ""
+                  }`}
+                >
                   <input
                     type="checkbox"
                     checked={
@@ -273,13 +296,14 @@ const ClassworkPage = () => {
                     onChange={handleSelectAll}
                     disabled={!groupKey || loadingStudents}
                   />
-                  <span className="box">✓</span>
+                  <span className="student-panel__checkbox-box">✓</span>
                   Seleccionar todos
                 </label>
                 <span>{groupKey ? students.length : 0} estudiantes</span>
               </div>
+
               {!groupKey ? (
-                <div className="panel-empty">
+                <div className="student-panel__empty">
                   <b>Aún no hay estudiantes para mostrar</b>
                   <span>
                     Selecciona grupo y asignatura para cargar la lista del
@@ -287,16 +311,18 @@ const ClassworkPage = () => {
                   </span>
                 </div>
               ) : loadingStudents ? (
-                <div className="panel-empty">
+                <div className="student-panel__empty">
                   <b>Cargando estudiantes…</b>
                 </div>
               ) : (
-                <div className="student-list">
+                <div className="student-panel__list">
                   {filteredStudents.map((student, index) => (
                     <label
                       key={student.id}
-                      className={`student-row ${
-                        selectedStudents.includes(student.id) ? "checked" : ""
+                      className={`student-panel__row ${
+                        selectedStudents.includes(student.id)
+                          ? "student-panel__row--checked"
+                          : ""
                       }`}
                     >
                       <input
@@ -305,7 +331,7 @@ const ClassworkPage = () => {
                         onChange={() => handleToggleStudent(student.id)}
                       />
                       <span
-                        className="avatar"
+                        className="student-panel__avatar"
                         style={{
                           background:
                             AVATAR_COLORS[index % AVATAR_COLORS.length],
@@ -313,9 +339,11 @@ const ClassworkPage = () => {
                       >
                         {getInitials(student.nombre)}
                       </span>
-                      <span className="s-info">
-                        <div className="s-name">{student.nombre}</div>
-                        <div className="s-sub">
+                      <span className="student-panel__info">
+                        <div className="student-panel__name">
+                          {student.nombre}
+                        </div>
+                        <div className="student-panel__sub">
                           {student.grupo} · {student.estado}
                         </div>
                       </span>
@@ -323,7 +351,8 @@ const ClassworkPage = () => {
                   ))}
                 </div>
               )}
-              <div className="panel-foot">
+
+              <div className="student-panel__footer">
                 <span>
                   <b>{selectedCount}</b> estudiantes seleccionados
                 </span>

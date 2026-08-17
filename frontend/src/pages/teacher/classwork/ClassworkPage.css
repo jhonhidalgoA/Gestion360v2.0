@@ -8,7 +8,7 @@
   margin-top: 120px;
 }
 
-.classwork-grid{
+.classwork-grid {
   width: 100%;
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -22,7 +22,7 @@
   flex-direction: column;
   gap: var(--space-6);
   padding: var(--space-5);
-  
+
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
   overflow: hidden;
@@ -33,17 +33,38 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  height:580px;
+  height: 675px;
   border-radius: var(--border-radius-md);
   padding: var(--space-3);
   border: 1px solid var(--border-color);
+}
+
+.form-section {
+  width: 100%;
+}
+
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0 10px 0;
+  color: #ff9800;
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+}
+
+.form-section-icon {
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .classwork-button {
   display: flex;
   justify-content: center;
   gap: var(--space-4);
-  margin-top: var(--space-1);
+  margin-top: var(--space-5);
 }
 
 .classwork-student {
@@ -75,30 +96,11 @@
   cursor: pointer;
 }
 
-/* ---------- Panel de estudiantes ---------- */
 
-.search-wrap input {
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--fs-sm);
-  outline: none;
-  background: var(--bg-page);
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
 
-.search-wrap input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
-}
 
-.search-wrap input:disabled {
-  background: var(--bg-subtle);
-  cursor: not-allowed;
-}
 
-.select-all-row {
+.student-panel__select-all {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,12 +108,12 @@
   background: color-mix(in srgb, var(--color-primary) 6%, white);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  font-size: var(--fs-xs);
+  font-size: 16px;
   font-weight: var(--fw-bold);
   color: var(--text-primary);
 }
 
-.cbx {
+.student-panel__checkbox {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -119,11 +121,11 @@
   user-select: none;
 }
 
-.cbx input {
+.student-panel__checkbox input {
   display: none;
 }
 
-.cbx .box {
+.student-panel__checkbox-box {
   width: 19px;
   height: 19px;
   border-radius: var(--border-radius-xs);
@@ -138,18 +140,18 @@
   transition: 0.15s;
 }
 
-.cbx input:checked + .box {
+.student-panel__checkbox input:checked + .student-panel__checkbox-box {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--text-on-primary);
 }
 
-.cbx.dim {
+.student-panel__checkbox--disabled {
   color: var(--text-muted);
   cursor: not-allowed;
 }
 
-.student-list {
+.student-panel__list {
   max-height: 320px;
   overflow-y: auto;
   padding: var(--space-2) var(--space-2);
@@ -157,7 +159,7 @@
   flex-direction: column;
 }
 
-.student-row {
+.student-panel__row {
   display: flex;
   align-items: center;
   gap: 11px;
@@ -167,20 +169,20 @@
   transition: background 0.15s, box-shadow 0.15s;
 }
 
-.student-row:hover {
+.student-panel__row:hover {
   background: color-mix(in srgb, var(--color-primary) 7%, white);
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
-.student-row.checked {
+.student-panel__row--checked {
   background: color-mix(in srgb, var(--color-primary) 12%, white);
 }
 
-.student-row.checked:hover {
+.student-panel__row--checked:hover {
   background: color-mix(in srgb, var(--color-primary) 16%, white);
 }
 
-.student-row input[type="checkbox"] {
+.student-panel__row input[type="checkbox"] {
   order: 3;
   appearance: none;
   -webkit-appearance: none;
@@ -196,12 +198,12 @@
   transition: 0.15s;
 }
 
-.student-row input[type="checkbox"]:checked {
+.student-panel__row input[type="checkbox"]:checked {
   background: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.student-row input[type="checkbox"]:checked::after {
+.student-panel__row input[type="checkbox"]:checked::after {
   content: "";
   position: absolute;
   left: 6px;
@@ -213,12 +215,12 @@
   transform: rotate(45deg);
 }
 
-.student-row input[type="checkbox"]:focus-visible {
+.student-panel__row input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.avatar {
+.student-panel__avatar {
   order: 1;
   width: 34px;
   height: 34px;
@@ -232,24 +234,24 @@
   flex-shrink: 0;
 }
 
-.s-info {
+.student-panel__info {
   order: 2;
   flex: 1;
   min-width: 0;
 }
 
-.s-name {
+.student-panel__name {
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
   color: var(--text-primary);
 }
 
-.s-sub {
+.student-panel__sub {
   font-size: var(--fs-xs);
   color: var(--text-muted);
 }
 
-.panel-empty {
+.student-panel__empty {
   padding: var(--space-8) var(--space-6);
   display: flex;
   flex-direction: column;
@@ -259,24 +261,23 @@
   color: var(--text-muted);
 }
 
-.panel-empty b {
+.student-panel__empty b {
   color: var(--text-secondary);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
 }
 
-.panel-empty span {
-  font-size: var(--fs-xs);
+.student-panel__empty span {
+  font-size: var(--fs-sm);
   max-width: 220px;
 }
 
-.panel-foot {
+.student-panel__footer {
   padding: var(--space-3);
-  border-top: 1px solid var(--border-color);
-  background: color-mix(in srgb, var(--color-primary) 6%, white);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-base);
   color: var(--text-secondary);
+  text-align: center;
 }
 
-.panel-foot b {
+.student-panel__footer b {
   color: var(--text-primary);
 }
