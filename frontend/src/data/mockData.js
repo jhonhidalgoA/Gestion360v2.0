@@ -1,6 +1,4 @@
-// ===========================
-// DATOS MOCK - FRONTEND ONLY
-// ===========================
+
 
 // 1. GRADOS/GRUPOS
 export const mockGrados = [

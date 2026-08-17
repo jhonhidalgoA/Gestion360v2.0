@@ -1,60 +1,282 @@
 .classwork-container {
   width: 95%;
-  max-width: 1800px;
-  display: flex;
-  gap: 30px;
-  margin: 0 auto;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 10px 30px;
+  margin: var(--space-5) auto;
+  padding: 0;
+}
+
+.classwork-stepper {
   margin-top: 120px;
 }
 
+.classwork-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
 .classwork-left {
-  flex: 2;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-6);
+  padding: var(--space-5);
+  
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
 }
 
 .classwork-right {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid #e9ecef;
+  gap: var(--space-5);
+  height:580px;
+  border-radius: var(--border-radius-md);
+  padding: var(--space-3);
+  border: 1px solid var(--border-color);
 }
 
 .classwork-button {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-top: 5px;
+  gap: var(--space-4);
+  margin-top: var(--space-1);
 }
 
-
-.classwork-student{
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top:10px;
-  padding:5px;
-  gap:50px;
+.classwork-student {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-1);
 }
 
-.classwork-students_check{
+.classwork-student h4 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.classwork-students_check {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
-.classwork-students_check label{
-  font-weight: 500;
-  color: #333;
-  font-size: 14px;
+.classwork-students_check label {
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  font-size: 18px;
   cursor: pointer;
 }
 
+/* ---------- Panel de estudiantes ---------- */
+
+.search-wrap input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--fs-sm);
+  outline: none;
+  background: var(--bg-page);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-wrap input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.search-wrap input:disabled {
+  background: var(--bg-subtle);
+  cursor: not-allowed;
+}
+
+.select-all-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-3);
+  background: color-mix(in srgb, var(--color-primary) 6%, white);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+.cbx {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cbx input {
+  display: none;
+}
+
+.cbx .box {
+  width: 19px;
+  height: 19px;
+  border-radius: var(--border-radius-xs);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-page);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: transparent;
+  font-size: var(--fs-xs);
+  transition: 0.15s;
+}
+
+.cbx input:checked + .box {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-on-primary);
+}
+
+.cbx.dim {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.student-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--space-2) var(--space-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.student-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: var(--space-3);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.student-row:hover {
+  background: color-mix(in srgb, var(--color-primary) 7%, white);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.student-row.checked {
+  background: color-mix(in srgb, var(--color-primary) 12%, white);
+}
+
+.student-row.checked:hover {
+  background: color-mix(in srgb, var(--color-primary) 16%, white);
+}
+
+.student-row input[type="checkbox"] {
+  order: 3;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 19px;
+  height: 19px;
+  margin-left: auto;
+  border-radius: var(--border-radius-xs);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-page);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: 0.15s;
+}
+
+.student-row input[type="checkbox"]:checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.student-row input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--text-on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.student-row input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.avatar {
+  order: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-xs);
+  color: var(--text-on-primary);
+  flex-shrink: 0;
+}
+
+.s-info {
+  order: 2;
+  flex: 1;
+  min-width: 0;
+}
+
+.s-name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+.s-sub {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.panel-empty {
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  color: var(--text-muted);
+}
+
+.panel-empty b {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.panel-empty span {
+  font-size: var(--fs-xs);
+  max-width: 220px;
+}
+
+.panel-foot {
+  padding: var(--space-3);
+  border-top: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--color-primary) 6%, white);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.panel-foot b {
+  color: var(--text-primary);
+}

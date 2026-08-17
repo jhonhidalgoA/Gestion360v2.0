@@ -5,7 +5,7 @@ import { optionsMap } from "@/data/optionsData";
 import { filterFormsData } from "@/data/filterFormsData";
 import { reportsConfig, requirementLabels } from "@/data/reportData";
 
-import { FaUndo } from "react-icons/fa";
+import { FaUndo, FaThumbtack } from "react-icons/fa";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
 import ReportCard from "@/components/ui/Card/ReportCard";
@@ -47,38 +47,39 @@ const ReportPage = () => {
       <form onSubmit>
         <div className="report-container">
           <div className="report-main">
-            <h4>Contexto académico</h4>
             <span>
-              Completa los campos en orden para habilitar los reportes
-              disponibles.
+              <FaThumbtack className="pin-icon" /> Completa los filtros para
+              visualizar los reportes disponibles.
             </span>
           </div>
-          <div className="filter-card">
-            <div className="form-row">
-              {fields.map((field) => (
-                <Select
-                  key={field.id}
-                  label={field.label}
-                  name={field.id}
-                  options={optionsMap[field.optionsKey] ?? []}
-                  register={register}
-                  error={errors[field.id]}
-                  variant="square"
-                  required={field.required}
-                />
-              ))}
+          <div className="assessment-header">
+            <div className="filter-card">
+              <div className="form-row">
+                {fields.map((field) => (
+                  <Select
+                    key={field.id}
+                    label={field.label}
+                    name={field.id}
+                    options={optionsMap[field.optionsKey] ?? []}
+                    register={register}
+                    error={errors[field.id]}
+                    variant="square"
+                    required={field.required}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="report-button">
-            <Button
-              variant="outline-primary"
-              type="button"
-              icon={FaUndo}
-              iconPosition="left"
-              onClick={handleReset}
-            >
-              Restablecer selección
-            </Button>
+            <div className="report-button">
+              <Button
+                variant="outline-primary"
+                type="button"
+                icon={FaUndo}
+                iconPosition="left"
+                onClick={handleReset}
+              >
+                Restablecer selección
+              </Button>
+            </div>
           </div>
           <div className="report-grid">
             {reportsConfig.map((reporte) => (

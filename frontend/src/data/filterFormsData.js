@@ -147,7 +147,7 @@ export const filterFormsData = {
           {
             id: "attached",
             type: "file",
-            label: "Adjunto:",
+            label: "Adjunto:(opcional)",
             required: false,
           },
         ],

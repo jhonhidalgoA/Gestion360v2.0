@@ -69,7 +69,7 @@ export const reportsConfig = [
     icon: "assignment_turned_in",
     title: "Certificado Escolar",
     subtitle: "Constancia oficial de matrícula y estado académico.",
-    iconColor: "var(--btn-pdf)",
+    iconColor: "var(--color-primary)",
 
     requirements: [
       "grupo",

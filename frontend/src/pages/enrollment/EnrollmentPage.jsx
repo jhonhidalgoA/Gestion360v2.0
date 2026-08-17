@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "@/components/navbar/Navbar";
-import { enrollmentData } from "@/data/enrollmentData";
+
+
 import { TbArrowRight, TbSearch } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
+import { enrollmentData } from "@/data/enrollmentData";
+
+import Navbar from "@/components/navbar/Navbar";
+
 import "./EnrollmentPage.css";
 
 const EnrollmentPage = () => {

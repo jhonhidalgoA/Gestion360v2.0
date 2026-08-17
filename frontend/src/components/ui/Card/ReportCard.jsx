@@ -1,6 +1,4 @@
-import { FaFilePdf, FaExternalLinkAlt } from "react-icons/fa";
 
-import { Button } from "@/components/ui/Button/Button";
 import "./ReportCard.css";
 
 const ReportCard = ({
@@ -9,13 +7,12 @@ const ReportCard = ({
   subtitle,
   iconColor,
   format,
-  category,
-  action,
+  category, 
   requirements = [],
   requirementLabels = {},
-  onClick,
+ 
 }) => {
-  const isGenerate = action?.type === "generate";
+ 
 
   const requirementText = requirements
     .map((requirement) => requirementLabels[requirement])
@@ -51,14 +48,7 @@ const ReportCard = ({
             <strong>Requiere:</strong> {requirementText}
           </p>
         )}
-        <Button
-          variant={isGenerate ? "pdf" : "open"}
-          size="sm"
-          icon={isGenerate ? FaFilePdf : FaExternalLinkAlt}
-          onClick={onClick}
-        >
-          {isGenerate ? "Generar" : "Abrir"}
-        </Button>
+       
       </div>
     </div>
   );

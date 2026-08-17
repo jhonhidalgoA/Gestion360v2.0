@@ -103,7 +103,7 @@ export const modalMessages = {
 
   submitTask: {
     message: "¿Deseas enviar esta tarea?",
-    description: "Verifica que la información sea correcta antes de continuar.",
+    description: "Una vez enviada, la tarea quedará disponible para tus estudiantes.",
   },
 
   delete: {

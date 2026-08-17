@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaSave, FaPlus, FaUndo } from "react-icons/fa";
+import { FaSave, FaPlus, FaUndo, FaThumbtack } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
 import { optionsMap } from "@/data/optionsData";
@@ -178,58 +178,59 @@ const AttendancePage = () => {
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
-          <div className="report-main">
-            <h4>Registro de Asistencia</h4>
-            <span>
-              Selecciona los campos en orden para habilitar la asistencia.
-            </span>
-          </div>
-          <div className="filter-card">
-            <div className="form-row">
-              {fields.map((field) => (
-                <Select
-                  key={field.id}
-                  label={field.label}
-                  name={field.id}
-                  options={optionsMap[field.optionsKey]}
-                  register={register}
-                  error={errors[field.id]}
-                  variant="square"
-                  required={field.required}
-                />
-              ))}
+           <div className="report-main">          
+                      <span>
+                         <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar las calificaciones.
+                      </span>
+                    </div>
+          <div className="assessment-header">
+            <div className="filter-card">
+              <div className="form-row">
+                {fields.map((field) => (
+                  <Select
+                    key={field.id}
+                    label={field.label}
+                    name={field.id}
+                    options={optionsMap[field.optionsKey]}
+                    register={register}
+                    error={errors[field.id]}
+                    variant="square"
+                    required={field.required}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="assessment-button">
-            <Button
-              type="button"
-              variant="load"
-              icon={FaPlus}
-              iconPosition="left"
-              disabled={loading.cargar}
-              onClick={handleCargar}
-            >
-              {loading.cargar ? "Cargando..." : "Estudiantes"}
-            </Button>
-            <Button
-              type="submit"
-              variant="save"
-              icon={FaSave}
-              iconPosition="left"
-              disabled={loading.guardar}
-            >
-              Guardar
-            </Button>
-            <Button
-              type="button"
-              variant="outline-primary"
-              icon={FaUndo}
-              iconPosition="left"
-              onClick={handleReset}
-            >
-              Restablecer selección
-            </Button>
+            <div className="assessment-button">
+              <Button
+                type="button"
+                variant="load"
+                icon={FaPlus}
+                iconPosition="left"
+                disabled={loading.cargar}
+                onClick={handleCargar}
+              >
+                {loading.cargar ? "Cargando..." : "Estudiantes"}
+              </Button>
+              <Button
+                type="submit"
+                variant="save"
+                icon={FaSave}
+                iconPosition="left"
+                disabled={loading.guardar}
+              >
+                Guardar
+              </Button>
+              <Button
+                type="button"
+                variant="outline-primary"
+                icon={FaUndo}
+                iconPosition="left"
+                onClick={handleReset}
+              >
+                Restablecer selección
+              </Button>
+            </div>
           </div>
 
           <AttendanceLegend duracionSeleccionada={duracionSeleccionada} />

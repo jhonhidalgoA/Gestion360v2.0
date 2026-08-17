@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaPlus, FaSave, FaTable, FaUndo } from "react-icons/fa";
+import { FaPlus, FaSave, FaTable, FaUndo, FaThumbtack } from "react-icons/fa";
 
 // Componentes compartidos
 import NavbarSection from "@/components/navbar/NavbarSection";
@@ -155,68 +155,69 @@ const AssessmentPage = () => {
       <NavbarSection sectionKey="calificaciones" handleBack={handleBack} />
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
-          <div className="report-main">
-            <h4>Registro de Calificaciones</h4>
+          <div className="report-main">          
             <span>
-              Selecciona los campos en orden para habilitar las calificaciones.
+               <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar la asistencia.
             </span>
           </div>
-          <div className="filter-card">
-            <div className="form-row">
-              {fields.map((field) => (
-                <Select
-                  key={field.id}
-                  label={field.label}
-                  name={field.id}
-                  options={optionsMap[field.optionsKey]}
-                  register={register}
-                  error={errors[field.id]}
-                  variant="square"
-                  required={field.required}
-                />
-              ))}
+          <div className="assessment-header">
+            <div className="filter-card">
+              <div className="form-row">
+                {fields.map((field) => (
+                  <Select
+                    key={field.id}
+                    label={field.label}
+                    name={field.id}
+                    options={optionsMap[field.optionsKey]}
+                    register={register}
+                    error={errors[field.id]}
+                    variant="square"
+                    required={field.required}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="assessment-button">
-            <Button
-              type="button"
-              variant="load"
-              icon={FaPlus}
-              iconPosition="left"
-              disabled={loading.cargar}
-              onClick={handleCargar}
-            >
-              {loading.cargar ? "Cargando..." : "Estudiantes"}
-            </Button>
-            <Button
-              type="submit"
-              variant="save"
-              icon={FaSave}
-              iconPosition="left"
-              disabled={loading.guardar}
-            >
-              Guardar
-            </Button>
-            <Button
-              type="button"
-              variant="outline-primary"
-              icon={FaTable}
-              iconPosition="left"
-              disabled={loading.nuevaColumna}
-              onClick={handleNuevaColumna}
-            >
-              {loading.nuevaColumna ? "Agregando..." : "Nueva Columna"}
-            </Button>
-            <Button
-              type="button"
-              variant="outline-primary"
-              icon={FaUndo}
-              iconPosition="left"
-              onClick={handleReset}
-            >
-              {loading.reset ? "Restableciendo..." : "Restablecer selección"}
-            </Button>
+            <div className="assessment-button">
+              <Button
+                type="button"
+                variant="load"
+                icon={FaPlus}
+                iconPosition="left"
+                disabled={loading.cargar}
+                onClick={handleCargar}
+              >
+                {loading.cargar ? "Cargando..." : "Estudiantes"}
+              </Button>
+              <Button
+                type="submit"
+                variant="save"
+                icon={FaSave}
+                iconPosition="left"
+                disabled={loading.guardar}
+              >
+                Guardar
+              </Button>
+              <Button
+                type="button"
+                variant="outline-primary"
+                icon={FaTable}
+                iconPosition="left"
+                disabled={loading.nuevaColumna}
+                onClick={handleNuevaColumna}
+              >
+                {loading.nuevaColumna ? "Agregando..." : "Nueva Columna"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline-primary"
+                icon={FaUndo}
+                iconPosition="left"
+                onClick={handleReset}
+              >
+                {loading.reset ? "Restableciendo..." : "Restablecer selección"}
+              </Button>
+            </div>
           </div>
 
           <div className="assessment-table">

@@ -10,17 +10,25 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.planning-container h2{
-    text-align: center;
-    margin-bottom: 24px;
+.planning-title{
+  margin-left:20px;
+}
+
+.planning-container h1{    
+    margin-top: 24px;
+}
+
+.planning-container h3{
+  margin-top: 10px;
 }
 
 
 .planning-cards{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  gap: 2.5rem;
   margin-top: 2rem;
+  
 }
 
 .planning-card {
@@ -34,7 +42,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  height: 120px;
+  height: 200px;
   text-align: left;
 }
 
@@ -43,9 +51,8 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);  
 }
 
-
 .planning-icon{  
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   color: #9c27b0; 
 }
 
@@ -54,4 +61,27 @@
   margin-top: 15px;
   font-size:1.0rem;
   line-height: 1.5;
+}
+
+.planning-statistics{
+  display:flex;
+  justify-content:center;
+  width: 100%;
+  gap:250px;
+  padding:20px;
+  margin: 30px auto; 
+  border-radius:10px;  
+  background: var(--color-neutral);  
+}
+
+.planning-statistics h1{
+  text-align:center;
+  font-size: var(--fs-3xl);
+}
+
+.planning-statistics p{
+  font-size: var(--fs-sm);
+  color:var(--text-muted);
+  margin-top:10px;
+
 }

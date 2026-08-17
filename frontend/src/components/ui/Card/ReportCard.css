@@ -11,7 +11,24 @@
   border-radius: 10px;  
   text-align: left;
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  cursor: pointer; 
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.report-card:hover {
+  transform: scale(1.01);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.10);
+}
+
+.report-card:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.report-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .report-content{
