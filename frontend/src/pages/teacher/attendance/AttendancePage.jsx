@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/Button/Button";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Select from "@/components/ui/Select/Select";
 import Modal from "@/components/ui/Modal/Modal";
-
 import AttendanceTable from "@/pages/teacher/attendance/components/AttendanceTable";
 import AttendanceLegend from "@/pages/teacher/attendance/components/AttendanceLegend";
 import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
@@ -21,8 +20,7 @@ const AttendancePage = () => {
   const navigate = useNavigate();
   const { fields } = filterFormsData.attendance;
 
-  /* State */
-
+  
   const [loading, setLoading] = useState({
     cargar: false,
     guardar: false,
@@ -32,8 +30,7 @@ const AttendancePage = () => {
 
   const [estudiantes, setEstudiantes] = useState([]);
 
-  /* React Hook Form */
-
+  
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
     return acc;
@@ -53,18 +50,17 @@ const AttendancePage = () => {
   const duracion = useWatch({ control, name: "duracion" });
   const duracionSeleccionada = Number(duracion) || 1;
 
-  // ==========================
-  // Navegación
-  // ==========================
+ 
+  // Navegación  // 
 
   const handleBack = () => navigate("/teacher");
 
   const handleReset = () => {
     reset(defaultValues);
   };
-  // ==========================
-  // Cargar estudiantes
-  // ==========================
+
+  
+  // Cargar estudiantes // 
 
   const onFiltroValido = (data) => {
     console.log("Filtro válido:", data);
@@ -101,9 +97,8 @@ const AttendancePage = () => {
 
   const handleCargar = handleSubmit(onFiltroValido);
 
-  // ==========================
-  // Guardar
-  // ==========================
+  
+  // Guardar // 
 
   const handleGuardar = () => {
     setLoading((prev) => ({
@@ -121,9 +116,8 @@ const AttendancePage = () => {
     }, 1000);
   };
 
-  // ==========================
-  // Cambiar estado asistencia
-  // ==========================
+  
+  // Cambiar estado asistencia //  
 
   const handleCambiarEstado = (estId, diaIndex) => {
     setEstudiantes((prev) =>
@@ -168,10 +162,7 @@ const AttendancePage = () => {
     );
   };
 
-  // ==========================
-  // Render
-  // ==========================
-
+ 
   return (
     <>
       <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
@@ -180,7 +171,7 @@ const AttendancePage = () => {
         <div className="assessment-container">
            <div className="report-main">          
                       <span>
-                         <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar las calificaciones.
+                         <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar la asistencia.
                       </span>
                     </div>
           <div className="assessment-header">

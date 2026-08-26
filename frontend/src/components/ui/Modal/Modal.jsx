@@ -15,6 +15,7 @@ const Modal = ({
   entityLabel,
   confirmText,
   secondaryText = "Cancelar",
+  secondaryIcon,   
   isLoading = false,
   autoCloseMs,
   children,
@@ -131,6 +132,8 @@ const Modal = ({
               onClick={onClose}
               disabled={isLoading}
               className="btn-uniform-width"
+              icon={secondaryIcon}      
+  iconPosition="left"  
             >
               {secondaryText}
             </Button>

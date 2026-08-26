@@ -97,9 +97,6 @@
 }
 
 
-
-
-
 .student-panel__select-all {
   display: flex;
   align-items: center;
@@ -121,9 +118,9 @@
   user-select: none;
 }
 
-.student-panel__checkbox input {
-  display: none;
-}
+//.student-panel__checkbox input {
+ // display: none;
+//}
 
 .student-panel__checkbox-box {
   width: 19px;

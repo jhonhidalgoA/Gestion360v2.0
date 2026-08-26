@@ -99,7 +99,7 @@ export const moduleData = {
       id: 8,
       icon: "folder_eye",
       title: "Observador",
-      path: "/observador",
+      path: "/observerStudentPage",
       gradient: "linear-gradient(135deg, #55708C)",
     },
   ],

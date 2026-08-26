@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
-import { FaThumbtack } from "react-icons/fa";
-import { TbEye, TbSend, TbCheck } from "react-icons/tb";
+import { FaThumbtack, FaPen } from "react-icons/fa";
+import { TbEye, TbCheck } from "react-icons/tb";
 import { FaRegComments } from "react-icons/fa6";
 
 import { mockData, getEstudiantesByGrupo } from "@/data/mockData";
@@ -18,6 +18,7 @@ import Select from "@/components/ui/Select/Select";
 import Textarea from "@/components/ui/Textarea/Textarea";
 import ChannelGrid from "@/pages/teacher/comunication/ChannelGrid";
 import Modal from "@/components/ui/Modal/Modal";
+import MessagePreviewContent from "./MessagePreviewContent";
 
 import "./ComunicationPage.css";
 
@@ -246,15 +247,6 @@ const ComunicationPage = () => {
                           >
                             Vista Previa
                           </Button>
-                          <Button
-                            type="submit"
-                            variant="primary"
-                            icon={TbSend}
-                            iconPosition="left"
-                            disabled={!canalOk}
-                          >
-                            Enviar Mensaje
-                          </Button>
                         </div>
                       </>
                     )}
@@ -283,8 +275,7 @@ const ComunicationPage = () => {
 
                 {selectedChannels.length > 0 && (
                   <div className="channels-summary">
-                    <b> {selectedChannels.length} </b> canal(es)
-                    seleccionado(s)
+                    <b> {selectedChannels.length} </b> canal(es) seleccionado(s)
                   </div>
                 )}
               </div>
@@ -292,35 +283,20 @@ const ComunicationPage = () => {
           </div>
         </form>
       </div>
-
       <Modal
         isOpen={previewOpen}
         onClose={() => setPreviewOpen(false)}
         onConfirm={handleConfirmSend}
         variant="preview"
+        secondaryText="Editar mensaje"
+        secondaryIcon={FaPen} 
       >
-        <div className="message-preview">
-          <div className="preview-section">
-            <span className="preview-section__label">DESTINATARIO</span>
-            <p className="preview-recipient">{destinatarioTexto}</p>
-          </div>
-
-          <div className="preview-section">
-            <span className="preview-section__label">CANALES</span>
-            <div className="preview-channels">
-              {selectedChannels.map((c) => (
-                <span key={c} className={`channel-badge channel-badge--${c}`}>
-                  {c}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="preview-section">
-            <span className="preview-section__label">MENSAJE</span>
-            <p className="preview-message">{message}</p>
-          </div>
-        </div>
+        <MessagePreviewContent
+          destinatario={destinatarioTexto}
+          canales={selectedChannels}
+          mensaje={message}
+          
+        />
       </Modal>
     </>
   );

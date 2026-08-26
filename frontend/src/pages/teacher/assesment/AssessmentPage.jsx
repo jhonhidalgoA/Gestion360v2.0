@@ -157,7 +157,7 @@ const AssessmentPage = () => {
         <div className="assessment-container">
           <div className="report-main">          
             <span>
-               <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar la asistencia.
+               <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar las calificaciones.
             </span>
           </div>
           <div className="assessment-header">

@@ -2,7 +2,6 @@ import { FaBookOpen, FaCalendarAlt, FaPen } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { FaPenToSquare } from "react-icons/fa6";
 
-
 export const filterFormsData = {
   calificaciones: {
     fields: [
@@ -164,7 +163,6 @@ export const filterFormsData = {
         ],
       },
       {
-        
         className: "",
         fields: [
           {
@@ -180,29 +178,164 @@ export const filterFormsData = {
       },
     ],
   },
- comunication: {
-  rows: [
-    {
-      id: "destinatarios",
-      title: "DESTINATARIOS",
-      icon: FiUsers,
-      fields: [
+
+  comunication: {
+    rows: [
+      {
+        id: "destinatarios",
+        title: "DESTINATARIOS",
+        icon: FiUsers,
+        fields: [
+          {
+            id: "grupo",
+            type: "select",
+            label: "Grupo:",
+            optionsKey: "grados",
+            required: true,
+            placeholder: "Seleccione un grupo",
+          },
+        ],
+      },
+      {
+        id: "mensaje",
+        title: "MENSAJE",
+        icon: FaPenToSquare,
+        fields: [],
+      },
+    ],
+  },
+
+  observador: {
+    fields: [
+      {
+        id: "grupo",
+        type: "select",
+        label: "Grupo:",
+        optionsKey: "grupos",
+        required: true,
+      },
+      {
+        id: "estudiante",
+        type: "select",
+        label: "Estudiante:",
+        optionsKey: "estudiantes",
+        required: true,
+      },
+      {
+        id: "periodo",
+        type: "select",
+        label: "Periodo:",
+        optionsKey: "periodos",
+        required: true,
+      },
+      {
+        id: "asignatura",
+        type: "select",
+        label: "Asignatura — opcional:",
+        optionsKey: "asignaturas",
+        required: false,
+      },
+    ],
+
+    detailRows: [
+      {
+        className: "form-row-half",
+        fields: [
+          { id: "fecha", type: "date", label: "Fecha:", required: true },
+        ],
+      },
+      {
+        className: "form-row",
+        classNameMap: { falta: "form-row-4" },
+        fields: [
+          {
+            id: "tipoDetalle",
+            type: "select",
+            dynamicOptions: "options",
+            dynamicLabel: "fieldLabel",
+            required: true,
+          },
+          {
+            id: "medidaCorrectiva",
+            type: "select",
+            dynamicOptions: "correctiveOptions",
+            dynamicLabel: "correctiveLabel",
+            showFor: ["falta"],
+            required: false,
+          },
+          {
+            id: "estadoCaso",
+            type: "select",
+            dynamicOptions: "caseStatusOptions",
+            dynamicLabel: "caseStatusLabel",
+            showFor: ["falta"],
+            required: false,
+          },
+          {
+            id: "otorgadoPor",
+            type: "select",
+            dynamicOptions: "grantedByOptions",
+            dynamicLabel: "grantedByLabel",
+            required: false,
+          },
+        ],
+      },
+      {
+        className: "",
+        fields: [
+          {
+            id: "descripcion",
+            type: "textarea",
+            dynamicLabel: "descriptionLabel",
+            placeholder: "Escribe aquí el detalle de la novedad...",
+            rows: 4,
+            required: true,
+          },
+        ],
+      },
+    ],
+    defenseStatement: {
+      title: "DESCARGOS",
+      showFor: ["falta"],
+      cards: [
         {
-          id: "grupo",
-          type: "select",
-          label: "Grupo:",
-          optionsKey: "grados",
-          required: true,
-          placeholder: "Seleccione un grupo",
+          id: "estudiante",
+          name: "Descargos del estudiante",
+          badge: "Pendiente",
+          fields: [
+            {
+              id: "descargoEstudiante",
+              type: "textarea",
+              placeholder: "Explicación del estudiante sobre lo ocurrido",
+              rows: 3,
+            },
+            {
+              id: "fechaDescargoEstudiante",
+              type: "date",
+              label: "Fecha de los descargos",
+            },
+          ],
+        },
+        {
+          id: "acudiente",
+          name: "Descargos del acudiente",
+          badge: "Pendiente",
+          fields: [
+            {
+              id: "descargoAcudiente",
+              type: "textarea",
+              placeholder:
+                "Explicación o posición del acudiente frente al caso",
+              rows: 3,
+            },
+            {
+              id: "fechaDescargoAcudiente",
+              type: "date",
+              label: "Fecha de los descargos",
+            },
+          ],
         },
       ],
     },
-    {
-      id: "mensaje",
-      title: "MENSAJE",
-      icon: FaPenToSquare,
-      fields: [], 
-    },
-  ],
-},
+  },
 };

@@ -11,12 +11,13 @@ import EnrollmentWizardPage from '@pages/enrollment/EnrollmentWizardPage';
 import ConfirmationPage from '@pages/ConfirmationPage'
 import ApplicationStatusPage from '@pages/ApplicationStatusPage';
 import TeacherPage from "./pages/teacher/TeacherPage";
-import AssessmentPage from "./pages/teacher/AssessmentPage";
+import AssessmentPage from "./pages/teacher/assesment/AssessmentPage";
 import AttendancePage from "./pages/teacher/attendance/AttendancePage";
 import PlanningPage from "./pages/teacher/planning/PlanningPage";
 import ClassworkPage from "./pages/teacher/classwork/ClassworkPage";
 import ReportPage from "./pages/teacher/reportPage/ReportPage";
 import ComunicationPage from "./pages/teacher/comunication/ComunicationPage"
+import ObserverStudentPage from "./pages/teacher/observerStudent/ObserverStudentPage";
 
 
 
@@ -48,7 +49,8 @@ function App() {
         <Route path="/planningPage" element={<PlanningPage />} />               
         <Route path="/classworkPage" element={<ClassworkPage />} />
         <Route path="/reportPage" element={<ReportPage />} />
-        <Route path="comunicationPage" element={<ComunicationPage />}/>
+        <Route path="/comunicationPage" element={<ComunicationPage />}/>
+        <Route path="/observerStudentPage" element={<ObserverStudentPage />}/>
       </Routes>
     </Router>
   );

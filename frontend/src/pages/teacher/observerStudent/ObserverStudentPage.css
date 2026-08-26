@@ -1,0 +1,136 @@
+.observer-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 120px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.observer-header {
+  border-radius: 10px;
+  border: 1px solid var(--color-neutral);
+  padding: 20px;
+  background: var(--color-neutral);
+}
+
+.observer-card_type {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+}
+
+.observer-card_type {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.observer-card-options {
+  margin-top: 20px;
+}
+
+.observer-subtitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.observer-subtitle span {
+  color: #55708c;
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  font-weight: var(--fw-bold);
+}
+
+.observer-item {
+  padding: 5px;
+}
+
+.observer-item_subtitle span {
+  margin-top: 5px;
+  color: #55708c;
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  font-weight: var(--fw-bold);
+}
+
+.observer-item_date {
+  margin-top: 10px;
+}
+
+.observer-notify,
+.observer-check_footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.observer-check_footer input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  appearance: auto;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.observer-item_subtitle{
+  display:flex;
+  gap:10px;
+}
+
+.observer-item_subtitle .observer-icon {
+  font-size:24px;
+  color: #55708c;
+}
+
+.observer-item_subtitle span {
+  margin-top: 5px;
+  color: #55708c;
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  font-weight: var(--fw-bold);
+}
+
+.observer-item_date {
+  margin-top: 10px;
+}
+
+.form-row-half {
+  width:49%;
+}
+
+.form-row-quad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.form-row-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+  align-items: start;
+}
+
+.form-row-4 > div {
+  min-width: 0;
+}
+
+
+
+@media (max-width: 1200px) {
+  .form-row-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .form-row-4 {
+    grid-template-columns: 1fr;
+  }
+}

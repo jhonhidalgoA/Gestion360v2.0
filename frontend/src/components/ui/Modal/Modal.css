@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: var(--z-modal);
+  z-index: 2000;
   animation: fadeIn var(--transition-base);
 }
 
@@ -24,7 +24,7 @@
   border-radius: var(--border-radius-md);
   width: 100%;
   max-width: 600px;
-  height: auto;
+  max-height: 90vh;        /* nuevo */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -123,8 +123,9 @@
   padding: var(--space-6);
   text-align: center;
   flex: 1;
+  overflow-y: auto;        
+  min-height: 0;           
 }
-
 .modal-icon-wrap {
   width: 90px;
   height: 90px;

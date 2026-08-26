@@ -7,7 +7,8 @@ import {
   IoCheckmarkOutline,
   IoCloseOutline,
   IoPaperPlaneOutline,
-  IoEyeOutline,
+  IoCreateOutline,
+ 
 } from "react-icons/io5";
 
 export const cancelVariant = "outline-primary";
@@ -91,15 +92,17 @@ export const modalConfig = {
   },
 
   preview: {
-    icon: IoEyeOutline,
-    iconBg: "var(--color-info-tint)",
-    iconColor: "var(--color-info)",
-    defaultTitle: "Vista previa del mensaje",
-    primaryText: "Enviar Mensaje",
-    primaryVariant: "send",
-    btnIcon: IoPaperPlaneOutline,
-    hideSecondary: false,
-  },
+  icon: null,
+  iconBg: "var(--color-info-tint)",
+  iconColor: "var(--color-info)",
+  defaultTitle: "Vista previa del mensaje",
+  primaryText: "Enviar Mensaje",
+  primaryVariant: "send",
+  btnIcon: IoPaperPlaneOutline,
+  hideSecondary: false,
+  secondaryText: "Editar mensaje",    
+  secondaryIcon: IoCreateOutline,    
+},
 };
 
 export const modalMessages = {
