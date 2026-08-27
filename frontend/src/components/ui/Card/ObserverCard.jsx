@@ -28,8 +28,9 @@ const ObserverCard = ({ value, onChange }) => {
                 {Icon && <Icon className="icon" />}
               </div>
               <div className="report-text">
-                <h4 className="report-title">{type.label}</h4>
-                <p className="report-subtitle">{type.description}</p>
+                <span className="report-category">{type.category}</span>
+                <h4 className="report-title">{type.title}</h4>
+                <p className="report-subtitle">{type.subtitle}</p>
               </div>
             </div>
           </label>

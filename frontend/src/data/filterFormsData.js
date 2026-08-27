@@ -239,14 +239,21 @@ export const filterFormsData = {
 
     detailRows: [
       {
-        className: "form-row-half",
+        className: "form-row",
         fields: [
           { id: "fecha", type: "date", label: "Fecha:", required: true },
+          {
+            id: "otorgadoPor",
+            type: "select",
+            dynamicOptions: "grantedByOptions",
+            dynamicLabel: "grantedByLabel",
+            required: false,
+          },
         ],
       },
       {
         className: "form-row",
-        classNameMap: { falta: "form-row-4" },
+        classNameMap: { falta: "form-row-3" },
         fields: [
           {
             id: "tipoDetalle",
@@ -271,12 +278,19 @@ export const filterFormsData = {
             showFor: ["falta"],
             required: false,
           },
+          
+        ],
+      },
+      {
+        className: "",
+        fields: [
           {
-            id: "otorgadoPor",
-            type: "select",
-            dynamicOptions: "grantedByOptions",
-            dynamicLabel: "grantedByLabel",
-            required: false,
+            id: "descripcion",
+            type: "textarea",
+            showFor: ["falta"],
+            dynamicLabel: "resumenLabel",            
+            rows: 3,
+            required: true,
           },
         ],
       },

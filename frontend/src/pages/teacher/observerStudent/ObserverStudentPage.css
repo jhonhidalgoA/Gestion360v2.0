@@ -110,9 +110,9 @@
   gap: var(--space-4);
 }
 
-.form-row-4 {
+.form-row-3 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 20px;
   align-items: start;
 }

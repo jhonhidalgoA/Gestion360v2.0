@@ -1,3 +1,128 @@
+export const optionsMap = {
+  grupos: [
+    { value: "preescolar", label: "Preescolar" },
+    { value: "primero", label: "Primero" },
+    { value: "segundo", label: "Segundo" },
+    { value: "tercero", label: "Tercero" },
+    { value: "cuarto", label: "Cuarto" },
+    { value: "quinto", label: "Quinto" },
+    { value: "sexto", label: "Sexto" },
+    { value: "septimo", label: "Séptimo" },
+    { value: "octavo", label: "Octavo" },
+    { value: "noveno", label: "Noveno" },
+    { value: "decimo", label: "Décimo" },
+    { value: "undecimo", label: "Undécimo" },
+  ],
+
+  asignaturas: [
+    { value: "ciencias_naturales", label: "Ciencias Naturales" },
+    { value: "biologia", label: "Biología" },
+    { value: "quimica", label: "Química" },
+    { value: "fisica", label: "Física" },
+
+    { value: "ciencias_sociales", label: "Ciencias Sociales" },
+    { value: "historia", label: "Historia" },
+    { value: "geografia", label: "Geografía" },
+    { value: "constitucion_democracia", label: "Constitución y Democracia" },
+    { value: "catedra_paz", label: "Cátedra de Paz" },
+
+    { value: "lengua_castellana", label: "Lengua Castellana" },
+    { value: "ingles", label: "Inglés" },
+
+    { value: "matematicas", label: "Matemáticas" },
+    { value: "geometria", label: "Geometría" },
+    { value: "estadistica", label: "Estadística" },
+    { value: "trigonometria", label: "Trigonometría" },
+
+    { value: "tecnologia_informatica", label: "Tecnología e Informática" },
+
+    { value: "educacion_artistica", label: "Educación Artística y Cultural" },
+
+    { value: "educacion_etica", label: "Educación Ética y en Valores" },
+
+    {
+      value: "educacion_fisica",
+      label: "Educación Física, Recreación y Deportes",
+    },
+
+    { value: "educacion_religiosa", label: "Educación Religiosa" },
+  ],
+
+  periodos: [
+    { value: "1", label: "Periodo 1" },
+    { value: "2", label: "Periodo 2" },
+    { value: "3", label: "Periodo 3" },
+    { value: "4", label: "Periodo 4" },
+  ],
+
+  duraciones: [
+    { value: "1", label: "1 hora" },
+    { value: "2", label: "2 horas" },
+    { value: "3", label: "3 horas" },
+  ],
+};
+
+export const observationFormConfig = {
+  reconocimiento: {
+    fieldLabel: "Tipo de reconocimiento:",
+    options: [
+      { value: "academico", label: "Académico" },
+      { value: "deportivo", label: "Deportivo" },
+      { value: "cultural", label: "Cultural / Artístico" },
+      {
+        value: "convivencial",
+        label: "Convivencial (comportamiento ejemplar)",
+      },
+      { value: "liderazgo", label: "Liderazgo" },
+      { value: "investigativo", label: "Investigativo / Científico" },
+      { value: "solidaridad", label: "Solidaridad y valores" },
+      { value: "asistencia", label: "Asistencia y puntualidad" },
+    ],
+    grantedByLabel: "Reconocido por:",
+    grantedByOptions: [
+      { value: "docente", label: "Docente de área" },
+      { value: "direccion", label: "Dirección de grupo" },
+      { value: "coordinacion", label: "Coordinación académica" },
+      { value: "rectoria", label: "Rectoría" },
+      { value: "comite", label: "Comité de convivencia" },
+    ],
+    descriptionLabel: "Descripción del logro",
+  },
+
+  falta: {
+    fieldLabel: "Tipo de falta:",
+    options: [
+      { value: "tipo1", label: "1. Tipo I — Leve" },
+      { value: "tipo2", label: "2. Tipo II — Grave" },
+      { value: "tipo3", label: "3. Tipo III — Gravísima" },
+    ],
+    correctiveLabel: "Artículo:",
+    correctiveOptions: [
+      { value: "verbal", label: "Amonestación verbal" },
+      { value: "escrita", label: "Amonestación escrita" },
+      { value: "citacion", label: "Citación al acudiente" },
+      { value: "comunitario", label: "Trabajo comunitario" },
+      { value: "suspension", label: "Suspensión temporal" },
+    ],
+    caseStatusLabel: "Numeral:",
+    caseStatusOptions: [
+      { value: "revision", label: "En revisión" },
+      { value: "citacion", label: "Citación programada" },
+      { value: "comite", label: "Comité programado" },
+      { value: "cerrado", label: "Cerrado" },
+    ],
+    grantedByLabel: "¿Quién reporta?:",
+    grantedByOptions: [
+      { value: "docente", label: "1. Docente de área" },
+      { value: "coordinacion", label: "2. Coordinación disciplinaria" },
+      { value: "comite", label: "3. Comité de convivencia" },
+    ],
+    descriptionLabel: "Descripción de la falta",
+    resumenLabel: "Descripción",
+  },
+};
+
+
 const mockStudents = [
   // Preescolar
   { id: 1, nombre: "Emilia Rodríguez Vargas", grupo: "preescolar", estado: "Estudiante activo" },

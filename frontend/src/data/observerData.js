@@ -1,90 +1,22 @@
-import { TbAward, TbFileText, TbAlertTriangle } from "react-icons/tb";
+import { TbAward, TbAlertTriangle } from "react-icons/tb";
 
-export const observationTypes = [  {
-    id: "reconocimiento",
-    label: "Reconocimiento",
-    description: "Logro destacado, méritos académicos o felicitación por comportamiento ejemplar.",
-    icon: TbAward,
-    iconColor: "var(--color-success)",
-    fieldLabel: "Tipo de reconocimiento:",
-    options: [
-      { value: "academico", label: "Académico" },
-      { value: "deportivo", label: "Deportivo" },
-      { value: "cultural", label: "Cultural / Artístico" },
-      { value: "convivencial", label: "Convivencial (comportamiento ejemplar)" },
-      { value: "liderazgo", label: "Liderazgo" },
-      { value: "investigativo", label: "Investigativo / Científico" },
-      { value: "solidaridad", label: "Solidaridad y valores" },
-      { value: "asistencia", label: "Asistencia y puntualidad" },
-    ],
-    grantedByLabel: "Otorgado por:",
-    grantedByOptions: [
-      { value: "docente", label: "Docente de área" },
-      { value: "direccion", label: "Dirección de grupo" },
-      { value: "coordinacion", label: "Coordinación académica" },
-      { value: "rectoria", label: "Rectoría" },
-      { value: "comite", label: "Comité de convivencia" },
-    ],
-    descriptionLabel: "Descripción del logro",
-  },
+export const observationTypes = [
   {
-    id: "observacion",
-    label: "Observación",
-    description: "Situación académica o formativa que requiera seguimiento o registro preventivo.",
-    icon: TbFileText,
-    iconColor: "var(--color-warning)",
-    fieldLabel: "Tipo de observación:",
-    options: [
-      { value: "academica", label: "Académica" },
-      { value: "comportamental", label: "Comportamental" },
-      { value: "convivencial", label: "Convivencial" },
-      { value: "asistencia", label: "Asistencia" },
-      { value: "psicosocial", label: "Seguimiento psicosocial" },
-      { value: "familiar", label: "Familiar / contextual" },
-    ],
-    grantedByLabel: "Registrado por:",
-    grantedByOptions: [
-      { value: "docente", label: "Docente de área" },
-      { value: "direccion", label: "Dirección de grupo" },
-      { value: "coordinacion", label: "Coordinación académica" },
-      { value: "orientacion", label: "Orientación escolar" },
-    ],
-    descriptionLabel: "Descripción de la observación",
+    id: "reconocimiento",
+    category: "Documento",
+    icon: TbAward,
+    title: "Registrar reconocimiento",
+    subtitle:
+      "Logro destacado, méritos académicos o felicitación por comportamiento ejemplar.",
+    iconColor: "var(--color-success)",
   },
   {
     id: "falta",
-    label: "Falta disciplinaria",
-    description: "Incumplimiento del manual de convivencia, situación académica o disciplinaria grave.",
+    category: "Documento",
     icon: TbAlertTriangle,
+    title: "Registrar situación disciplinaria",
+    subtitle:
+      "Incumplimiento del manual de convivencia, situación académica o disciplinaria grave.",
     iconColor: "var(--color-error)",
-    fieldLabel: "Tipo de falta:",
-    options: [
-      { value: "tipo1", label: "1. Tipo I — Leve" },
-      { value: "tipo2", label: "2. Tipo II — Grave" },
-      { value: "tipo3", label: "3. Tipo III — Gravísima" },
-    ],
-    
-    correctiveLabel: "Artículo:",
-    correctiveOptions: [
-      { value: "verbal", label: "Amonestación verbal" },
-      { value: "escrita", label: "Amonestación escrita" },
-      { value: "citacion", label: "Citación al acudiente" },
-      { value: "comunitario", label: "Trabajo comunitario" },
-      { value: "suspension", label: "Suspensión temporal" },
-    ],
-    caseStatusLabel: "Numeral:",
-    caseStatusOptions: [
-      { value: "revision", label: "En revisión" },
-      { value: "citacion", label: "Citación programada" },
-      { value: "comite", label: "Comité programado" },
-      { value: "cerrado", label: "Cerrado" },
-    ],
-    grantedByLabel: "¿Quién report?:",
-    grantedByOptions: [
-      { value: "docente", label: "1. Docente de área" },
-      { value: "coordinacion", label: "2. Coordinación disciplinaria" },
-      { value: "comite", label: "3. Comité de convivencia" },
-    ],
-    descriptionLabel: "Descripción de la falta",
   },
 ];
