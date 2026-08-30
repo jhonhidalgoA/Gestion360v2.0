@@ -8,7 +8,6 @@ import {
   IoCloseOutline,
   IoPaperPlaneOutline,
   IoCreateOutline,
- 
 } from "react-icons/io5";
 
 export const cancelVariant = "outline-primary";
@@ -20,7 +19,7 @@ export const modalConfig = {
     iconColor: "var(--color-info)",
     defaultTitle: "Confirmar acción",
     primaryText: "Confirmar",
-    primaryVariant: "primary",
+    primaryVariant: "primary", // Coincide con .btn-primary
     btnIcon: IoCheckmarkOutline,
   },
 
@@ -30,7 +29,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Editar",
     primaryText: "Guardar",
-    primaryVariant: "save",
+    primaryVariant: "success", // Coincide con .btn-success
     btnIcon: IoCheckmarkOutline,
   },
 
@@ -40,17 +39,17 @@ export const modalConfig = {
     iconColor: "var(--color-error)",
     defaultTitle: "Eliminar registro",
     primaryText: "Eliminar",
-    primaryVariant: "delete",
+    primaryVariant: "danger", // Coincide con .btn-danger
     btnIcon: IoTrashOutline,
   },
 
   logout: {
     icon: IoLogOutOutline,
     iconBg: "var(--bg-subtle)",
-    iconColor: "var(--btn-print)",
-    defaultTitle: "Logout",
-    primaryText: "Logout",
-    primaryVariant: "logout",
+    iconColor: "var(--text-secondary)",
+    defaultTitle: "Cerrar sesión",
+    primaryText: "Cerrar sesión",
+    primaryVariant: "warning", 
   },
 
   success: {
@@ -59,7 +58,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Cerrar",
     primaryText: "Cerrar",
-    primaryVariant: "close",
+    primaryVariant: "success", // Coincide con .btn-success
     hideSecondary: true,
   },
 
@@ -69,7 +68,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Enviar tarea",
     primaryText: "Enviar tarea",
-    primaryVariant: "send",
+    primaryVariant: "primary", // Coincide con .btn-primary
     btnIcon: IoPaperPlaneOutline,
     hideSecondary: false,
   },
@@ -80,7 +79,7 @@ export const modalConfig = {
     iconColor: "var(--text-secondary)",
     defaultTitle: "Cerrar",
     primaryText: "Cerrar",
-    primaryVariant: "submit",
+    primaryVariant: "light", // Coincide con .btn-light
     btnIcon: IoCloseOutline,
   },
 
@@ -88,21 +87,21 @@ export const modalConfig = {
     icon: null,
     defaultTitle: "Observación Pedagógica",
     primaryText: "Guardar",
-    primaryVariant: "save",
+    primaryVariant: "success", // Coincide con .btn-success
   },
 
   preview: {
-  icon: null,
-  iconBg: "var(--color-info-tint)",
-  iconColor: "var(--color-info)",
-  defaultTitle: "Vista previa del mensaje",
-  primaryText: "Enviar Mensaje",
-  primaryVariant: "send",
-  btnIcon: IoPaperPlaneOutline,
-  hideSecondary: false,
-  secondaryText: "Editar mensaje",    
-  secondaryIcon: IoCreateOutline,    
-},
+    icon: null,
+    iconBg: "var(--color-info-tint)",
+    iconColor: "var(--color-info)",
+    defaultTitle: "Vista previa del mensaje",
+    primaryText: "Enviar Mensaje",
+    primaryVariant: "primary", // Coincide con .btn-primary
+    btnIcon: IoPaperPlaneOutline,
+    hideSecondary: false,
+    secondaryText: "Editar mensaje",    
+    secondaryIcon: IoCreateOutline,    
+  },
 };
 
 export const modalMessages = {
@@ -112,8 +111,8 @@ export const modalMessages = {
   },
 
   success: {
-    message: "¿Enviar tarea?",
-    description: "Esta seguro de enviar esta tarea",
+    message: "¡Operación exitosa!",
+    description: "Los cambios se guardaron correctamente.",
   },
 
   submitTask: {
@@ -127,8 +126,8 @@ export const modalMessages = {
   },
 
   edit: {
-    message: "",
-    description: "",
+    message: "Guardar cambios",
+    description: "¿Estás seguro de que deseas guardar los cambios realizados?",
   },
 
   feedback: {

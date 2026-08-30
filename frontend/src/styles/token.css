@@ -1,29 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@500;600;700&display=swap");
 
 :root {
-  /* 1. COLORS (Brand & Semantic) */
+  
+--color-primary: #023e8a;
+--color-primary-light: #0077b6;
+--color-primary-dark: #03045e;
+--color-primary-tint: #e8f1fb;
 
-  --color-primary: #023e8a;
-  --color-primary-light: #0077b6;
-  --color-primary-dark: #03045e;
-  --color-primary-tint: #e8f1fb;
+--color-accent: #e2a926;
+--color-accent-dark: #c68f10;
+--color-accent-tint: #fdf6e3;
 
-  --color-accent: #e2a926;
-  --color-accent-dark: #c68f10;
-  --color-accent-tint: #fdf6e3;
+--color-success: #1a9d6f;
+--color-success-tint: #e6f7f2;
 
-  --color-success: #1a9d6f;
-  --color-success-tint: #e6f7f2;
+--color-error: #d32f2f;
+--color-error-tint: #fdecea;
 
-  --color-error: #d32f2f;
-  --color-error-tint: #fdecea;
+--color-neutral: #f1f3f5;
+--color-warning: #f59e0b;
+--color-warning-tint: #fdf6e3;
 
-  --color-neutral: #F1F3F5;
+--color-info: #0288d1;
+--color-info-tint: #e3f2fd;
 
-  --color-warning: #f59e0b;
-  --color-warning-tint: #fdf6e3;
-  --color-info: #023e8a;
-  --color-info-tint: #e8f1fb;
+--color-critical: #9f1239;
+--color-critical-tint: #fbeaf0;
+
+--color-document: #c0392b;
+--color-document-tint: #fbe9e7;
 
   
 

@@ -240,7 +240,7 @@ const ClassworkPage = () => {
 
                 <Button
                   type="submit"
-                  variant="send"
+                  variant="primary"
                   icon={FaPaperPlane}
                   iconPosition="left"
                   size="md"

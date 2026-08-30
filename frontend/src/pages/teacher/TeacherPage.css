@@ -15,22 +15,59 @@
 }
 
 .current-date {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
   font-style: italic;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;  
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 150px; /* agregar esta línea */
+  gap: 20px;
+}
+
+/* Calificaciones — destacada, doble alto */
+.card-grid > a:nth-child(1) {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+/* Asistencia y Planeación — apiladas a la derecha de la destacada */
+.card-grid > a:nth-child(2),
+.card-grid > a:nth-child(3) {
+  grid-column: span 3;
+}
+
+/* Asignar tareas, Reportes académicos, Ver calendario — fila normal */
+.card-grid > a:nth-child(4),
+.card-grid > a:nth-child(5),
+.card-grid > a:nth-child(6) {
+  grid-column: span 2;
+}
+
+/* Comunicación con padres y Observador — cierran el grid */
+.card-grid > a:nth-child(7),
+.card-grid > a:nth-child(8) {
+  grid-column: span 3;
 }
 
 @media (max-width: 1100px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .card-grid > a:nth-child(1) {
+    grid-row: span 1;
+  }
+  .card-grid > a {
+    grid-column: span 1 !important;
   }
 }
 

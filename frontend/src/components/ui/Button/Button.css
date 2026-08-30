@@ -1,8 +1,14 @@
+/* ============================================================
+   BASE
+   ============================================================ */
+
 .btn {
   --btn-bg: var(--color-surface);
   --btn-bg-hover: color-mix(in srgb, var(--color-surface) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-surface) 80%, black);
   --btn-fg: var(--text-on-primary);
+  --btn-focus-ring: var(--btn-bg);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +45,7 @@
 .btn:active:not(:disabled) {
   background: var(--btn-bg-active);
   border-color: var(--btn-bg-active);
-  transform: scale(0.98); /* Efecto de "presionar" */
+  transform: scale(0.98);
   box-shadow: none;
 }
 
@@ -52,20 +58,24 @@
 
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-bg) 40%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-focus-ring) 40%, transparent);
   z-index: 10;
 }
 
+/* ============================================================
+   SHAPE / SIZE / WIDTH UTILITIES
+   ============================================================ */
+
 .btn-shape-square {
-  border-radius: var(--border-radius-xs); /* 4px */
+  border-radius: var(--border-radius-xs);
 }
 
 .btn-shape-rounded {
-  border-radius: var(--border-radius-sm); /* 8px */
+  border-radius: var(--border-radius-sm);
 }
 
 .btn-shape-pill {
-  border-radius: var(--border-radius-full); /*Círculo completo */
+  border-radius: var(--border-radius-full);
 }
 
 .btn-width-full {
@@ -92,85 +102,132 @@
   font-size: var(--fs-base);
 }
 
+.btn-icon-only {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.btn-size-sm.btn-icon-only {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-size-lg.btn-icon-only {
+  width: 48px;
+  height: 48px;
+}
+
+  
+/* "Guardar cambios" "enviar tareas" */
 .btn-primary {
   --btn-bg: var(--color-primary);
   --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
+  --btn-fg: #ffffff;
 }
 
-
-.btn-save,
-.btn-submit {
-  --btn-bg: var(--color-success, #22c55e);
-  --btn-bg-hover: color-mix(in srgb, var(--color-success, #22c55e) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-success, #22c55e) 80%, black);
+/* "Editar", "Ver detalle", "Imprimir" */
+.btn-secondary {
+  --btn-bg: var(--color-surface-variant, #f3f4f6);
+  --btn-bg-hover: color-mix(in srgb, var(--color-surface-variant, #f3f4f6) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-surface-variant, #f3f4f6) 80%, black);
+  --btn-fg: var(--text-primary, #111827);
 }
 
-.btn-delete, .btn-success {
-  --btn-bg: var(--color-error, #ef4444);
-  --btn-bg-hover: color-mix(in srgb, var(--color-error, #ef4444) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-error, #ef4444) 80%, black);
+/* "Guardar en la base de datos" */
+.btn-success {
+  --btn-bg: var(--color-success);
+  --btn-bg-hover: color-mix(in srgb, var(--color-success) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-success) 80%, black);
+  --btn-fg: #ffffff;
 }
 
-.btn-logout {
-  --btn-bg: var(--color-warning, #f59e0b);
-  --btn-bg-hover: color-mix(in srgb, var(--color-warning, #f59e0b) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-warning, #f59e0b) 80%, black);
+/* "Eliminar" */
+.btn-danger {
+  --btn-bg: var(--color-error);
+  --btn-bg-hover: color-mix(in srgb, var(--color-error) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-error) 80%, black);
+  --btn-fg: #ffffff;
+}
+/* "Cerrar sesión", "Salir sin guardar" */
+.btn-warning {
+  --btn-bg: var(--color-warning);
+  --btn-bg-hover: color-mix(in srgb, var(--color-warning) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-warning) 80%, black);
+  --btn-fg: #412402;
 }
 
-.btn-close {
+/* "Consultar" "Traer datos" */
+.btn-info {
+  --btn-bg: var(--color-info);
+  --btn-bg-hover: color-mix(in srgb, var(--color-info) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-info) 80%, black);
+  --btn-fg: #ffffff;
+}
+
+/* "Cancelar"  "Cerrar modal" */
+.btn-light {
   --btn-bg: var(--bg-subtle, #eef2f7);
   --btn-bg-hover: color-mix(in srgb, var(--bg-subtle, #eef2f7) 85%, black);
   --btn-bg-active: color-mix(in srgb, var(--bg-subtle, #eef2f7) 75%, black);
   --btn-fg: var(--text-secondary, #3d3d3d);
+  --btn-focus-ring: var(--color-primary);
   border: 1px solid #d1d9e6;
 }
 
-.btn-send {
-  --btn-bg: var(--color-primary);
-  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
-}
-
-.btn-load {
-  --btn-bg: #1f4e79;
-  --btn-bg-hover: color-mix(in srgb, #1f4e79 90%, black);
-  --btn-bg-active: color-mix(in srgb, #1f4e79 80%, black);
-}
-
-.btn-pdf {
-  --btn-bg: #d32f2f;
-  --btn-bg-hover: color-mix(in srgb, #d32f2f 90%, black);
-  --btn-bg-active: color-mix(in srgb, #d32f2f 80%, black);
+/* "Atras" */
+.btn-dark {
+  --btn-bg: var(--color-neutral-dark, #1f2937);
+  --btn-bg-hover: color-mix(in srgb, var(--color-neutral-dark, #1f2937) 90%, white);
+  --btn-bg-active: color-mix(in srgb, var(--color-neutral-dark, #1f2937) 80%, white);
   --btn-fg: #ffffff;
 }
 
-.btn-open {
-  --btn-bg: var(--color-primary);
-  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-primary) 80%, black);
+/* "Falta disciplinaria" */
+.btn-critical {
+  --btn-bg: var(--color-critical, #9f1239);
+  --btn-bg-hover: color-mix(in srgb, var(--color-critical, #9f1239) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-critical, #9f1239) 80%, black);
   --btn-fg: #ffffff;
 }
 
-.btn-new-request {
+/* "Crear / Nueva solicitud" */
+.btn-accent {
   --btn-bg: var(--color-accent);
   --btn-bg-hover: color-mix(in srgb, var(--color-accent) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-accent) 80%, black);
-  --btn-fg: var(--text-on-primary, #ffffff);
+  --btn-fg: var(--text-on-accent, #0c0908);
 }
 
-.btn-back {
-  --btn-bg: var(--color-neutral, #6b7280);
-  --btn-bg-hover: color-mix(in srgb, var(--color-neutral, #6b7280) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-neutral, #6b7280) 80%, black);
+
+/* "PDF" */ 
+   para no confundirse con "eliminar" aunque ambos sean rojos */
+.btn-document {
+  --btn-bg: var(--color-document, #c0392b);
+  --btn-bg-hover: color-mix(in srgb, var(--color-document, #c0392b) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--color-document, #c0392b) 80%, black);
+  --btn-fg: #ffffff;
 }
+
 
 .btn-outline-primary {
   --btn-bg: transparent;
   --btn-bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
   --btn-bg-active: color-mix(in srgb, var(--color-primary) 20%, transparent);
   --btn-fg: var(--color-primary);
+  --btn-focus-ring: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+.btn-outline-danger {
+  --btn-bg: transparent;
+  --btn-bg-hover: color-mix(in srgb, var(--color-error) 10%, transparent);
+  --btn-bg-active: color-mix(in srgb, var(--color-error) 20%, transparent);
+  --btn-fg: var(--color-error);
+  --btn-focus-ring: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .btn-outline-white {
@@ -178,48 +235,7 @@
   --btn-bg-hover: color-mix(in srgb, white 10%, transparent);
   --btn-bg-active: color-mix(in srgb, white 20%, transparent);
   --btn-fg: #ffffff;
+  --btn-focus-ring: #ffffff;
   border-color: #ffffff;
 }
 
-.btn-secondary,
-.btn-edit,
-.btn-view,
-.btn-print {
-  --btn-bg: var(--color-surface-variant, #f3f4f6);
-  --btn-bg-hover: color-mix(
-    in srgb,
-    var(--color-surface-variant, #f3f4f6) 90%,
-    black
-  );
-  --btn-bg-active: color-mix(
-    in srgb,
-    var(--color-surface-variant, #f3f4f6) 80%,
-    black
-  );
-  --btn-fg: var(--text-primary, #111827); /* Texto oscuro para fondos claros */
-}
-
-/* 4. Outline (Borde) */
-.btn-outline-primary {
-  --btn-bg: transparent;
-  --btn-bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
-  --btn-bg-active: color-mix(in srgb, var(--color-primary) 20%, transparent);
-  --btn-fg: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
-/* 5. Botón Solo Ícono (Para tablas) */
-.btn-icon-only {
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%; /* Circular */
-}
-.btn-size-sm.btn-icon-only {
-  width: 32px;
-  height: 32px;
-}
-.btn-size-lg.btn-icon-only {
-  width: 48px;
-  height: 48px;
-}

@@ -195,7 +195,7 @@ const AttendancePage = () => {
             <div className="assessment-button">
               <Button
                 type="button"
-                variant="load"
+                variant="info"
                 icon={FaPlus}
                 iconPosition="left"
                 disabled={loading.cargar}
@@ -205,7 +205,7 @@ const AttendancePage = () => {
               </Button>
               <Button
                 type="submit"
-                variant="save"
+                variant="success"
                 icon={FaSave}
                 iconPosition="left"
                 disabled={loading.guardar}

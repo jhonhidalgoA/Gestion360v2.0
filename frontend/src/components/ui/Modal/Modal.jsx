@@ -15,7 +15,7 @@ const Modal = ({
   entityLabel,
   confirmText,
   secondaryText = "Cancelar",
-  secondaryIcon,   
+  secondaryIcon,
   isLoading = false,
   autoCloseMs,
   children,
@@ -24,25 +24,24 @@ const Modal = ({
   const timerRef = useRef(null);
   const remainingRef = useRef(autoCloseMs);
   const startedAtRef = useRef(null);
+  
   const config = modalConfig[variant] ?? modalConfig.confirm;
   const defaults = modalMessages[variant] ?? {};
+  
   const Icon = config.icon;
   const BtnIcon = config.btnIcon;
+  
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
   useEffect(() => {
     if (!isOpen || !autoCloseMs) return;
-
     remainingRef.current = autoCloseMs;
-
     const start = () => {
       startedAtRef.current = Date.now();
       timerRef.current = setTimeout(() => onClose?.(), remainingRef.current);
     };
-
     start();
-
     return () => clearTimeout(timerRef.current);
   }, [isOpen, autoCloseMs, onClose]);
 
@@ -132,21 +131,21 @@ const Modal = ({
               onClick={onClose}
               disabled={isLoading}
               className="btn-uniform-width"
-              icon={secondaryIcon}      
-  iconPosition="left"  
+              icon={secondaryIcon}
+              iconPosition="left"
             >
               {secondaryText}
             </Button>
           )}
           <Button
-            variant={config.primaryVariant}
+            variant={config.primaryVariant || "primary"}
             onClick={onConfirm || onClose}
             disabled={isLoading}
             icon={BtnIcon}
             className="btn-uniform-width"
             iconPosition="left"
           >
-            {isLoading ? "Procesando..." : confirmText || config.primaryText}
+            {isLoading ? "Procesando..." : confirmText || config.primaryText || "Aceptar"}
           </Button>
         </div>
       </div>
