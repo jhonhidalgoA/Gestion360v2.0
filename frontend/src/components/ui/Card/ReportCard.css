@@ -1,24 +1,25 @@
 .report-card {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  min-height: 120px;
-  padding: var(--space-5);
+  min-height: 170px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 10px;  
-  text-align: left;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
-  cursor: pointer; 
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .report-card:hover {
   transform: scale(1.01);
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.10);
+  border-color: var(--text-muted);
+  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.1);
 }
 
 .report-card:active {
@@ -26,36 +27,73 @@
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
 }
 
+.report-card--disabled {
+  cursor: not-allowed;
+}
+
+.report-card--disabled:hover {
+  transform: none;
+  border-color: var(--border-color);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
 .report-card:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.report-content{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--space-8);
-  margin-top: var(--space-4);
+.report-card-shape {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
+.report-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 27%;
+  min-width: 90px;
+  flex-shrink: 0;
+  align-self: stretch;
+  padding-right: 40px;
+  margin-bottom: 20px;
+}
 
 .report-icon .icon {
-  font-size: 60px;
+  font-size: 44px;
+  color: #ffffff;
 }
 
-.report-category{
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  color: var(--text-muted);
-  margin: 0;
+.report-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5) calc(var(--space-4) + 8px);
+  min-width: 0;
 }
 
 .report-text {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+}
+
+.report-category {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: #ffffff;
+  margin: 0;
 }
 
 .report-title {
@@ -71,58 +109,48 @@
   margin: 0;
 }
 
-.report-badge {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
+.report-steps {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 4px;
-  padding: 3px var(--space-2) 3px 6px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.2px;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: 10px;
 }
 
-.report-badge__icon {
-  font-size: 20px !important;
-}
-
-
-.report-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width:100%;
-  margin-top: auto;
-  padding-top: 16px;
-  gap:50px; 
-}
-
-.report-requirements {
-  margin: 0;
+.report-steps .subheading {
   font-size: 0.85rem;
-  color: var(--text-secondary);
 }
 
-.report-requirements strong {
-  font-weight: 600;
+.report-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.report-step-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.report-step-label {
+  font-size: 0.85rem;
   color: var(--text-primary);
+  font-weight: var(--fw-medium);
 }
 
-.report-badge--pdf {
-  background: color-mix(in srgb, var(--btn-pdf) 15%, white);
-  color: color-mix(in srgb, var(--btn-pdf) 65%, black);
-}
-
-.report-badge--excel {
-  background: color-mix(in srgb, var(--color-success) 15%, white);
-  color: color-mix(in srgb, var(--color-success) 40%, black);
-}
-
-.report-badge--sistema {
-  background: color-mix(in srgb, var(--color-primary) 12%, white);
-  color: var(--color-primary-dark);
+.report-step-arrow {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-left: 4px;
 }

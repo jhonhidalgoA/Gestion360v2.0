@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@500;600;700&display=swap");
 
-:root {
-  
+:root {  
 --color-primary: #023e8a;
 --color-primary-light: #0077b6;
 --color-primary-dark: #03045e;
 --color-primary-tint: #e8f1fb;
+--color-secondary-dark: #424453; 
 
 --color-accent: #e2a926;
 --color-accent-dark: #c68f10;

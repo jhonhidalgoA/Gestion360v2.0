@@ -77,14 +77,7 @@ export const filterFormsData = {
         label: "Estudiante:",
         optionsKey: "estudiantes",
         required: true,
-      },
-      {
-        id: "asignatura",
-        type: "select",
-        label: "Asignatura:",
-        optionsKey: "asignaturas",
-        required: true,
-      },
+      },      
       {
         id: "periodo",
         type: "select",

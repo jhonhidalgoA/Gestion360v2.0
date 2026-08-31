@@ -1,15 +1,16 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
-import { optionsMap } from "@/data/optionsData";
+import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 import { filterFormsData } from "@/data/filterFormsData";
 import { reportsConfig, requirementLabels } from "@/data/reportData";
 
 import { FaUndo, FaThumbtack } from "react-icons/fa";
 
+import { Button } from "@/components/ui/Button/Button";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import ReportCard from "@/components/ui/Card/ReportCard";
-import { Button } from "@/components/ui/Button/Button";
 import Select from "@/components/ui/Select/Select";
 
 import "./ReportPage.css";
@@ -34,17 +35,52 @@ const ReportPage = () => {
   const {
     register,
     reset,
+    setValue,
+    control,
     formState: { errors },
   } = useForm({ defaultValues, mode: "onChange" });
 
+  const grupoSeleccionado = useWatch({ control, name: "grupo" });
+  const estudianteSeleccionado = useWatch({ control, name: "estudiante" });
+  const periodoSeleccionado = useWatch({ control, name: "periodo" });
+  const [studentOptions, setStudentOptions] = useState([]);
+
+  const cardsHabilitadas = Boolean(
+    grupoSeleccionado && estudianteSeleccionado && periodoSeleccionado
+  );
+
+  useEffect(() => {
+    const loadStudents = async () => {
+      if (!grupoSeleccionado) {
+        setStudentOptions([]);
+        setValue("estudiante", "");
+        return;
+      }
+
+      try {
+        const students = await getStudentsByGroup(grupoSeleccionado);
+        setStudentOptions(
+          students.map((s) => ({ value: s.id, label: s.nombre }))
+        );
+        setValue("estudiante", "");
+      } catch (error) {
+        console.error("Error cargando estudiantes:", error);
+        setStudentOptions([]);
+      }
+    };
+
+    loadStudents();
+  }, [grupoSeleccionado, setValue]);
+
   const handleReset = () => {
     reset(defaultValues);
+    setStudentOptions([]);
   };
 
   return (
     <>
       <NavbarSection sectionKey="report" handleBack={handleBack} />
-      <form onSubmit>
+      <form onSubmit={() => {}}>
         <div className="report-container">
           <div className="report-main">
             <span>
@@ -60,11 +96,19 @@ const ReportPage = () => {
                     key={field.id}
                     label={field.label}
                     name={field.id}
-                    options={optionsMap[field.optionsKey] ?? []}
+                    options={
+                      field.id === "estudiante"
+                        ? studentOptions
+                        : optionsMap[field.optionsKey] ?? []
+                    }
                     register={register}
                     error={errors[field.id]}
                     variant="square"
                     required={field.required}
+                    disabled={
+                      (field.id === "estudiante" && !grupoSeleccionado) ||
+                      (field.id === "periodo" && !estudianteSeleccionado)
+                    }
                   />
                 ))}
               </div>
@@ -94,7 +138,8 @@ const ReportPage = () => {
                 requirements={reporte.requirements}
                 requirementLabels={requirementLabels}
                 action={reporte.action}
-                onClick={handlers[reporte.handlerKey]}
+                disabled={!cardsHabilitadas}
+                onClick={cardsHabilitadas ? handlers[reporte.handlerKey] : undefined}
               />
             ))}
           </div>

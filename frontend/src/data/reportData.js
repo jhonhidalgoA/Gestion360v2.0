@@ -5,9 +5,6 @@ export const requirementLabels = {
   periodo: "Período",
 };
 
-
-
-
 export const reportsConfig = [
   {
     id: "boletin",
@@ -15,13 +12,9 @@ export const reportsConfig = [
     icon: "description",
     title: "Boletín de Calificaciones",
     subtitle: "Resumen consolidado de todas las asignaturas del periodo.",
-    iconColor: "var(--color-accent)",
+    iconColor: "#b5790f",
 
-    requirements: [
-      "grupo",
-      "estudiante",
-      "periodo",
-    ],
+    requirements: ["grupo", "estudiante", "periodo"],
 
     format: {
       type: "pdf",
@@ -42,13 +35,9 @@ export const reportsConfig = [
     icon: "calendar_today",
     title: "Control de Asistencia",
     subtitle: "Asistencias, ausencias y llegadas tarde por fecha.",
-    iconColor: "var(--color-success)",
+    iconColor: "#0f6e56",
 
-    requirements: [
-      "grupo",
-      "estudiante",
-      "periodo",
-    ],
+    requirements: ["grupo", "estudiante", "periodo"],
 
     format: {
       type: "system",
@@ -69,12 +58,9 @@ export const reportsConfig = [
     icon: "assignment_turned_in",
     title: "Certificado Escolar",
     subtitle: "Constancia oficial de matrícula y estado académico.",
-    iconColor: "var(--color-primary)",
+    iconColor: "#023e8a",
 
-    requirements: [
-      "grupo",
-      "estudiante",
-    ],
+     requirements: ["grupo", "estudiante"],
 
     format: {
       type: "pdf",
@@ -95,12 +81,9 @@ export const reportsConfig = [
     icon: "assignment",
     title: "Observador Escolar",
     subtitle: "Registro de convivencia, novedades y compromisos.",
-    iconColor: "var(--color-error)",
+    iconColor: "#5b4b7a",
 
-    requirements: [
-      "grupo",
-      "estudiante",
-    ],
+     requirements: ["grupo", "estudiante", "periodo"],
 
     format: {
       type: "pdf",

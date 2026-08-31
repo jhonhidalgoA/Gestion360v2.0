@@ -6,9 +6,10 @@ import { FaPlus, FaSave, FaTable, FaUndo, FaThumbtack } from "react-icons/fa";
 
 // Componentes compartidos
 import NavbarSection from "@/components/navbar/NavbarSection";
-import { Button } from "@/components/ui/Button/Button";
 import Modal from "@/components/ui/Modal/Modal";
 import Select from "@/components/ui/Select/Select";
+import { Button } from "@/components/ui/Button/Button";
+
 
 // Datos
 import { filterFormsData } from "@/data/filterFormsData";
