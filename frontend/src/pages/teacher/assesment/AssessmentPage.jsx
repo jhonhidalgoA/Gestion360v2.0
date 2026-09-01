@@ -1,7 +1,7 @@
 // React y librerías externas
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FaPlus, FaSave, FaTable, FaUndo, FaThumbtack } from "react-icons/fa";
 
 // Componentes compartidos
@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/Button/Button";
 // Datos
 import { filterFormsData } from "@/data/filterFormsData";
 import { modalConfig } from "@/data/modalData";
-import { optionsMap } from "@/data/optionsData";
+import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 
 // Componentes de la página
 import AssessmentTable from "@/pages/teacher/attendance/components/AssessmentTable";
@@ -54,43 +54,47 @@ const AssessmentPage = () => {
     register,
     reset,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues,
     mode: "onChange",
   });
 
+  const grupoValue = useWatch({ control, name: "grupo" });
+  const asignaturaValue = useWatch({ control, name: "asignatura" });
+
   const handleBack = () => navigate("/teacher");
 
-  const onFiltroValido = (data) => {
-    console.log("Filtro válido:", data);
+  const onFiltroValido = async (data) => {
     setLoading((prev) => ({ ...prev, cargar: true }));
 
-    setTimeout(() => {
-      setEstudiantes([
-        {
-          id: 1,
-          apellidos: "Garcia Villadiego",
-          nombres: "Luis Alberto",
-          notas: ["5.0", "5.0", "5.0", "5.0", "5.0"],
-          retroalimentacion: "",
-        },
-        {
-          id: 2,
-          apellidos: "Giraldo Giraldo",
-          nombres: "Jorge Armando",
-          notas: ["5.0", "4.5", "3.5", "2.5", "4.0"],
-          retroalimentacion: "",
-        },
-      ]);
+    try {
+      const students = await getStudentsByGroup(data.grupo);
+      setEstudiantes(
+        students.map((s) => {
+          const [nombres, ...apellidosArr] = s.nombre.split(" ");
+          return {
+            id: s.id,
+            apellidos: apellidosArr.join(" "),
+            nombres,
+            notas: Array(numeroNotas).fill(""),
+            retroalimentacion: "",
+          };
+        })
+      );
+    } catch (error) {
+      console.error("Error cargando estudiantes:", error);
+    } finally {
       setLoading((prev) => ({ ...prev, cargar: false }));
-    }, 1000);
+    }
   };
 
   const handleCargar = handleSubmit(onFiltroValido);
 
   const handleReset = () => {
     reset(defaultValues);
+    setEstudiantes([]);
   };
 
   const handleGuardar = () => {
@@ -151,6 +155,53 @@ const AssessmentPage = () => {
     setFeedbackModal((prev) => ({ ...prev, isOpen: false }));
   };
 
+  const renderField = (field) => {
+    if (field.id === "asignatura") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey]}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!grupoValue}
+        />
+      );
+    }
+
+    if (field.id === "periodo") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey]}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!asignaturaValue}
+        />
+      );
+    }
+
+    return (
+      <Select
+        key={field.id}
+        label={field.label}
+        name={field.id}
+        options={optionsMap[field.optionsKey]}
+        register={register}
+        error={errors[field.id]}
+        variant="square"
+        required={field.required}
+      />
+    );
+  };
+
   return (
     <>
       <NavbarSection sectionKey="calificaciones" handleBack={handleBack} />
@@ -164,18 +215,7 @@ const AssessmentPage = () => {
           <div className="assessment-header">
             <div className="filter-card">
               <div className="form-row">
-                {fields.map((field) => (
-                  <Select
-                    key={field.id}
-                    label={field.label}
-                    name={field.id}
-                    options={optionsMap[field.optionsKey]}
-                    register={register}
-                    error={errors[field.id]}
-                    variant="square"
-                    required={field.required}
-                  />
-                ))}
+                {fields.map((field) => renderField(field))}
               </div>
             </div>
 

@@ -8,7 +8,10 @@ import {
   IoCloseOutline,
   IoPaperPlaneOutline,
   IoCreateOutline,
+  IoWarningOutline,
 } from "react-icons/io5";
+
+import { FiFilePlus } from "react-icons/fi";
 
 export const cancelVariant = "outline-primary";
 
@@ -19,7 +22,7 @@ export const modalConfig = {
     iconColor: "var(--color-info)",
     defaultTitle: "Confirmar acción",
     primaryText: "Confirmar",
-    primaryVariant: "primary", // Coincide con .btn-primary
+    primaryVariant: "primary",
     btnIcon: IoCheckmarkOutline,
   },
 
@@ -29,7 +32,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Editar",
     primaryText: "Guardar",
-    primaryVariant: "success", // Coincide con .btn-success
+    primaryVariant: "success",
     btnIcon: IoCheckmarkOutline,
   },
 
@@ -39,7 +42,7 @@ export const modalConfig = {
     iconColor: "var(--color-error)",
     defaultTitle: "Eliminar registro",
     primaryText: "Eliminar",
-    primaryVariant: "danger", // Coincide con .btn-danger
+    primaryVariant: "danger",
     btnIcon: IoTrashOutline,
   },
 
@@ -49,7 +52,7 @@ export const modalConfig = {
     iconColor: "var(--text-secondary)",
     defaultTitle: "Cerrar sesión",
     primaryText: "Cerrar sesión",
-    primaryVariant: "warning", 
+    primaryVariant: "warning",
   },
 
   success: {
@@ -58,7 +61,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Cerrar",
     primaryText: "Cerrar",
-    primaryVariant: "success", // Coincide con .btn-success
+    primaryVariant: "success",
     hideSecondary: true,
   },
 
@@ -68,7 +71,7 @@ export const modalConfig = {
     iconColor: "var(--color-success)",
     defaultTitle: "Enviar tarea",
     primaryText: "Enviar tarea",
-    primaryVariant: "primary", // Coincide con .btn-primary
+    primaryVariant: "primary",
     btnIcon: IoPaperPlaneOutline,
     hideSecondary: false,
   },
@@ -79,7 +82,7 @@ export const modalConfig = {
     iconColor: "var(--text-secondary)",
     defaultTitle: "Cerrar",
     primaryText: "Cerrar",
-    primaryVariant: "light", // Coincide con .btn-light
+    primaryVariant: "light",
     btnIcon: IoCloseOutline,
   },
 
@@ -87,7 +90,7 @@ export const modalConfig = {
     icon: null,
     defaultTitle: "Observación Pedagógica",
     primaryText: "Guardar",
-    primaryVariant: "success", // Coincide con .btn-success
+    primaryVariant: "success",
   },
 
   preview: {
@@ -96,11 +99,33 @@ export const modalConfig = {
     iconColor: "var(--color-info)",
     defaultTitle: "Vista previa del mensaje",
     primaryText: "Enviar Mensaje",
-    primaryVariant: "primary", // Coincide con .btn-primary
+    primaryVariant: "primary",
     btnIcon: IoPaperPlaneOutline,
     hideSecondary: false,
-    secondaryText: "Editar mensaje",    
-    secondaryIcon: IoCreateOutline,    
+    secondaryText: "Editar mensaje",
+    secondaryIcon: IoCreateOutline,
+  },
+
+  submitWarning: {
+    icon: IoWarningOutline,
+    iconBg: "var(--color-error-tint)",
+    iconColor: "var(--color-error)",
+    defaultTitle: "Registrar situación disciplinaria",
+    primaryText: "Registrar falta",
+    primaryVariant: "danger",
+   btnIcon: FiFilePlus,
+    hideSecondary: false,
+  },
+
+  submitRecognition: {
+    icon: IoWarningOutline,
+    iconBg: "var(--color-success-tint)",
+    iconColor: "var(--color-success)",
+    defaultTitle: "Registrar reconocimiento",
+    primaryText: "Registrar reconocimiento",
+    primaryVariant: "success",
+    btnIcon: FiFilePlus,
+    hideSecondary: false,
   },
 };
 
@@ -117,7 +142,8 @@ export const modalMessages = {
 
   submitTask: {
     message: "¿Deseas enviar esta tarea?",
-    description: "Una vez enviada, la tarea quedará disponible para tus estudiantes.",
+    description:
+      "Una vez enviada, la tarea quedará disponible para tus estudiantes.",
   },
 
   delete: {
@@ -138,6 +164,18 @@ export const modalMessages = {
   preview: {
     message: "",
     description: "Así se verá el mensaje antes de enviarlo",
+  },
+
+  submitWarning: {
+    message: "¿Deseas registrar esta situación disciplinaria?",
+    description:
+      "Una vez registrada, quedará disponible en el observador del estudiante.",
+  },
+
+  submitRecognition: {
+    message: "¿Deseas registrar este reconocimiento?",
+    description:
+      "Una vez registrado, quedará disponible en el observador del estudiante.",
   },
 };
 

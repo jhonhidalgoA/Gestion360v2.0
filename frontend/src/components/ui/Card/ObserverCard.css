@@ -4,114 +4,148 @@
   gap: var(--space-3);
 }
 
-.observer-card {
+.report-card {
   position: relative;
   display: flex;
-  flex-direction: column;
-  min-height: 180px;
-  padding: 28px 30px;
-  border: 1px solid #b8c5d3;
+  align-items: center;
+  width: 100%;
+  min-height: 170px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: #f8f9fb;
+  overflow: hidden;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
-.observer-card input[type="radio"] {
+.report-card:hover {
+  transform: scale(1.01);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.1);
+}
+
+.report-card input[type="radio"] {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-.observer-card-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  background: #dbe4ee;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+.report-card-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
-.observer-card-content {
+.report-icon {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 27%;
+  min-width: 90px;
+  flex-shrink: 0;
+  align-self: stretch;
+  padding-right: 40px;
+  margin-bottom: 20px;
 }
 
-.observer-card-label {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #172536;
-}
-
-.observer-card:hover {
-  border-color: #91a5ba;
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(30, 50, 70, 0.08);
-}
-
-.observer-card.selected {
-  border-color: var(--border-focus);
-  background: var(--bg-subtle);
-  box-shadow: 0 0 0 2px rgba(2, 62, 138, 0.08);
-}
-
-.observer-card.selected .observer-card-icon-wrapper {
-  background: var(--color-primary);
-}
-
-.observer-card.selected .observer-card-icon {
+.report-icon .icon {
+  font-size: 44px;
   color: #ffffff;
+}
+
+.report-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5) calc(var(--space-4) + 8px);
+  min-width: 0;
+}
+
+.report-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.report-category {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: #ffffff;
+  margin: 0;
+}
+
+.report-title {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.report-subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Check circle de selección */
+.report-card.selected {
+  background: color-mix(in srgb, var(--ch) 8%, var(--bg-card));
+  border-color: var(--ch);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ch) 22%, transparent);
 }
 
 .observer-check {
   position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  display: flex;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ch);
+  display: none;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border: 2px solid #c9d2db;
-  border-radius: 50%;
-  background: transparent;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+  box-shadow: 0 0 0 3px #fff, 0 2px 6px rgba(0, 0, 0, 0.28);
 }
 
 .report-check-icon {
-  width: 44px;
-  height: 44px;
-  color: #ffffff;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  stroke: #fff;
+  stroke-width: 4.5;
 }
 
+.report-card.selected .observer-check {
+  display: flex;
+}
 .report-card:hover .observer-check {
   border-color: var(--color-primary);
 }
 
-.report-card.selected .observer-check {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
+.report-card--disabled {
+  cursor: not-allowed;
 }
 
-.report-card.selected .report-check-icon {
-  opacity: 1;
+.report-card--disabled:hover {
+  transform: none;
+  border-color: var(--border-color);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
 }
 
-.report-card:hover .report-check-icon {
-  opacity: 1;
-}
+

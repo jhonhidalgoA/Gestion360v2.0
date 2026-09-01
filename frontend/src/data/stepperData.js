@@ -18,5 +18,13 @@ export const stepperData = {
     { id: 1, label: "Destinatarios" },
     { id: 2, label: "Mensaje" },
     { id: 3, label: "Canal de envío" },
-  ]
+  ],
+
+    lessonPlan: [
+    { id: 1, label: "Información Básica" },
+    { id: 2, label: "Estándares y DBA" },
+    { id: 3, label: "Desarrollo de la Clase" },
+    { id: 4, label: "Contenidos y Evaluación" },
+    { id: 5, label: "Recursos" },
+  ],
 };

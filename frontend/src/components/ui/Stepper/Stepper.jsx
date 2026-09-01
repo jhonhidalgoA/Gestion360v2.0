@@ -19,7 +19,7 @@ const Stepper = ({ steps, currentStep, className = "" }) => {
                     (isActive ? " stepper__node--active" : "")
                   }
                 >
-                  {isCompleted ? <Check size={14} strokeWidth={2} /> : step.id}
+                  {isCompleted ? <Check size={20} strokeWidth={2} /> : step.id}
                 </div>
 
                 <span

@@ -9,7 +9,7 @@ const PlanningPage = () => {
   const handleBack = () => navigate("/teacher");
 
   const handleCrearPlan = () => {
-    navigate("/crear-plan");
+    navigate("/LessonPlanPage");
   };
 
   const handleMisPlanes = () => {

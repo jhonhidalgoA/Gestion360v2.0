@@ -10,11 +10,13 @@ import {
   getStudentsByGroup,
 } from "@/data/DBdataSimulation";
 
-import { FaThumbtack, FaPaperPlane, FaUndo } from "react-icons/fa";
+import { FaThumbtack, FaUndo } from "react-icons/fa";
 import { TbCategory } from "react-icons/tb";
+import { FiFilePlus } from "react-icons/fi";
+
+import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
-import { Button } from "@/components/ui/Button/Button";
 import Select from "@/components/ui/Select/Select";
 import FormField from "@/pages/teacher/classwork/components/FormField";
 import ObserverCard from "@/components/ui/Card/ObserverCard";
@@ -58,10 +60,13 @@ const ObserverStudentPage = () => {
   } = useForm({ defaultValues, mode: "onChange" });
 
   const grupoValue = useWatch({ control, name: "grupo" });
+  const estudianteValue = useWatch({ control, name: "estudiante" });
+  const periodoValue = useWatch({ control, name: "periodo" });
 
-  // Reset del estudiante y del loading cuando cambia el grupo.
-  // Todo en fase de render (patrón oficial de React: "adjusting state when a prop changes"),
-  // nada de esto va dentro de un efecto, así que no dispara react-hooks/set-state-in-effect.
+  const cardsHabilitadas = Boolean(
+    grupoValue && estudianteValue && periodoValue,
+  );
+
   const [grupoAnterior, setGrupoAnterior] = useState(grupoValue);
   if (grupoValue !== grupoAnterior) {
     setGrupoAnterior(grupoValue);
@@ -70,9 +75,6 @@ const ObserverStudentPage = () => {
     setLoadingStudents(!!grupoValue);
   }
 
-  // Efecto solo para la parte async: traer los estudiantes del grupo seleccionado.
-  // El único setState del cuerpo del efecto vive dentro del callback de .then(),
-  // que es exactamente el caso que la regla permite.
   useEffect(() => {
     if (!grupoValue) return;
 
@@ -81,7 +83,7 @@ const ObserverStudentPage = () => {
     getStudentsByGroup(grupoValue).then((students) => {
       if (!isCurrent) return;
       setStudentOptions(
-        students.map((s) => ({ value: s.id, label: s.nombre }))
+        students.map((s) => ({ value: s.id, label: s.nombre })),
       );
       setLoadingStudents(false);
     });
@@ -181,9 +183,41 @@ const ObserverStudentPage = () => {
             !grupoValue
               ? "Selecciona un grupo primero"
               : loadingStudents
-              ? "Cargando estudiantes..."
-              : "Selecciona un estudiante"
+                ? "Cargando estudiantes..."
+                : "Selecciona un estudiante"
           }
+        />
+      );
+    }
+
+    if (field.id === "periodo") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey] ?? []}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!estudianteValue}
+        />
+      );
+    }
+
+    if (field.id === "asignatura") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey] ?? []}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!periodoValue}
         />
       );
     }
@@ -231,7 +265,11 @@ const ObserverStudentPage = () => {
               <span>TIPO DE NOVEDAD</span>
             </div>
             <div className="observer-card-options">
-              <ObserverCard value={tipoNovedad} onChange={handleTipoChange} />
+              <ObserverCard
+                value={tipoNovedad}
+                onChange={handleTipoChange}
+                disabled={!cardsHabilitadas}
+              />
             </div>
           </div>
 
@@ -247,12 +285,12 @@ const ObserverStudentPage = () => {
                   {detailRows
                     .filter(
                       (row) =>
-                        !row.showFor || row.showFor.includes(tipoNovedad)
+                        !row.showFor || row.showFor.includes(tipoNovedad),
                     )
                     .map((row, rowIndex) => {
                       const visibleFields = row.fields.filter(
                         (field) =>
-                          !field.showFor || field.showFor.includes(tipoNovedad)
+                          !field.showFor || field.showFor.includes(tipoNovedad),
                       );
                       const rowClass =
                         row.classNameMap?.[tipoNovedad] ?? row.className;
@@ -290,8 +328,8 @@ const ObserverStudentPage = () => {
 
                   <Button
                     type="submit"
-                    variant="send"
-                    icon={FaPaperPlane}
+                    variant={tipoNovedad === "falta" ? "danger" : "success"}
+                    icon={FiFilePlus}
                     iconPosition="left"
                     size="md"
                     className="btn-uniform-width"
@@ -310,14 +348,10 @@ const ObserverStudentPage = () => {
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
         onConfirm={handleConfirmSubmit}
-        variant="submitTask"
-        isLoading={loading.guardar}
-        title={
-          tipoNovedad === "falta"
-            ? "¿Deseas registrar esta situación disciplinaria?"
-            : "¿Deseas registrar este reconocimiento?"
+        variant={
+          tipoNovedad === "falta" ? "submitWarning" : "submitRecognition"
         }
-        subtitle="Una vez registrada, quedará disponible en el observador del estudiante."
+        isLoading={loading.guardar}
         confirmText={submitLabel}
       />
     </>

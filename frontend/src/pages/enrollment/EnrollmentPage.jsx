@@ -41,7 +41,7 @@ const EnrollmentPage = () => {
             </h1>
             <div className="cta-group-admissions">
               <Button
-                variant="new-request"
+                variant="accent"
                 shape="pill"
                 width="uniform"
                 size="md"                

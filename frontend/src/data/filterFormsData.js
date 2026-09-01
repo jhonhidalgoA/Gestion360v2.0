@@ -88,6 +88,8 @@ export const filterFormsData = {
     ],
   },
 
+  
+
   tareas: {
     rows: [
       {
@@ -344,5 +346,95 @@ export const filterFormsData = {
         },
       ],
     },
+  },
+
+  planning: {
+    rows: [
+      {
+        className: "form-row-3",
+        fields: [
+          {
+            id: "fechaInicio",
+            type: "date",
+            label: "Fecha de inicio:",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "fechaFin",
+            type: "date",
+            label: "Fecha de fin:",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "periodo",
+            type: "select",
+            label: "Periodo:",
+            optionsKey: "periodos",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+      {
+        className: "form-row-3",
+        fields: [
+          {
+            id: "grupo",
+            type: "select",
+            label: "Grupo:",
+            optionsKey: "grupos",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "asignatura",
+            type: "select",
+            label: "Asignatura:",
+            optionsKey: "asignaturas",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "tipo",
+            type: "select",
+            label: "Tipo:",
+            optionsKey: "typePlan",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+      {
+        className: "form-row-3",
+        fields: [
+          {
+            id: "nombreUnidad",
+            type: "text",
+            label: "Nombre de la unidad:",
+            placeholder: "Ej: Números enteros, Literatura Colombiana",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+           {
+            id: "nombreUnidad",
+            type: "text",
+            label: "Nombre del tema:",
+            placeholder: "Ej: Orden de los números, Literatura indígena",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+           {
+            id: "tipo",
+            type: "select",
+            label: "Proyecto transversal:",
+            optionsKey: "projectCurricular",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+    ],
   },
 };

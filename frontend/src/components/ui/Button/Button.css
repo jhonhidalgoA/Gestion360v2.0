@@ -1,14 +1,9 @@
-/* ============================================================
-   BASE
-   ============================================================ */
-
 .btn {
   --btn-bg: var(--color-surface);
   --btn-bg-hover: color-mix(in srgb, var(--color-surface) 90%, black);
   --btn-bg-active: color-mix(in srgb, var(--color-surface) 80%, black);
   --btn-fg: var(--text-on-primary);
   --btn-focus-ring: var(--btn-bg);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,13 +53,12 @@
 
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-focus-ring) 40%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--btn-focus-ring) 40%, transparent);
   z-index: 10;
 }
 
-/* ============================================================
-   SHAPE / SIZE / WIDTH UTILITIES
-   ============================================================ */
+
 
 .btn-shape-square {
   border-radius: var(--border-radius-xs);
@@ -119,7 +113,6 @@
   height: 48px;
 }
 
-  
 /* "Guardar cambios" "enviar tareas" */
 .btn-primary {
   --btn-bg: var(--color-primary);
@@ -131,8 +124,12 @@
 /* "Editar", "Ver detalle", "Imprimir" */
 .btn-secondary {
   --btn-bg: var(--color-surface-variant, #f3f4f6);
-  --btn-bg-hover: color-mix(in srgb, var(--color-surface-variant, #f3f4f6) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-surface-variant, #f3f4f6) 80%, black);
+  --btn-bg-hover: color-mix(in srgb,var(--color-surface-variant, #f3f4f6) 90%, black);
+  --btn-bg-active: color-mix(
+    in srgb,
+    var(--color-surface-variant, #f3f4f6) 80%,
+    black
+  );
   --btn-fg: var(--text-primary, #111827);
 }
 
@@ -153,10 +150,10 @@
 }
 /* "Cerrar sesión", "Salir sin guardar" */
 .btn-warning {
-  --btn-bg: var(--color-warning);
-  --btn-bg-hover: color-mix(in srgb, var(--color-warning) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-warning) 80%, black);
-  --btn-fg: #412402;
+  --btn-bg: var(--border-color);
+  --btn-bg-hover: color-mix(in srgb, var(--border-color) 90%, black);
+  --btn-bg-active: color-mix(in srgb, var(--border-color) 80%, black);
+  --btn-fg: var(--text-primary, #111827);
 }
 
 /* "Consultar" "Traer datos" */
@@ -180,8 +177,16 @@
 /* "Atras" */
 .btn-dark {
   --btn-bg: var(--color-neutral-dark, #1f2937);
-  --btn-bg-hover: color-mix(in srgb, var(--color-neutral-dark, #1f2937) 90%, white);
-  --btn-bg-active: color-mix(in srgb, var(--color-neutral-dark, #1f2937) 80%, white);
+  --btn-bg-hover: color-mix(
+    in srgb,
+    var(--color-neutral-dark, #1f2937) 90%,
+    white
+  );
+  --btn-bg-active: color-mix(
+    in srgb,
+    var(--color-neutral-dark, #1f2937) 80%,
+    white
+  );
   --btn-fg: #ffffff;
 }
 
@@ -189,7 +194,11 @@
 .btn-critical {
   --btn-bg: var(--color-critical, #9f1239);
   --btn-bg-hover: color-mix(in srgb, var(--color-critical, #9f1239) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-critical, #9f1239) 80%, black);
+  --btn-bg-active: color-mix(
+    in srgb,
+    var(--color-critical, #9f1239) 80%,
+    black
+  );
   --btn-fg: #ffffff;
 }
 
@@ -201,16 +210,17 @@
   --btn-fg: var(--text-on-accent, #0c0908);
 }
 
-
-/* "PDF" */ 
-   para no confundirse con "eliminar" aunque ambos sean rojos */
+/* "PDF" */
 .btn-document {
   --btn-bg: var(--color-document, #c0392b);
   --btn-bg-hover: color-mix(in srgb, var(--color-document, #c0392b) 90%, black);
-  --btn-bg-active: color-mix(in srgb, var(--color-document, #c0392b) 80%, black);
+  --btn-bg-active: color-mix(
+    in srgb,
+    var(--color-document, #c0392b) 80%,
+    black
+  );
   --btn-fg: #ffffff;
 }
-
 
 .btn-outline-primary {
   --btn-bg: transparent;
@@ -238,4 +248,3 @@
   --btn-focus-ring: #ffffff;
   border-color: #ffffff;
 }
-

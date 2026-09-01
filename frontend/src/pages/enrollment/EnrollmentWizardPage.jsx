@@ -264,7 +264,7 @@ function EnrollmentWizardPage() {
 
         <div className="enrollment-wizard-page__nav">
           <Button
-            variant="back"
+            variant="dark"
             shape="pill"
             className="btn-uniform-width"
             size="md"

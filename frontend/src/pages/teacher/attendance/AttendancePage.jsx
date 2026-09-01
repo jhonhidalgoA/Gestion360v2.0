@@ -4,7 +4,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { FaSave, FaPlus, FaUndo, FaThumbtack } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
-import { optionsMap } from "@/data/optionsData";
+import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
@@ -47,6 +47,10 @@ const AttendancePage = () => {
     mode: "onChange",
   });
 
+  const grupoValue = useWatch({ control, name: "grupo" });
+  const asignaturaValue = useWatch({ control, name: "asignatura" });
+  const periodoValue = useWatch({ control, name: "periodo" });
+
   const duracion = useWatch({ control, name: "duracion" });
   const duracionSeleccionada = Number(duracion) || 1;
 
@@ -57,42 +61,40 @@ const AttendancePage = () => {
 
   const handleReset = () => {
     reset(defaultValues);
+    setEstudiantes([]);
   };
 
   
   // Cargar estudiantes // 
 
-  const onFiltroValido = (data) => {
-    console.log("Filtro válido:", data);
-
+  const onFiltroValido = async (data) => {
     setLoading((prev) => ({
       ...prev,
       cargar: true,
     }));
 
-    setTimeout(() => {
-      setEstudiantes([
-        {
-          id: 1,
-          apellidos: "Garcia Villadiego",
-          nombres: "Luis Alberto",
-          asistencia: Array(7).fill("P"),
-          confirmado: Array(7).fill(false),
-        },
-        {
-          id: 2,
-          apellidos: "Giraldo Giraldo",
-          nombres: "Jorge Armando",
-          asistencia: Array(7).fill("P"),
-          confirmado: Array(7).fill(false),
-        },
-      ]);
-
+    try {
+      const students = await getStudentsByGroup(data.grupo);
+      setEstudiantes(
+        students.map((s) => {
+          const [nombres, ...apellidosArr] = s.nombre.split(" ");
+          return {
+            id: s.id,
+            apellidos: apellidosArr.join(" "),
+            nombres,
+            asistencia: Array(7).fill("P"),
+            confirmado: Array(7).fill(false),
+          };
+        })
+      );
+    } catch (error) {
+      console.error("Error cargando estudiantes:", error);
+    } finally {
       setLoading((prev) => ({
         ...prev,
         cargar: false,
       }));
-    }, 1000);
+    }
   };
 
   const handleCargar = handleSubmit(onFiltroValido);
@@ -162,6 +164,69 @@ const AttendancePage = () => {
     );
   };
 
+  const renderField = (field) => {
+    if (field.id === "asignatura") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey]}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!grupoValue}
+        />
+      );
+    }
+
+    if (field.id === "periodo") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey]}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!asignaturaValue}
+        />
+      );
+    }
+
+    if (field.id === "duracion") {
+      return (
+        <Select
+          key={field.id}
+          label={field.label}
+          name={field.id}
+          options={optionsMap[field.optionsKey]}
+          register={register}
+          error={errors[field.id]}
+          variant="square"
+          required={field.required}
+          disabled={!periodoValue}
+        />
+      );
+    }
+
+    return (
+      <Select
+        key={field.id}
+        label={field.label}
+        name={field.id}
+        options={optionsMap[field.optionsKey]}
+        register={register}
+        error={errors[field.id]}
+        variant="square"
+        required={field.required}
+      />
+    );
+  };
+
  
   return (
     <>
@@ -177,18 +242,7 @@ const AttendancePage = () => {
           <div className="assessment-header">
             <div className="filter-card">
               <div className="form-row">
-                {fields.map((field) => (
-                  <Select
-                    key={field.id}
-                    label={field.label}
-                    name={field.id}
-                    options={optionsMap[field.optionsKey]}
-                    register={register}
-                    error={errors[field.id]}
-                    variant="square"
-                    required={field.required}
-                  />
-                ))}
+                {fields.map((field) => renderField(field))}
               </div>
             </div>
 
