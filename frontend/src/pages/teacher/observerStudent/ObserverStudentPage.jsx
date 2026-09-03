@@ -10,13 +10,14 @@ import {
   getStudentsByGroup,
 } from "@/data/DBdataSimulation";
 
-import { FaThumbtack, FaUndo } from "react-icons/fa";
+import { FaUndo } from "react-icons/fa";
 import { TbCategory } from "react-icons/tb";
 import { FiFilePlus } from "react-icons/fi";
 
 import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
+import Coments from "@/components/ui/Coments/Coments";
 import Select from "@/components/ui/Select/Select";
 import FormField from "@/pages/teacher/classwork/components/FormField";
 import ObserverCard from "@/components/ui/Card/ObserverCard";
@@ -245,10 +246,7 @@ const ObserverStudentPage = () => {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="observer-container">
           <div className="report-main">
-            <span>
-              <FaThumbtack className="pin-icon" /> Completa los filtros para
-              generar el reporte.
-            </span>
+            <Coments text="Selecciona y completa los campos para generar el reporte." />
           </div>
 
           <div className="observer-header">

@@ -2,14 +2,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaPlus, FaSave, FaTable, FaUndo, FaThumbtack } from "react-icons/fa";
+import { FaPlus, FaSave, FaTable, FaUndo } from "react-icons/fa";
 
 // Componentes compartidos
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Modal from "@/components/ui/Modal/Modal";
 import Select from "@/components/ui/Select/Select";
+import Coments from "@/components/ui/Coments/Coments";
 import { Button } from "@/components/ui/Button/Button";
-
 
 // Datos
 import { filterFormsData } from "@/data/filterFormsData";
@@ -81,7 +81,7 @@ const AssessmentPage = () => {
             notas: Array(numeroNotas).fill(""),
             retroalimentacion: "",
           };
-        })
+        }),
       );
     } catch (error) {
       console.error("Error cargando estudiantes:", error);
@@ -207,10 +207,8 @@ const AssessmentPage = () => {
       <NavbarSection sectionKey="calificaciones" handleBack={handleBack} />
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
-          <div className="report-main">          
-            <span>
-               <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar las calificaciones.
-            </span>
+          <div className="report-main">
+           <Coments text="Selecciona y completa los campos para visualizar las calificaciones." />
           </div>
           <div className="assessment-header">
             <div className="filter-card">

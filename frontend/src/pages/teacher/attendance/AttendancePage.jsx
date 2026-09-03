@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { FaSave, FaPlus, FaUndo, FaThumbtack } from "react-icons/fa";
+import { FaSave, FaPlus, FaUndo } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
 import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
+import Coments from "@/components/ui/Coments/Coments";
 import Select from "@/components/ui/Select/Select";
 import Modal from "@/components/ui/Modal/Modal";
 import AttendanceTable from "@/pages/teacher/attendance/components/AttendanceTable";
@@ -20,7 +21,6 @@ const AttendancePage = () => {
   const navigate = useNavigate();
   const { fields } = filterFormsData.attendance;
 
-  
   const [loading, setLoading] = useState({
     cargar: false,
     guardar: false,
@@ -30,7 +30,6 @@ const AttendancePage = () => {
 
   const [estudiantes, setEstudiantes] = useState([]);
 
-  
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
     return acc;
@@ -54,8 +53,7 @@ const AttendancePage = () => {
   const duracion = useWatch({ control, name: "duracion" });
   const duracionSeleccionada = Number(duracion) || 1;
 
- 
-  // Navegación  // 
+  // Navegación  //
 
   const handleBack = () => navigate("/teacher");
 
@@ -64,8 +62,7 @@ const AttendancePage = () => {
     setEstudiantes([]);
   };
 
-  
-  // Cargar estudiantes // 
+  // Cargar estudiantes //
 
   const onFiltroValido = async (data) => {
     setLoading((prev) => ({
@@ -85,7 +82,7 @@ const AttendancePage = () => {
             asistencia: Array(7).fill("P"),
             confirmado: Array(7).fill(false),
           };
-        })
+        }),
       );
     } catch (error) {
       console.error("Error cargando estudiantes:", error);
@@ -99,8 +96,7 @@ const AttendancePage = () => {
 
   const handleCargar = handleSubmit(onFiltroValido);
 
-  
-  // Guardar // 
+  // Guardar //
 
   const handleGuardar = () => {
     setLoading((prev) => ({
@@ -118,8 +114,7 @@ const AttendancePage = () => {
     }, 1000);
   };
 
-  
-  // Cambiar estado asistencia //  
+  // Cambiar estado asistencia //
 
   const handleCambiarEstado = (estId, diaIndex) => {
     setEstudiantes((prev) =>
@@ -227,18 +222,15 @@ const AttendancePage = () => {
     );
   };
 
- 
   return (
     <>
       <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
-           <div className="report-main">          
-                      <span>
-                         <FaThumbtack className="pin-icon" /> Completa los filtros para visualizar la asistencia.
-                      </span>
-                    </div>
+          <div className="report-main">
+            <Coments text="Selecciona y completa los campos para visualizar la asistencia." />
+          </div>
           <div className="assessment-header">
             <div className="filter-card">
               <div className="form-row">

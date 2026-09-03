@@ -77,7 +77,7 @@ export const filterFormsData = {
         label: "Estudiante:",
         optionsKey: "estudiantes",
         required: true,
-      },      
+      },
       {
         id: "periodo",
         type: "select",
@@ -87,8 +87,6 @@ export const filterFormsData = {
       },
     ],
   },
-
-  
 
   tareas: {
     rows: [
@@ -273,7 +271,6 @@ export const filterFormsData = {
             showFor: ["falta"],
             required: false,
           },
-          
         ],
       },
       {
@@ -283,7 +280,7 @@ export const filterFormsData = {
             id: "descripcion",
             type: "textarea",
             showFor: ["falta"],
-            dynamicLabel: "resumenLabel",            
+            dynamicLabel: "resumenLabel",
             rows: 3,
             required: true,
           },
@@ -351,6 +348,8 @@ export const filterFormsData = {
   planning: {
     rows: [
       {
+        sectionTitle: "1. Información Básica",
+        sectionClassName: "section-title",
         className: "form-row-3",
         fields: [
           {
@@ -377,7 +376,7 @@ export const filterFormsData = {
           },
         ],
       },
-      {
+      {        
         className: "form-row-3",
         fields: [
           {
@@ -406,7 +405,14 @@ export const filterFormsData = {
           },
         ],
       },
+    ],
+  },
+
+  standards: {
+    rows: [
       {
+       sectionTitle: "2. Estandares y DBA",
+       sectionClassName: "section-title",
         className: "form-row-3",
         fields: [
           {
@@ -417,15 +423,15 @@ export const filterFormsData = {
             required: true,
             validation: { required: "Este campo es obligatorio" },
           },
-           {
-            id: "nombreUnidad",
+          {
+            id: "nombreTema",
             type: "text",
             label: "Nombre del tema:",
             placeholder: "Ej: Orden de los números, Literatura indígena",
             required: true,
             validation: { required: "Este campo es obligatorio" },
           },
-           {
+          {
             id: "tipo",
             type: "select",
             label: "Proyecto transversal:",
@@ -435,6 +441,133 @@ export const filterFormsData = {
           },
         ],
       },
+      {
+        className: "form-row-3",
+        fields: [
+          {
+            id: "estandar",
+            type: "select",
+            label: "Estándar:",
+            optionsKey: "estandares",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "dba",
+            type: "select",
+            label: "DBA:",
+            optionsKey: "dba",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "evidenciaAprendizaje",
+            type: "select",
+            label: "Evidencia de Aprendizaje:",
+            optionsKey: "evidenciasAprendizaje",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
     ],
   },
+
+  development: {
+    rows: [
+      {
+        sectionTitle: "3. Desarrollo de la clase",
+        sectionClassName: "section-title",
+        className: "form-row-2",
+        fields: [
+          {
+            id: "competencias",
+            type: "textarea",
+            label: "Competencias:",
+            placeholder: "Escribe aquí las competencias a desarrollar...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "objetivos",
+            type: "textarea",
+            label: "Objetivos:",
+            placeholder: "Escribe aquí los objetivos a desarrollar...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+      {
+        className: "form-row-2",
+        fields: [
+          {
+            id: "saberesPrevios",
+            type: "textarea",
+            label: "Saberes previos (inicio):",
+            placeholder:
+              "Describe actividades o preguntas para activar conocimientos previos...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "analiza",
+            type: "textarea",
+            label: "Analiza:",
+            placeholder:
+              "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+    ],
+  },
+  contentEvaluation: {
+  rows: [
+    {
+      sectionTitle: "4. Contenidos y Evaluación",
+      sectionClassName: "section-title",
+      className: "form-row-2",
+      fields: [
+        {
+          id: "contenidos",
+          type: "textarea",
+          label: "Contenidos:",
+          placeholder: "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
+          required: true,
+          validation: { required: "Este campo es obligatorio" },
+        },
+        {
+          id: "evaluacion",
+          type: "textarea",
+          label: "Evaluación:",
+          placeholder: "Describe cómo se evaluará el aprendizaje (instrumentos, criterios, actividades)...",
+          required: true,
+          validation: { required: "Este campo es obligatorio" },
+        },
+      ],
+    },
+    {
+      
+      className: "form-row-2",
+      fields: [
+        {
+          id: "observaciones",
+          type: "textarea",
+          label: "Observaciones:",
+          placeholder: "Notas adicionales, adaptaciones, incidencias, etc.",
+          required: false,
+        },
+        {
+          id: "bibliografia",
+          type: "textarea",
+          label: "Bibliografía / recursos:",
+          placeholder: "Libros, páginas web, videos, materiales utilizados...",
+          required: false,
+        },
+      ],
+    },
+  ],
+},
 };

@@ -6,10 +6,11 @@ import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 import { filterFormsData } from "@/data/filterFormsData";
 import { reportsConfig, requirementLabels } from "@/data/reportData";
 
-import { FaUndo, FaThumbtack } from "react-icons/fa";
+import { FaUndo } from "react-icons/fa";
 
 import { Button } from "@/components/ui/Button/Button";
 import NavbarSection from "@/components/navbar/NavbarSection";
+import Coments from "@/components/ui/Coments/Coments";
 import ReportCard from "@/components/ui/Card/ReportCard";
 import Select from "@/components/ui/Select/Select";
 
@@ -83,10 +84,8 @@ const ReportPage = () => {
       <form onSubmit={() => {}}>
         <div className="report-container">
           <div className="report-main">
-            <span>
-              <FaThumbtack className="pin-icon" /> Completa los filtros para
-              visualizar los reportes disponibles.
-            </span>
+            <Coments text="Selecciona y completa los campos para visulizar los reportes disponibles." /> 
+            
           </div>
           <div className="assessment-header">
             <div className="filter-card">

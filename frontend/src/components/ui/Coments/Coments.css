@@ -1,0 +1,6 @@
+.filter {
+  color: var(--color-primary);  
+  font-size: 14px;
+  font-weight: var(--fw-xbold);
+  margin: 0 0 10px;
+}

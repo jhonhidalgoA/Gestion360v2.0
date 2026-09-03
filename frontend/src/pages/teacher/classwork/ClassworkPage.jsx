@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
-import { FaPaperPlane, FaUndo, FaThumbtack, FaUsers } from "react-icons/fa";
+import { FaPaperPlane, FaUndo, FaUsers } from "react-icons/fa";
 import { TbSearch } from "react-icons/tb";
 
 import { Button } from "@/components/ui/Button/Button";
+import Coments from "@/components/ui/Coments/Coments";
 import Input from "@/components/ui/Input/Input";
 import Modal from "@/components/ui/Modal/Modal";
 import Stepper from "@/components/ui/Stepper/Stepper";
@@ -88,7 +89,7 @@ const ClassworkPage = () => {
     selectedStudents.length > 0,
   ]);
 
-  // 7. Gestión y Filtrado de Estudiantes
+ 
   const groupKey =
     values.grupo && values.asignatura
       ? `${values.grupo}|${values.asignatura}`
@@ -179,7 +180,7 @@ const ClassworkPage = () => {
     }, 1200);
   };
 
-  // 9. Renderizado de la Interfaz (JSX)
+  
   return (
     <>
       <NavbarSection sectionKey="tasks" handleBack={handleBack} />
@@ -192,12 +193,8 @@ const ClassworkPage = () => {
       
       <div className="classwork-container">
         <div className="report-main">
-          <span>
-            <FaThumbtack className="pin-icon" />
-            Completa los filtros y selecciona a los estudiantes para enviar la tarea.
-          </span>
-        </div>
-        
+           <Coments text="Selecciona y completa los campos para enviar la tarea a los estudiantes." />         
+        </div>        
         <div className="classwork-grid">
           {/* Panel Izquierdo: Formulario */}
           <div className="classwork-left">

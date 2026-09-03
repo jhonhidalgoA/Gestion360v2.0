@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
-import { FaThumbtack, FaPen } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
 import { TbEye, TbCheck } from "react-icons/tb";
 import { FaRegComments } from "react-icons/fa6";
 
@@ -13,6 +13,7 @@ import { filterFormsData } from "@/data/filterFormsData";
 import { Button } from "@/components/ui/Button/Button";
 
 import NavbarSection from "@/components/navbar/NavbarSection";
+import Coments from "@/components/ui/Coments/Coments";
 import Stepper from "@/components/ui/Stepper/Stepper";
 import Select from "@/components/ui/Select/Select";
 import Textarea from "@/components/ui/Textarea/Textarea";
@@ -141,11 +142,8 @@ const ComunicationPage = () => {
       />
       <div className="comunication-container">
         <div className="report-main">
-          <span>
-            <FaThumbtack className="pin-icon" />
-            Completa los filtros y selecciona los canales para enviar los
-            mensajes.
-          </span>
+           <Coments text="Selecciona y completa los campos para enviar los mensajes." />  
+          
         </div>
 
         <form onSubmit={handleSend} noValidate>

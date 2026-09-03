@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { FaThumbtack } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
-import { optionsMap } from "@/data/DBdataSimulation";
+import { optionsMap, ASIGNATURA_ESTANDARES_MAP } from "@/data/DBdataSimulation";
 import { stepperData } from "@/data/stepperData";
 
 import { Button } from "@/components/ui/Button/Button";
@@ -15,16 +15,27 @@ import Select from "@/components/ui/Select/Select";
 
 import "./LessonPlanPage.css";
 
+const STEP_KEYS = {
+  1: "planning",
+  2: "standards",
+  3: "development",
+  4: "contentEvaluation",
+};
+
+const TOTAL_STEPS = 4;
+
 const LessonPlanPage = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [planData, setPlanData] = useState({});
 
-  const rows = filterFormsData.planning?.rows ?? [];
+  const stepKey = STEP_KEYS[currentStep];
+  const rows = filterFormsData[stepKey]?.rows ?? [];
 
   const defaultValues = rows
     .flatMap((row) => row.fields)
     .reduce((acc, field) => {
-      acc[field.id] = "";
+      acc[field.id] = planData[field.id] ?? "";
       return acc;
     }, {});
 
@@ -36,18 +47,36 @@ const LessonPlanPage = () => {
 
   const handleBack = () => navigate("/planningPage");
 
-  const onSubmit = (data) => {
-    console.log("Paso 1 - Información Básica:", data);
+  const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
+
+  const onNext = (data) => {
+    const updatedPlan = { ...planData, ...data };
+    setPlanData(updatedPlan);
+
+    if (currentStep === TOTAL_STEPS) {
+      console.log("Plan completo:", updatedPlan);
+      // TODO: submit final al backend cuando esté listo
+      return;
+    }
+    setCurrentStep((s) => s + 1);
   };
 
   const renderField = (field) => {
     if (field.type === "select") {
+      let options = optionsMap[field.optionsKey];
+
+      if (field.id === "estandar") {
+        const asignaturaSeleccionada = planData.asignatura;
+        const estandaresKey = ASIGNATURA_ESTANDARES_MAP[asignaturaSeleccionada];
+        options = estandaresKey ? optionsMap[estandaresKey] : [];
+      }
+
       return (
         <Select
           key={field.id}
           label={field.label}
           name={field.id}
-          options={optionsMap[field.optionsKey]}
+          options={options}
           register={register}
           error={errors[field.id]}
           variant="square"
@@ -55,7 +84,14 @@ const LessonPlanPage = () => {
         />
       );
     }
-    return <FormField field={field} register={register} errors={errors} />;
+    return (
+      <FormField
+        key={field.id}
+        field={field}
+        register={register}
+        errors={errors}
+      />
+    );
   };
 
   return (
@@ -67,23 +103,34 @@ const LessonPlanPage = () => {
         currentStep={currentStep}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form key={currentStep} onSubmit={handleSubmit(onNext)} noValidate>
         <div className="plan-container">
-          <div className="report-main">
-            <span>
-              <FaThumbtack className="pin-icon" /> Completa los filtros para
-              generar el plan de clase.
-            </span>
-          </div>
+          {currentStep === 1 && (
+            <div className="report-main">
+              <span>
+                <FaThumbtack className="pin-icon" /> Completa los filtros para
+                generar el plan de clase.
+              </span>
+            </div>
+          )}
+
           <div className="plan-header">
             {rows.map((row, i) => (
-              <div key={i} className={row.className || undefined}>
-                {row.fields.map((field) => (
-                  <div key={field.id}>{renderField(field)}</div>
-                ))}
+              <div key={i} className="plan-section">
+                {row.sectionTitle && (
+                  <p className={`section-title ${row.sectionClassName || ""}`}>
+                    {row.sectionTitle}
+                  </p>
+                )}
+                <div className={row.className || undefined}>
+                  {row.fields.map((field) => (
+                    <div key={field.id}>{renderField(field)}</div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
+
           <div className="plan-buttons">
             <Button
               type="button"
@@ -91,20 +138,19 @@ const LessonPlanPage = () => {
               shape="rounded"
               className="btn-uniform-width"
               size="md"
-              onClick={() => setCurrentStep((s) => s - 1)}
+              onClick={goPrev}
               disabled={currentStep === 1}
             >
               Atrás
             </Button>
             <Button
-              type="button"
+              type="submit"
               variant="primary"
               shape="rounded"
               className="btn-uniform-width"
               size="md"
-              onClick={() => setCurrentStep((s) => s + 1)}
             >
-              Continuar
+              {currentStep === TOTAL_STEPS ? "Finalizar" : "Continuar"}
             </Button>
           </div>
         </div>

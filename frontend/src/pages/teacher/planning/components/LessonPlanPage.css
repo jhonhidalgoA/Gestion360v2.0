@@ -24,3 +24,10 @@
   margin-top: 20px;  
 }
 
+.section-title {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-3);
+  color: var(--text-on-accent);
+}
+
