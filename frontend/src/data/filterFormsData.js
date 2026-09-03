@@ -1,4 +1,3 @@
-import { FaBookOpen, FaCalendarAlt, FaPen } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { FaPenToSquare } from "react-icons/fa6";
 
@@ -91,8 +90,8 @@ export const filterFormsData = {
   tareas: {
     rows: [
       {
-        title: "Grupo - Asignatura",
-        icon: FaBookOpen,
+        number: 1,
+        title: "Grupo - Asignatura",        
         className: "form-row_tasks",
         fields: [
           {
@@ -114,8 +113,8 @@ export const filterFormsData = {
         ],
       },
       {
-        title: "Fechas",
-        icon: FaCalendarAlt,
+        number: 2,
+        title: "Fechas",        
         className: "form-row",
         fields: [
           {
@@ -135,8 +134,8 @@ export const filterFormsData = {
         ],
       },
       {
-        title: "Tema e instrucciones",
-        icon: FaPen,
+        number: 3,
+        title: "Tema - Descripción",        
         className: "form-row",
         fields: [
           {
@@ -176,7 +175,7 @@ export const filterFormsData = {
     rows: [
       {
         id: "destinatarios",
-        title: "DESTINATARIOS",
+        title: " DESTINATARIOS",
         icon: FiUsers,
         fields: [
           {

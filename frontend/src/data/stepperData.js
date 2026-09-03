@@ -10,7 +10,7 @@ export const stepperData = {
   task: [
     { id: 1, label: "Grupo - Asignatura" },
     { id: 2, label: "Fechas" },
-    { id: 3, label: "Tema e instrucciones" },
+    { id: 3, label: "Tema - Descripción" },
     { id: 4, label: "Estudiantes" },
   ],
 

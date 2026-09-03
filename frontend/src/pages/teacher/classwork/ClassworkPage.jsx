@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
-import { FaPaperPlane, FaUndo, FaUsers } from "react-icons/fa";
+import { FaPaperPlane, FaUndo } from "react-icons/fa";
 import { TbSearch } from "react-icons/tb";
 
 import { Button } from "@/components/ui/Button/Button";
@@ -40,7 +40,7 @@ const getInitials = (nombre) =>
     .join("")
     .toUpperCase();
 
-// 3. Declaración del Componente y Hooks de Navegación
+// 3. Declaración del Componente
 const ClassworkPage = () => {
   const navigate = useNavigate();
   const { rows } = filterFormsData.tareas;
@@ -49,13 +49,13 @@ const ClassworkPage = () => {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [pendingData, setPendingData] = useState(null);
   const [loading, setLoading] = useState({ guardar: false, borrar: false });
-  
+
   const [students, setStudents] = useState([]);
   const [loadedKey, setLoadedKey] = useState("");
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchStudent, setSearchStudent] = useState("");
 
-  // 5. Configuración del Formulario (React Hook Form)
+  // 5. Configuración del Formulario
   const allFields = rows.flatMap((row) => row.fields || []);
   const defaultValues = allFields.reduce((acc, field) => {
     if (field.type !== "file") {
@@ -78,18 +78,19 @@ const ClassworkPage = () => {
   const values = useWatch({ control });
 
   // 6. Lógica de Validación del Stepper
-  const step1Ok = Boolean(values.grupo && values.asignatura);
-  const step2Ok = step1Ok && Boolean(values.fechaInicio && values.fechaFin);
-  const step3Ok = step2Ok && Boolean(values.tema && values.descripcion);
+  const grupoAsignaturaOk = Boolean(values.grupo && values.asignatura);
+  const fechasOk = grupoAsignaturaOk && Boolean(values.fechaInicio && values.fechaFin);
+  const temaDescripcionOk = fechasOk && Boolean(values.tema && values.descripcion);
+  const estudiantesOk = temaDescripcionOk && selectedStudents.length > 0;
 
   const { currentStep } = useStepper([
-    step1Ok,
-    step2Ok,
-    step3Ok,
-    selectedStudents.length > 0,
+    grupoAsignaturaOk,
+    fechasOk,
+    temaDescripcionOk,
+    estudiantesOk,
+    true, // ← true dummy para que el hook retorne 5 cuando todos estén completos
   ]);
 
- 
   const groupKey =
     values.grupo && values.asignatura
       ? `${values.grupo}|${values.asignatura}`
@@ -118,21 +119,21 @@ const ClassworkPage = () => {
 
   const handleToggleStudent = (id) => {
     setSelectedStudents((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
   };
 
   const handleSelectAll = () => {
     setSelectedStudents((prev) =>
-      prev.length === students.length ? [] : students.map((s) => s.id)
+      prev.length === students.length ? [] : students.map((s) => s.id),
     );
   };
 
   const filteredStudents = students.filter((s) =>
-    s.nombre.toLowerCase().includes(searchStudent.toLowerCase())
+    s.nombre.toLowerCase().includes(searchStudent.toLowerCase()),
   );
 
-  // 8. Manejadores de Eventos y Acciones
+  // 8. Manejadores de Eventos
   const handleReset = () => {
     reset(defaultValues);
     setPendingData(null);
@@ -180,33 +181,35 @@ const ClassworkPage = () => {
     }, 1200);
   };
 
-  
   return (
     <>
       <NavbarSection sectionKey="tasks" handleBack={handleBack} />
-      
+
       <Stepper
         className="classwork-stepper"
         steps={stepperData.task}
         currentStep={currentStep}
       />
-      
+
       <div className="classwork-container">
         <div className="report-main">
-           <Coments text="Selecciona y completa los campos para enviar la tarea a los estudiantes." />         
-        </div>        
+          <Coments text="Selecciona y completa los campos para enviar la tarea a los estudiantes." />
+        </div>
         <div className="classwork-grid">
           {/* Panel Izquierdo: Formulario */}
           <div className="classwork-left">
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               {rows.map((row, rowIndex) => {
-                const Icon = row.icon;
                 return (
                   <div key={rowIndex} className="form-section">
                     {row.title && (
                       <div className="form-section-title">
-                        {Icon && <Icon className="form-section-icon" />}
-                        <span>{row.title}</span>
+                        <span className="form-section-title__badge">
+                          {row.number}
+                        </span>
+                        <span className="form-section-title__text">
+                          {row.title}
+                        </span>
                       </div>
                     )}
                     <div className={row.className || undefined}>
@@ -254,10 +257,10 @@ const ClassworkPage = () => {
           <div className="classwork-right">
             <div className="classwork-student">
               <div className="form-section-title">
-                <FaUsers className="form-section-icon" />
-                <span>ESTUDIANTES</span>
+                <span className="form-section-title__badge">4</span>
+                <span className="form-section-title__text">Estudiantes</span>
               </div>
-              
+
               <Input
                 name="searchStudent"
                 leftIcon={TbSearch}
@@ -294,7 +297,8 @@ const ClassworkPage = () => {
                 <div className="student-panel__empty">
                   <b>Aún no hay estudiantes para mostrar</b>
                   <span>
-                    Selecciona grupo y asignatura para cargar la lista del grupo.
+                    Selecciona grupo y asignatura para cargar la lista del
+                    grupo.
                   </span>
                 </div>
               ) : loadingStudents ? (
@@ -320,13 +324,16 @@ const ClassworkPage = () => {
                       <span
                         className="student-panel__avatar"
                         style={{
-                          background: AVATAR_COLORS[index % AVATAR_COLORS.length],
+                          background:
+                            AVATAR_COLORS[index % AVATAR_COLORS.length],
                         }}
                       >
                         {getInitials(student.nombre)}
                       </span>
                       <span className="student-panel__info">
-                        <div className="student-panel__name">{student.nombre}</div>
+                        <div className="student-panel__name">
+                          {student.nombre}
+                        </div>
                         <div className="student-panel__sub">
                           {student.grupo} · {student.estado}
                         </div>
