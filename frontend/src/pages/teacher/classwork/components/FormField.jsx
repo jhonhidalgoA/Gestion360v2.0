@@ -25,6 +25,7 @@ const FormField = ({ field, register, errors }) => {
         error={error}
         variant="square"
         required={field.required}
+        disabled={field.disabled}
       />
     );
   }
@@ -41,6 +42,7 @@ const FormField = ({ field, register, errors }) => {
         error={error}
         variant="square"
         required={field.required}
+        disabled={field.disabled}
       />
     );
   }
@@ -56,6 +58,7 @@ const FormField = ({ field, register, errors }) => {
         error={error}
         variant="square"
         required={field.required}
+        disabled={field.disabled}
       />
     );
   }
@@ -72,6 +75,7 @@ const FormField = ({ field, register, errors }) => {
       error={error}
       variant="square"
       required={field.required}
+      disabled={field.disabled}
     />
   );
 };

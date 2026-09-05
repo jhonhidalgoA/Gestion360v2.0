@@ -11,7 +11,8 @@
 --color-accent-dark: #c68f10;
 --color-accent-tint: #fdf6e3;
 
---color-success: #1a9d6f;
+
+--color-success: #1DA851;
 --color-success-tint: #e6f7f2;
 
 --color-error: #d32f2f;
@@ -158,6 +159,15 @@
   --bp-lg: 1024px;
   --bp-xl: 1280px;
   --bp-2xl: 1536px;
+}
+
+
+.classwork-page {
+  --color-module: #E8720A;    /* naranja, solo para header/stepper de este módulo */
+}
+
+.comunication-page {
+  --color-module: #D6285C;    /* rosa, solo para header/stepper de este módulo */
 }
 
 /* 12. DARK MODE OVERRIDES */

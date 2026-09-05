@@ -241,7 +241,7 @@ const ObserverStudentPage = () => {
     tipoNovedad === "falta" ? "Registrar falta" : "Registrar reconocimiento";
 
   return (
-    <>
+    <div className="observer-page">
       <NavbarSection sectionKey="observador" handleBack={handleBack} />
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="observer-container">
@@ -352,7 +352,7 @@ const ObserverStudentPage = () => {
         isLoading={loading.guardar}
         confirmText={submitLabel}
       />
-    </>
+    </div>
   );
 };
 

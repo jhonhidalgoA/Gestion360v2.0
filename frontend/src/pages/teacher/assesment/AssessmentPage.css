@@ -1,3 +1,7 @@
+.assesment-page{
+  --notice-color: #1D6FB8;
+}
+
 .assessment-container {
   display: flex;
   flex-direction: column;

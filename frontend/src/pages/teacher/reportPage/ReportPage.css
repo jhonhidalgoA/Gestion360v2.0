@@ -1,3 +1,7 @@
+.report-page {
+  --notice-color: #0B3D73;
+}
+
 .report-container {
   display: flex;
   flex-direction: column;

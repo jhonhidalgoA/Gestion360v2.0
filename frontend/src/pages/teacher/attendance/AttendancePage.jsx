@@ -223,7 +223,7 @@ const AttendancePage = () => {
   };
 
   return (
-    <>
+    <div className="attendance-page">
       <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
 
       <form onSubmit={handleSubmit(handleGuardar)}>
@@ -294,7 +294,7 @@ const AttendancePage = () => {
         description="La asistencia se registró correctamente."
         autoCloseMs={5000}
       />
-    </>
+    </div>
   );
 };
 

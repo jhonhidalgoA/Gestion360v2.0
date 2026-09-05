@@ -133,7 +133,7 @@ const ComunicationPage = () => {
   };
 
   return (
-    <>
+    <div className="comunication-page">
       <NavbarSection sectionKey="comunicacion" handleBack={handleBack} />
       <Stepper
         className="comunication-stepper"
@@ -142,8 +142,7 @@ const ComunicationPage = () => {
       />
       <div className="comunication-container">
         <div className="report-main">
-           <Coments text="Selecciona y completa los campos para enviar los mensajes." />  
-          
+          <Coments text="Selecciona y completa los campos para enviar los mensajes." />
         </div>
 
         <form onSubmit={handleSend} noValidate>
@@ -287,16 +286,15 @@ const ComunicationPage = () => {
         onConfirm={handleConfirmSend}
         variant="preview"
         secondaryText="Editar mensaje"
-        secondaryIcon={FaPen} 
+        secondaryIcon={FaPen}
       >
         <MessagePreviewContent
           destinatario={destinatarioTexto}
           canales={selectedChannels}
           mensaje={message}
-          
         />
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -203,7 +203,7 @@ const AssessmentPage = () => {
   };
 
   return (
-    <>
+    <div className="assesment-page">
       <NavbarSection sectionKey="calificaciones" handleBack={handleBack} />
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">
@@ -297,7 +297,7 @@ const AssessmentPage = () => {
           onChange={(texto) => setFeedbackModal((prev) => ({ ...prev, texto }))}
         />
       </Modal>
-    </>
+    </div>
   );
 };
 

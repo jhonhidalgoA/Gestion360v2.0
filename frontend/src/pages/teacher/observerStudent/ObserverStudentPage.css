@@ -1,3 +1,9 @@
+.observer-page {
+  --notice-color: #55708C;
+}
+
+
+
 .observer-container {
   display: flex;
   flex-direction: column;
@@ -119,7 +125,9 @@
 
 .form-row-2 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2
+  
+  , 1fr);
   column-gap: 20px;
   align-items: start;
 }

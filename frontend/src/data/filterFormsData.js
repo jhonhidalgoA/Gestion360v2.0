@@ -1,5 +1,3 @@
-import { FiUsers } from "react-icons/fi";
-import { FaPenToSquare } from "react-icons/fa6";
 
 export const filterFormsData = {
   calificaciones: {
@@ -17,6 +15,7 @@ export const filterFormsData = {
         label: "Asignatura:",
         optionsKey: "asignaturas",
         required: true,
+        dependsOn: "grupo",
       },
       {
         id: "periodo",
@@ -24,6 +23,7 @@ export const filterFormsData = {
         label: "Periodo:",
         optionsKey: "periodos",
         required: true,
+        dependsOn: "asignatura",
       },
     ],
   },
@@ -91,7 +91,7 @@ export const filterFormsData = {
     rows: [
       {
         number: 1,
-        title: "Grupo - Asignatura",        
+        title: "Grupo - Asignatura",
         className: "form-row_tasks",
         fields: [
           {
@@ -109,12 +109,13 @@ export const filterFormsData = {
             optionsKey: "asignaturas",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "grupo",
           },
         ],
       },
       {
         number: 2,
-        title: "Fechas",        
+        title: "Fechas",
         className: "form-row",
         fields: [
           {
@@ -123,6 +124,7 @@ export const filterFormsData = {
             label: "Fecha de Inicio:",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "asignatura",
           },
           {
             id: "fechaFin",
@@ -130,12 +132,13 @@ export const filterFormsData = {
             label: "Fecha de Fin:",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "fechaInicio",
           },
         ],
       },
       {
         number: 3,
-        title: "Tema - Descripción",        
+        title: "Tema - Descripción",
         className: "form-row",
         fields: [
           {
@@ -145,6 +148,8 @@ export const filterFormsData = {
             required: true,
             placeholder: "Escribe aquí...",
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "fechaFin",
+            dependsOnLabel: "Fecha de Fin",
           },
           {
             id: "attached",
@@ -165,6 +170,8 @@ export const filterFormsData = {
             placeholder: "Describe aquí la actividad...",
             rows: 4,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "tema",
+            dependsOnLabel: "Tema",
           },
         ],
       },
@@ -175,8 +182,8 @@ export const filterFormsData = {
     rows: [
       {
         id: "destinatarios",
-        title: " DESTINATARIOS",
-        icon: FiUsers,
+        number: 1,
+        title: "Grupo - Asignatura",
         fields: [
           {
             id: "grupo",
@@ -190,8 +197,8 @@ export const filterFormsData = {
       },
       {
         id: "mensaje",
-        title: "MENSAJE",
-        icon: FaPenToSquare,
+        number: 2,
+        title: "Mensaje",
         fields: [],
       },
     ],
@@ -375,7 +382,7 @@ export const filterFormsData = {
           },
         ],
       },
-      {        
+      {
         className: "form-row-3",
         fields: [
           {
@@ -410,8 +417,8 @@ export const filterFormsData = {
   standards: {
     rows: [
       {
-       sectionTitle: "2. Estandares y DBA",
-       sectionClassName: "section-title",
+        sectionTitle: "2. Estandares y DBA",
+        sectionClassName: "section-title",
         className: "form-row-3",
         fields: [
           {
@@ -523,50 +530,52 @@ export const filterFormsData = {
     ],
   },
   contentEvaluation: {
-  rows: [
-    {
-      sectionTitle: "4. Contenidos y Evaluación",
-      sectionClassName: "section-title",
-      className: "form-row-2",
-      fields: [
-        {
-          id: "contenidos",
-          type: "textarea",
-          label: "Contenidos:",
-          placeholder: "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
-          required: true,
-          validation: { required: "Este campo es obligatorio" },
-        },
-        {
-          id: "evaluacion",
-          type: "textarea",
-          label: "Evaluación:",
-          placeholder: "Describe cómo se evaluará el aprendizaje (instrumentos, criterios, actividades)...",
-          required: true,
-          validation: { required: "Este campo es obligatorio" },
-        },
-      ],
-    },
-    {
-      
-      className: "form-row-2",
-      fields: [
-        {
-          id: "observaciones",
-          type: "textarea",
-          label: "Observaciones:",
-          placeholder: "Notas adicionales, adaptaciones, incidencias, etc.",
-          required: false,
-        },
-        {
-          id: "bibliografia",
-          type: "textarea",
-          label: "Bibliografía / recursos:",
-          placeholder: "Libros, páginas web, videos, materiales utilizados...",
-          required: false,
-        },
-      ],
-    },
-  ],
-},
+    rows: [
+      {
+        sectionTitle: "4. Contenidos y Evaluación",
+        sectionClassName: "section-title",
+        className: "form-row-2",
+        fields: [
+          {
+            id: "contenidos",
+            type: "textarea",
+            label: "Contenidos:",
+            placeholder:
+              "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+          {
+            id: "evaluacion",
+            type: "textarea",
+            label: "Evaluación:",
+            placeholder:
+              "Describe cómo se evaluará el aprendizaje (instrumentos, criterios, actividades)...",
+            required: true,
+            validation: { required: "Este campo es obligatorio" },
+          },
+        ],
+      },
+      {
+        className: "form-row-2",
+        fields: [
+          {
+            id: "observaciones",
+            type: "textarea",
+            label: "Observaciones:",
+            placeholder: "Notas adicionales, adaptaciones, incidencias, etc.",
+            required: false,
+          },
+          {
+            id: "bibliografia",
+            type: "textarea",
+            label: "Bibliografía / recursos:",
+            placeholder:
+              "Libros, páginas web, videos, materiales utilizados...",
+            required: false,
+          },
+        ],
+      },
+    ],
+  },
 };

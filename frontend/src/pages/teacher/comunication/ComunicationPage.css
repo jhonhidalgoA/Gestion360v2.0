@@ -1,12 +1,25 @@
+.comunication-page{
+   --notice-color: #B93368;
+}
+
+.comunication-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 20px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
 .comunication-stepper {
   margin-top: 120px;
 }
 
-.comunication-container {
-  width: 95%;
-  margin: var(--space-5) auto;
-  padding: 0;
-}
+
 
 .comunication-grid {
   width: 100%;

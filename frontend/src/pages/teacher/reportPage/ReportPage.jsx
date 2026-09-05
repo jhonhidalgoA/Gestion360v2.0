@@ -79,7 +79,7 @@ const ReportPage = () => {
   };
 
   return (
-    <>
+    <div className="report-page">
       <NavbarSection sectionKey="report" handleBack={handleBack} />
       <form onSubmit={() => {}}>
         <div className="report-container">
@@ -144,7 +144,7 @@ const ReportPage = () => {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

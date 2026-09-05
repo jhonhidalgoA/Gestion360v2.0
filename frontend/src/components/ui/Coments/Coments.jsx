@@ -3,7 +3,9 @@ import "./Coments.css";
 
 const Coments = ({ text }) => {
   return (
-    <p className="filter">{text}</p>
+    <div className="filter-coments">
+      <p className="filter">{text}</p>
+    </div>
   )
 }
 

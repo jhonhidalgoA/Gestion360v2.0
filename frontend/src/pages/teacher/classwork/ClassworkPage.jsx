@@ -14,7 +14,8 @@ import Stepper from "@/components/ui/Stepper/Stepper";
 
 import useStepper from "@/components/hooks/useStepper";
 import NavbarSection from "@/components/navbar/NavbarSection";
-import FormField from "@/pages/teacher/classwork/components/FormField";
+
+import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
 
 import { filterFormsData } from "@/data/filterFormsData";
 import { stepperData } from "@/data/stepperData";
@@ -79,8 +80,10 @@ const ClassworkPage = () => {
 
   // 6. Lógica de Validación del Stepper
   const grupoAsignaturaOk = Boolean(values.grupo && values.asignatura);
-  const fechasOk = grupoAsignaturaOk && Boolean(values.fechaInicio && values.fechaFin);
-  const temaDescripcionOk = fechasOk && Boolean(values.tema && values.descripcion);
+  const fechasOk =
+    grupoAsignaturaOk && Boolean(values.fechaInicio && values.fechaFin);
+  const temaDescripcionOk =
+    fechasOk && Boolean(values.tema && values.descripcion);
   const estudiantesOk = temaDescripcionOk && selectedStudents.length > 0;
 
   const { currentStep } = useStepper([
@@ -182,7 +185,7 @@ const ClassworkPage = () => {
   };
 
   return (
-    <>
+    <div className="classwork-page">
       <NavbarSection sectionKey="tasks" handleBack={handleBack} />
 
       <Stepper
@@ -214,11 +217,12 @@ const ClassworkPage = () => {
                     )}
                     <div className={row.className || undefined}>
                       {row.fields.map((field) => (
-                        <FormField
+                        <FormFieldCascada
                           key={field.id}
                           field={field}
                           register={register}
                           errors={errors}
+                          control={control}
                         />
                       ))}
                     </div>
@@ -362,7 +366,7 @@ const ClassworkPage = () => {
         isLoading={loading.guardar}
         confirmText="Enviar tarea"
       />
-    </>
+    </div>
   );
 };
 

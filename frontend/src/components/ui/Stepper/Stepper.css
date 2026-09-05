@@ -77,9 +77,21 @@
   transition: background-color var(--transition-fast);
 }
 
-.stepper__connector--done {
-  background: var(--color-primary);
+.stepper__node--done {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--text-on-primary);
 }
+
+.stepper__connector--done {
+  background: var(--color-success);
+}
+
+.stepper__node--active {
+  border-color: var(--color-module);
+  color: var(--color-module);
+}
+
 
 @media (max-width: 640px) {
   .stepper__label {
