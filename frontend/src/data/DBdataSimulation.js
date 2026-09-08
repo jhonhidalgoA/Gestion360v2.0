@@ -395,6 +395,7 @@ export const optionsMap = {
   ],
 
   asignaturas: [
+    
     { value: "ciencias_naturales", label: "Ciencias Naturales" },
     { value: "biologia", label: "Biología" },
     { value: "quimica", label: "Química" },
@@ -575,6 +576,56 @@ export const observationFormConfig = {
     descriptionLabel: "Descripción de la falta",
     resumenLabel: "Descripción",
   },
+};
+
+export const planLibrary = [
+  {
+    id: 1,
+    icon: "function",
+    asignatura: "Matemáticas · Fracciones",
+    grupo: "Tercero",
+    estado: "activo",
+    actualizado: "Actualizado hace 2 días",
+  },
+  {
+    id: 2,
+    icon: "science",
+    asignatura: "Ciencias · Ecosistemas",
+    grupo: "Cuarto",
+    estado: "construccion",
+    actualizado: "Actualizado hace 5 horas",
+  },
+  {
+    id: 3,
+    icon: "menu_book",
+    asignatura: "Lenguaje · Comprensión lectora",
+    grupo: "Segundo",
+    estado: "activo",
+    actualizado: "Actualizado hace 1 semana",
+  },
+  {
+    id: 4,
+    icon: "public",
+    asignatura: "Ciencias Sociales · Comunidad",
+    grupo: "Primero",
+    estado: "archivado",
+    actualizado: "Actualizado hace 1 mes",
+  },
+  {
+    id: 5,
+    icon: "public",
+    asignatura: "Ciencias Sociales · Comunidad",
+    grupo: "Sexto",
+    estado: "archivado",
+    actualizado: "Actualizado hace 1 mes",
+  },
+  
+];
+
+export const state_label = {
+  activo: "Activo",
+  construccion: "En construcción",
+  archivado: "Archivado",
 };
 
 const mockStudents = [

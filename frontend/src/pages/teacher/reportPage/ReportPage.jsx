@@ -84,8 +84,7 @@ const ReportPage = () => {
       <form onSubmit={() => {}}>
         <div className="report-container">
           <div className="report-main">
-            <Coments text="Selecciona y completa los campos para visulizar los reportes disponibles." /> 
-            
+            <Coments text="Selecciona y completa los campos para visulizar los reportes disponibles." />             
           </div>
           <div className="assessment-header">
             <div className="filter-card">

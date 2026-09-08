@@ -1,37 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@500;600;700&display=swap");
 
-:root {  
---color-primary: #023e8a;
---color-primary-light: #0077b6;
---color-primary-dark: #03045e;
---color-primary-tint: #e8f1fb;
---color-secondary-dark: #424453; 
+:root {
+  --color-primary: #023e8a;
+  --color-primary-light: #0077b6;
+  --color-primary-dark: #03045e;
+  --color-primary-tint: #e8f1fb;
+  --color-secondary-dark: #424453;
 
---color-accent: #e2a926;
---color-accent-dark: #c68f10;
---color-accent-tint: #fdf6e3;
+  --color-accent: #e2a926;
+  --color-accent-dark: #c68f10;
+  --color-accent-tint: #fdf6e3;
 
+  --color-success: #1da851;
+  --color-success-tint: #e6f7f2;
 
---color-success: #1DA851;
---color-success-tint: #e6f7f2;
+  --color-error: #d32f2f;
+  --color-error-tint: #fdecea;
 
---color-error: #d32f2f;
---color-error-tint: #fdecea;
+  --color-neutral: #f1f3f5;
+  --color-warning: #f59e0b;
+  --color-warning-tint: #fdf6e3;
 
---color-neutral: #f1f3f5;
---color-warning: #f59e0b;
---color-warning-tint: #fdf6e3;
+  --color-info: #0288d1;
+  --color-info-tint: #e3f2fd;
 
---color-info: #0288d1;
---color-info-tint: #e3f2fd;
+  --color-critical: #9f1239;
+  --color-critical-tint: #fbeaf0;
 
---color-critical: #9f1239;
---color-critical-tint: #fbeaf0;
-
---color-document: #c0392b;
---color-document-tint: #fbe9e7;
-
-  
+  --color-document: #c0392b;
+  --color-document-tint: #fbe9e7;
 
   /* 2. TEXT COLORS */
 
@@ -52,30 +49,28 @@
 
   /* 4. BORDERS & RADIUS */
 
---border-color: #d9e2ef;
---border-color-grey: #b0b0b0;
---border-color-dark: #1a1b1b;
---border-focus: #023e8a;
+  --border-color: #d9e2ef;
+  --border-color-grey: #b0b0b0;
+  --border-color-dark: #1a1b1b;
+  --border-focus: #023e8a;
 
---border-radius-xs: 4px;
---border-radius-sm: 8px;
---border-radius-md: 10px;
---border-radius-lg: 16px;
---border-radius-xl: 18px;
---border-radius-full: 9999px;
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 18px;
+  --border-radius-full: 9999px;
 
-/* Form Controls */
+  /* Form Controls */
 
---form-control-height: 48px;
---form-control-border-width: 1px;
+  --form-control-height: 48px;
+  --form-control-border-width: 1px;
 
---form-control-radius-rounded: var(--border-radius-lg);
---form-control-radius-square: var(--border-radius-sm);
+  --form-control-radius-rounded: var(--border-radius-lg);
+  --form-control-radius-square: var(--border-radius-sm);
 
---form-control-padding-x-rounded: 18px;
---form-control-padding-x-square: 16px;
-
-
+  --form-control-padding-x-rounded: 18px;
+  --form-control-padding-x-square: 16px;
 
   /* 5. TYPOGRAPHY (Fonts, Sizes, Weights)*/
 
@@ -123,7 +118,6 @@
   --shadow-lg: 0 8px 24px rgba(2, 62, 138, 0.14);
 
   --focus-ring: 0 0 0 2px rgba(2, 62, 138, 0.15);
-  
 
   /* 8. TRANSITIONS */
 
@@ -161,13 +155,12 @@
   --bp-2xl: 1536px;
 }
 
-
 .classwork-page {
-  --color-module: #E8720A;    /* naranja, solo para header/stepper de este módulo */
+  --color-module: #e8720a; /* naranja, solo para header/stepper de este módulo */
 }
 
 .comunication-page {
-  --color-module: #D6285C;    /* rosa, solo para header/stepper de este módulo */
+  --color-module: #d6285c; /* rosa, solo para header/stepper de este módulo */
 }
 
 /* 12. DARK MODE OVERRIDES */

@@ -4,7 +4,7 @@ import { useForm, useWatch } from "react-hook-form";
 
 import { FaPen } from "react-icons/fa";
 import { TbEye, TbCheck } from "react-icons/tb";
-import { FaRegComments } from "react-icons/fa6";
+
 
 import { mockData, getEstudiantesByGrupo } from "@/data/mockData";
 import { stepperData } from "@/data/stepperData";
@@ -149,13 +149,17 @@ const ComunicationPage = () => {
           <div className="comunication-grid">
             <div className="comunication-left">
               {rows.map((row) => {
-                const Icon = row.icon;
+                
                 return (
                   <div className="comunication-section" key={row.id}>
                     {row.title && (
-                      <div className="comunication-subtitle">
-                        {Icon && <Icon className="comunication-icon" />}
-                        <span>{row.title}</span>
+                      <div className="form-section-title">
+                        <span className="form-section-title__badge">
+                          {row.number}
+                        </span>
+                        <span className="form-section-title__text">
+                          {row.title}
+                        </span>
                       </div>
                     )}
 
@@ -253,9 +257,9 @@ const ComunicationPage = () => {
             </div>
 
             <div className="comunication-right">
-              <div className="comunication-subtitle">
-                <FaRegComments className="comunication-icon" />
-                <span>CANAL DE ENVÍO</span>
+               <div className="form-section-title">
+                <span className="form-section-title__badge">3</span>
+                <span className="form-section-title__text">Canal de envío</span>
               </div>
 
               <div className="comunication-channels">

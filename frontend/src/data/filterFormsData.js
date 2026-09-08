@@ -1,4 +1,3 @@
-
 export const filterFormsData = {
   calificaciones: {
     fields: [
@@ -183,7 +182,7 @@ export const filterFormsData = {
       {
         id: "destinatarios",
         number: 1,
-        title: "Grupo - Asignatura",
+        title: "Destinatarios",
         fields: [
           {
             id: "grupo",
@@ -475,6 +474,27 @@ export const filterFormsData = {
             validation: { required: "Este campo es obligatorio" },
           },
         ],
+      },
+    ],
+  },
+
+  planLibrary: {
+    fields: [
+      {
+        id: "grupo",
+        type: "select",
+        label: "Grupo:",
+        optionsKey: "grupos",
+        required: true,
+        validation: { required: "Este campo es obligatorio" },
+      },
+      {
+        id: "asignatura",
+        type: "select",
+        label: "Asignatura:",
+        optionsKey: "asignaturas",
+        required: true,
+        validation: { required: "Este campo es obligatorio" },
       },
     ],
   },

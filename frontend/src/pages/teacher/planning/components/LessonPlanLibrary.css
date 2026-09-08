@@ -1,0 +1,36 @@
+.planLibrary-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 124px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.planLibrary-container .form-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.planLibrary-container .form-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.planLibrary-container .planLibrary-search {
+  flex: 2;
+}
+
+
+.planLibrary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+

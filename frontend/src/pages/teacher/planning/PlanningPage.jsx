@@ -13,7 +13,7 @@ const PlanningPage = () => {
   };
 
   const handleMisPlanes = () => {
-    navigate("/ver-planes");
+    navigate("/LessonPlanLibrary");
   };
 
   return (
@@ -26,31 +26,26 @@ const PlanningPage = () => {
         </div>
         <div className="planning-cards">
           <div className="planning-card" onClick={handleCrearPlan}>
-            <div>
+            <div className="planning-card__icon">
               <span className="material-symbols-outlined planning-icon">
                 add_circle
               </span>
             </div>
             <div className="planning-card_title">
               <h3>Crear Nuevo Plan</h3>
-              <p>
-                Diseña y crea un nuevo plan de clase.Define objetivos,
-                contenidos, metodologías y evaluación.{" "}
-              </p>
+              <p>Define objetivos, contenidos, metodología y evaluación.</p>
             </div>
           </div>
+
           <div className="planning-card" onClick={handleMisPlanes}>
-            <div>
+            <div className="planning-card__icon">
               <span className="material-symbols-outlined planning-icon">
                 folder_open
               </span>
             </div>
             <div className="planning-card_title">
               <h3>Mis Planes</h3>
-              <p>
-                Consulta, edita o gestiona tus planes existentes. Accede a todos
-                tus planes de clase creados anteriormente.
-              </p>
+              <p>Consulta, edita o gestiona tus planes existentes.</p>
             </div>
           </div>
         </div>

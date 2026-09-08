@@ -19,6 +19,7 @@ import ReportPage from "./pages/teacher/reportPage/ReportPage";
 import ComunicationPage from "./pages/teacher/comunication/ComunicationPage"
 import ObserverStudentPage from "./pages/teacher/observerStudent/ObserverStudentPage";
 import LessonPlanPage from "./pages/teacher/planning/components/LessonPlanPage"
+import LessonPlanLibrary from "./pages/teacher/planning/components/LessonPlanLibrary"
 
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/comunicationPage" element={<ComunicationPage />}/>
         <Route path="/observerStudentPage" element={<ObserverStudentPage />}/>
         <Route path="/LessonPlanPage" element={<LessonPlanPage />}/>
+         <Route path="/LessonPlanLibrary" element={<LessonPlanLibrary />}/>
       </Routes>
     </Router>
   );
