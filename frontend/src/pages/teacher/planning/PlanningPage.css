@@ -52,7 +52,7 @@
 .planning-card__icon {
   background: #9C27B0; 
   width: 180px;
-  min-height: 200px;
+  min-height: 160px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@
 
 .planning-icon {
   color: #fff;
-  font-size: 80px !important;
+  font-size: 60px !important;
   margin-right: 20px;
 }
 

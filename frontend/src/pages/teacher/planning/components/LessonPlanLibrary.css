@@ -25,12 +25,37 @@
   flex: 2;
 }
 
-
 .planLibrary-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin-top: 24px;
 }
 
+.planLibrary-grid .no-results {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  margin-top: 24px;
+}
 
+.no-results .material-symbols-outlined {
+  background: #ffebff;
+  border: 1px solid #f3c8f3;
+  border-radius: 8px; 
+  padding: 16px;
+  font-size: 48px;
+  color: #ff00ff;
+}
+
+.no-results span {
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}

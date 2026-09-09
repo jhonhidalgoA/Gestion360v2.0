@@ -4,7 +4,7 @@ import { navbarSectionData } from "@/data/navbarSectionData";
 import Modal from "@/components/ui/Modal/Modal";
 import "./NavbarSection.css";
 
-const NavbarSection = ({ sectionKey, handleBack }) => {
+const NavbarSection = ({ sectionKey, handleBack, context }) => {
   const { logout } = useAuth();
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -26,7 +26,11 @@ const NavbarSection = ({ sectionKey, handleBack }) => {
       </button>
 
       <div className="navbar-content">
-        <h2>{title}</h2>
+        <h2 className="navbar-title">
+          {title}
+          {context && <span className="navbar-context"> / {context}</span>}
+        </h2>
+
         <p>Sistema de Gestión Administrativa y Procesos Académicos</p>
       </div>
 

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaThumbtack } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
 import { optionsMap, ASIGNATURA_ESTANDARES_MAP } from "@/data/DBdataSimulation";
 import { stepperData } from "@/data/stepperData";
-
 import { Button } from "@/components/ui/Button/Button";
+
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Stepper from "@/components/ui/Stepper/Stepper";
 import FormField from "@/pages/teacher/classwork/components/FormField";
 import Select from "@/components/ui/Select/Select";
+import Coments from "@/components/ui/Coments/Coments";
 
 import "./LessonPlanPage.css";
 
@@ -95,22 +95,18 @@ const LessonPlanPage = () => {
   };
 
   return (
-    <>
-      <NavbarSection sectionKey="planeacion" handleBack={handleBack} />
+    <div className="plan-page">
+      <NavbarSection sectionKey="planeacion" handleBack={handleBack} context="Crear nuevo plan" />
       <Stepper
         className="classwork-stepper"
         steps={stepperData.lessonPlan}
         currentStep={currentStep}
       />
-
       <form key={currentStep} onSubmit={handleSubmit(onNext)} noValidate>
         <div className="plan-container">
           {currentStep === 1 && (
             <div className="report-main">
-              <span>
-                <FaThumbtack className="pin-icon" /> Completa los filtros para
-                generar el plan de clase.
-              </span>
+              <Coments text="Selecciona y completa los campos para crear el plan de clase." />
             </div>
           )}
 
@@ -155,7 +151,7 @@ const LessonPlanPage = () => {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

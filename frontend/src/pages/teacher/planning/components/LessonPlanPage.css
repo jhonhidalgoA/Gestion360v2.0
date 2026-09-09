@@ -1,3 +1,7 @@
+.plan-page{
+   --notice-color: #FF00FF;
+}
+
 .plan-container {
   display: flex;
   flex-direction: column;
