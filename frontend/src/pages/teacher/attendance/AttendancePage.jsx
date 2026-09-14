@@ -11,9 +11,9 @@ import NavbarSection from "@/components/navbar/NavbarSection";
 import Coments from "@/components/ui/Coments/Coments";
 import Select from "@/components/ui/Select/Select";
 import Modal from "@/components/ui/Modal/Modal";
-import AttendanceTable from "@/pages/teacher/attendance/components/AttendanceTable";
-import AttendanceLegend from "@/pages/teacher/attendance/components/AttendanceLegend";
-import EmptyState from "@/pages/teacher/attendance/components/EmptyState";
+import AttendanceTable from "@/pages/teacher/components/AttendanceTable";
+import AttendanceLegend from "@/pages/teacher/components/AttendanceLegend";
+import EmptyState from "@/pages/teacher/components/EmptyState";
 
 import "./AttendancePage.css";
 

@@ -5,6 +5,9 @@ import { Button } from "../Button/Button";
 import { modalConfig, modalMessages, modalBrand } from "@/data/modalData";
 import "./Modal.css";
 
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 const Modal = ({
   isOpen,
   onClose,
@@ -24,13 +27,13 @@ const Modal = ({
   const timerRef = useRef(null);
   const remainingRef = useRef(autoCloseMs);
   const startedAtRef = useRef(null);
-  
+
   const config = modalConfig[variant] ?? modalConfig.confirm;
   const defaults = modalMessages[variant] ?? {};
-  
+
   const Icon = config.icon;
   const BtnIcon = config.btnIcon;
-  
+
   const finalMessage = message ?? defaults.message;
   const finalDescription = description ?? defaults.description;
 
@@ -58,9 +61,35 @@ const Modal = ({
     timerRef.current = setTimeout(() => onClose?.(), remainingRef.current);
   };
 
+  // ✅ CAL-002: Escape + focus trap (Tab / Shift+Tab no salen del modal)
   useEffect(() => {
     if (!isOpen) return;
-    const handleKeyDown = (e) => e.key === "Escape" && onClose?.();
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose?.();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusables = dialogRef.current?.querySelectorAll(
+          FOCUSABLE_SELECTOR
+        );
+        if (!focusables || focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
     return () => {
@@ -91,7 +120,8 @@ const Modal = ({
         <div className="modal-header">
           <div className="modal-brand">
             <div className="modal-title">
-              <h3>{modalBrand.schoolName}</h3>
+              {/* ✅ CAL-001: id que referencia aria-labelledby */}
+              <h3 id="modal-title">{modalBrand.schoolName}</h3>
               <span className="modal-subtitle">{modalBrand.moduleName}</span>
             </div>
           </div>

@@ -127,6 +127,27 @@ export const modalConfig = {
     btnIcon: FiFilePlus,
     hideSecondary: false,
   },
+  overwrite: {
+    icon: IoWarningOutline,
+    iconBg: "var(--color-warning-tint)",
+    iconColor: "var(--color-warning)",
+    defaultTitle: "Sobrescribir estudiantes",
+    primaryText: "Continuar",
+    primaryVariant: "warning",
+    btnIcon: IoCheckmarkOutline,
+    hideSecondary: false,
+  },
+
+  reset: {
+    icon: IoTrashOutline,
+    iconBg: "var(--color-error-tint)",
+    iconColor: "var(--color-error)",
+    defaultTitle: "Restablecer selección",
+    primaryText: "Sí, restablecer",
+    primaryVariant: "danger",
+    btnIcon: IoTrashOutline,
+    hideSecondary: false,
+  },
 };
 
 export const modalMessages = {
@@ -176,6 +197,15 @@ export const modalMessages = {
     message: "¿Deseas registrar este reconocimiento?",
     description:
       "Una vez registrado, quedará disponible en el observador del estudiante.",
+  },
+    overwrite: {
+    message: "¿Sobrescribir estudiantes cargados?",
+    description: "Ya tienes estudiantes cargados. Si continúas, se perderán los datos no guardados.",
+  },
+
+  reset: {
+    message: "¿Restablecer todos los filtros?",
+    description: "Se perderán todos los cambios no guardados. Esta acción no se puede deshacer.",
   },
 };
 

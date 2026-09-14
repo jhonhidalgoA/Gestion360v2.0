@@ -84,8 +84,11 @@ const AssessmentTable = ({
 
                 {Array.from({ length: numeroNotas }, (_, notaIndex) => {
                   const nota = est.notas[notaIndex] ?? "";
+                  const error = est.notasErrors?.[notaIndex]; // ✅ Obtener error
                   const cellKey = `${estIndex}-${notaIndex}`;
                   const isActive = celdaActiva === cellKey;
+                  const errorId = `error-${est.id}-${notaIndex}`;
+                  
                   return (
                     <td key={notaIndex} className="td-nota">
                       <div className="nota-input-wrap">
@@ -101,16 +104,30 @@ const AssessmentTable = ({
                           onChange={(e) =>
                             onNotaChange(est.id, notaIndex, e.target.value)
                           }
+                          aria-invalid={!!error} // ✅ Accesibilidad
+                          aria-describedby={error ? errorId : undefined}
                           title="Rango válido: 1.0 - 5.0"
                           className={[
                             "nota-input",
                             getColorClass(nota),
+                            error ? "nota-input-error" : "", // ✅ Clase de error
                             isActive ? "is-active" : "",
                           ]
                             .filter(Boolean)
                             .join(" ")}
                         />
-                        {isActive && (
+                        {/* ✅ Mensaje de error accesible */}
+                        {error && (
+                          <div
+                            id={errorId}
+                            className="nota-error-message"
+                            role="alert"
+                          >
+                            {error}
+                          </div>
+                        )}
+                        {/* Tooltip solo si no hay error */}
+                        {isActive && !error && (
                           <div className="nota-tooltip">
                             1.0 - 5.0
                             <div className="nota-tooltip-arrow" />
