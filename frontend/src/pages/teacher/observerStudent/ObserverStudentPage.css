@@ -2,8 +2,6 @@
   --notice-color: #55708C;
 }
 
-
-
 .observer-container {
   display: flex;
   flex-direction: column;
@@ -46,7 +44,7 @@
 }
 
 .observer-subtitle span {
-  color: #55708c;
+  color: var(--text-primary);
   font-size: var(--fs-xs);
   letter-spacing: 1px;
   font-weight: var(--fw-bold);
@@ -58,7 +56,7 @@
 
 .observer-item_subtitle span {
   margin-top: 5px;
-  color: #55708c;
+  color: var(--text-primary);
   font-size: var(--fs-xs);
   letter-spacing: 1px;
   font-weight: var(--fw-bold);
@@ -68,35 +66,69 @@
   margin-top: 10px;
 }
 
-.observer-notify,
-.observer-check_footer {
+
+.observer-notify-wrapper {
   display: flex;
   align-items: center;
+  gap: 12px;
+  margin-top: var(--space-1);
+  padding: 12px 16px; 
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+/* Ocultamos el input nativo pero lo mantenemos accesible */
+.observer-notify-wrapper input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* La caja personalizada del checkbox */
+.observer-notify-box {
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent; /* Oculta la ✓ por defecto */
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* Cuando el input está checked, el span hermano (.observer-notify-box) cambia */
+.observer-notify-wrapper input[type="checkbox"]:checked + .observer-notify-box {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff; /* Muestra la ✓ */
+}
+
+.observer-notify-wrapper span:last-child {
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+.observer-item_subtitle {
+  display: flex;
   gap: 10px;
-  cursor: pointer;
-}
-
-.observer-check_footer input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  appearance: auto;
-  accent-color: var(--color-primary);
-  cursor: pointer;
-}
-
-.observer-item_subtitle{
-  display:flex;
-  gap:10px;
 }
 
 .observer-item_subtitle .observer-icon {
-  font-size:24px;
-  color: #55708c;
+  font-size: 24px;
+  color: var(--text-primary);
 }
 
 .observer-item_subtitle span {
   margin-top: 5px;
-  color: #55708c;
+  color: var(--text-primary);
   font-size: var(--fs-xs);
   letter-spacing: 1px;
   font-weight: var(--fw-bold);
@@ -107,7 +139,7 @@
 }
 
 .form-row-half {
-  width:49%;
+  width: 49%;
 }
 
 .form-row-quad {
@@ -125,9 +157,7 @@
 
 .form-row-2 {
   display: grid;
-  grid-template-columns: repeat(2
-  
-  , 1fr);
+  grid-template-columns: repeat(2, 1fr);
   column-gap: 20px;
   align-items: start;
 }
@@ -136,8 +166,7 @@
   min-width: 0;
 }
 
-
-
+/* Responsive */
 @media (max-width: 1200px) {
   .form-row-4 {
     grid-template-columns: repeat(2, 1fr);
@@ -147,5 +176,15 @@
 @media (max-width: 576px) {
   .form-row-4 {
     grid-template-columns: 1fr;
+  }
+  
+  .observer-container {
+    width: 100%;
+    margin: 100px auto;
+    padding: 16px;
+  }
+  
+  .observer-notify-wrapper {
+    padding: 12px;
   }
 }

@@ -3,15 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
 import { FaPen } from "react-icons/fa";
-import { TbEye, TbCheck } from "react-icons/tb";
+import { TbEye } from "react-icons/tb";
 
-
-import { mockData, getEstudiantesByGrupo } from "@/data/mockData";
+import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
 import { stepperData } from "@/data/stepperData";
 import { messageData } from "@/data/messageData";
 import { filterFormsData } from "@/data/filterFormsData";
-import { Button } from "@/components/ui/Button/Button";
 
+import { Button } from "@/components/ui/Button/Button";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Coments from "@/components/ui/Coments/Coments";
 import Stepper from "@/components/ui/Stepper/Stepper";
@@ -19,13 +18,10 @@ import Select from "@/components/ui/Select/Select";
 import Textarea from "@/components/ui/Textarea/Textarea";
 import ChannelGrid from "@/pages/teacher/comunication/ChannelGrid";
 import Modal from "@/components/ui/Modal/Modal";
+import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
 import MessagePreviewContent from "./MessagePreviewContent";
 
 import "./ComunicationPage.css";
-
-const optionsSourceMap = {
-  grados: mockData.grados.map((g) => ({ value: g.id, label: g.nombre })),
-};
 
 const ComunicationPage = () => {
   const navigate = useNavigate();
@@ -52,25 +48,30 @@ const ComunicationPage = () => {
       estudiante: "",
     },
   });
-  const values = useWatch({ control });
+
+  const grupoValue = useWatch({ control, name: "grupo" });
+  const estudianteValue = useWatch({ control, name: "estudiante" });
 
   useEffect(() => {
-    if (!values.grupo) return;
+    if (!grupoValue) return;
 
     let cancelado = false;
 
     const cargarEstudiantes = async () => {
       setLoadingEstudiantes(true);
-      const data = await getEstudiantesByGrupo(values.grupo);
+      const data = await getStudentsByGroup(grupoValue);
 
       if (cancelado) return;
 
       setEstudiantesOptions([
         { value: "todos", label: "Todo el grupo" },
-        ...data.map((e) => ({
-          value: e.id,
-          label: `${e.apellidos} ${e.nombres}`,
-        })),
+        ...data.map((e) => {
+          const [nombres, ...apellidosArr] = e.nombre.split(" ");
+          return {
+            value: String(e.id), // ✅ el <select> siempre devuelve string
+            label: `${apellidosArr.join(" ")} ${nombres}`,
+          };
+        }),
       ]);
       setValue("estudiante", "");
       setLoadingEstudiantes(false);
@@ -81,26 +82,24 @@ const ComunicationPage = () => {
     return () => {
       cancelado = true;
     };
-  }, [values.grupo, setValue]);
+  }, [grupoValue, setValue]);
 
-  const opcionesEstudianteVisibles = values.grupo ? estudiantesOptions : [];
-
-  const destinatariosOk = Boolean(values.grupo) && Boolean(values.estudiante);
+  const destinatariosOk = Boolean(grupoValue) && Boolean(estudianteValue);
   const mensajeOk = destinatariosOk && message.trim().length > 0;
   const canalOk = mensajeOk && selectedChannels.length > 0;
   const currentStep = !destinatariosOk ? 1 : !mensajeOk ? 2 : !canalOk ? 3 : 4;
 
-  const grupoLabel = optionsSourceMap.grados.find(
-    (g) => g.value === values.grupo,
+  const grupoLabel = optionsMap.grupos.find(
+    (g) => g.value === grupoValue,
   )?.label;
 
   const estudianteLabel = estudiantesOptions.find(
-    (e) => e.value === values.estudiante,
+    (e) => e.value === estudianteValue,
   )?.label;
 
   const destinatarioTexto = !destinatariosOk
     ? ""
-    : values.estudiante === "todos"
+    : estudianteValue === "todos"
       ? `Todo el grupo - ${grupoLabel}`
       : `${estudianteLabel} - ${grupoLabel}`;
 
@@ -113,17 +112,6 @@ const ComunicationPage = () => {
   const handlePreview = () => setPreviewOpen(true);
 
   const handleConfirmSend = () => {
-    const destinatarios =
-      values.estudiante === "todos" ? "grupo_completo" : [values.estudiante];
-    // TODO: conectar con el envío real (API)
-    console.log(
-      "Enviar a:",
-      destinatarios,
-      "Canales:",
-      selectedChannels,
-      "Mensaje:",
-      message,
-    );
     setPreviewOpen(false);
   };
 
@@ -135,11 +123,13 @@ const ComunicationPage = () => {
   return (
     <div className="comunication-page">
       <NavbarSection sectionKey="comunicacion" handleBack={handleBack} />
+
       <Stepper
         className="comunication-stepper"
         steps={stepperData.comunication}
         currentStep={currentStep}
       />
+
       <div className="comunication-container">
         <div className="report-main">
           <Coments text="Selecciona y completa los campos para enviar los mensajes." />
@@ -148,116 +138,103 @@ const ComunicationPage = () => {
         <form onSubmit={handleSend} noValidate>
           <div className="comunication-grid">
             <div className="comunication-left">
-              {rows.map((row) => {
-                
-                return (
-                  <div className="comunication-section" key={row.id}>
-                    {row.title && (
-                      <div className="form-section-title">
-                        <span className="form-section-title__badge">
-                          {row.number}
-                        </span>
-                        <span className="form-section-title__text">
-                          {row.title}
-                        </span>
-                      </div>
-                    )}
+              {rows.map((row) => (
+                <div className="comunication-section" key={row.id}>
+                  {row.title && (
+                    <div className="form-section-title">
+                      <span className="form-section-title__badge">
+                        {row.number}
+                      </span>
+                      <span className="form-section-title__text">
+                        {row.title}
+                      </span>
+                    </div>
+                  )}
 
-                    {row.id === "destinatarios" && (
+                  {row.id === "destinatarios" && (
+                    <div className="filters-card">
+                      <div className="form-row">
+                        <FormFieldCascada
+                          field={row.fields[0]}
+                          register={register}
+                          errors={errors}
+                          control={control}
+                          setValue={setValue}
+                        />
+
+                        <FormFieldCascada
+                          field={{
+                            ...row.fields[1],
+                            placeholder: loadingEstudiantes
+                              ? "Cargando..."
+                              : "Seleccione una opción",
+                            options: estudiantesOptions,
+                          }}
+                          register={register}
+                          errors={errors}
+                          control={control}
+                          setValue={setValue}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {row.id === "mensaje" && (
+                    <>
                       <div className="filters-card">
-                        <div className="form-row">
-                          {row.fields.map((field) => (
-                            <Select
-                              key={field.id}
-                              label={field.label}
-                              name={field.id}
-                              options={optionsSourceMap[field.optionsKey]}
-                              register={register}
-                              error={errors[field.id]}
-                              variant="square"
-                              required={field.required}
-                              placeholder={field.placeholder}
-                            />
-                          ))}
+                        <Select
+                          label="Usar plantilla (opcional)"
+                          placeholder={
+                            !destinatariosOk
+                              ? "Selecciona los destinatarios primero"
+                              : "Mensaje personalizado"
+                          }
+                          options={messageData.map((t) => ({
+                            value: t.id,
+                            label: t.name,
+                          }))}
+                          value={selectedTemplate}
+                          onChange={(e) => handleTemplateSelect(e.target.value)}
+                          variant="square"
+                          disabled={!destinatariosOk}
+                        />
 
-                          <div className="bagde-field">
-                            <Select
-                              label="Estudiante:"
-                              name="estudiante"
-                              options={opcionesEstudianteVisibles}
-                              register={register}
-                              error={errors.estudiante}
-                              variant="square"
-                              required
-                              disabled={!values.grupo || loadingEstudiantes}
-                              placeholder={
-                                loadingEstudiantes
-                                  ? "Cargando..."
-                                  : "Seleccione una opción"
-                              }
-                            />
-                            {destinatariosOk && (
-                              <div className="bagde-pill">
-                                <TbCheck aria-hidden="true" />
-                                <span>
-                                  {values.estudiante === "todos"
-                                    ? `${estudiantesOptions.length - 1} destinatarios seleccionados`
-                                    : "1 destinatario seleccionado"}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                        <Textarea
+                          label="Mensaje"
+                          name="mensaje"
+                          placeholder={
+                            !destinatariosOk
+                              ? "Selecciona los destinatarios primero"
+                              : "Escribe tu mensaje aquí..."
+                          }
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          rows={6}
+                          disabled={!destinatariosOk}
+                          aria-label="Cuerpo del mensaje a enviar"
+                        />
                       </div>
-                    )}
 
-                    {row.id === "mensaje" && (
-                      <>
-                        <div className="filtes-card">
-                          <Select
-                            label="Usar plantilla (opcional)"
-                            placeholder="Mensaje personalizado"
-                            options={messageData.map((t) => ({
-                              value: t.id,
-                              label: t.name,
-                            }))}
-                            value={selectedTemplate}
-                            onChange={(e) =>
-                              handleTemplateSelect(e.target.value)
-                            }
-                            variant="square"
-                          />
-                          <Textarea
-                            label="Mensaje"
-                            name="mensaje"
-                            placeholder="Escribe tu mensaje aquí..."
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            rows={6}
-                          />
-                        </div>
-
-                        <div className="comunication-buttons">
-                          <Button
-                            type="button"
-                            variant="outline-primary"
-                            icon={TbEye}
-                            iconPosition="left"
-                            onClick={handlePreview}
-                            disabled={!canalOk}
-                          >
-                            Vista Previa
-                          </Button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
+                      <div className="comunication-buttons">
+                        <Button
+                          type="button"
+                          variant="outline-primary"
+                          icon={TbEye}
+                          iconPosition="left"
+                          onClick={handlePreview}
+                          disabled={!canalOk}
+                        >
+                          Vista Previa
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
 
             <div className="comunication-right">
-               <div className="form-section-title">
+              <div className="form-section-title">
                 <span className="form-section-title__badge">3</span>
                 <span className="form-section-title__text">Canal de envío</span>
               </div>
@@ -276,7 +253,7 @@ const ComunicationPage = () => {
 
                 {selectedChannels.length > 0 && (
                   <div className="channels-summary">
-                    <b> {selectedChannels.length} </b> canal(es) seleccionado(s)
+                    <b>{selectedChannels.length}</b> canal(es) seleccionado(s)
                   </div>
                 )}
               </div>
@@ -284,6 +261,7 @@ const ComunicationPage = () => {
           </div>
         </form>
       </div>
+
       <Modal
         isOpen={previewOpen}
         onClose={() => setPreviewOpen(false)}

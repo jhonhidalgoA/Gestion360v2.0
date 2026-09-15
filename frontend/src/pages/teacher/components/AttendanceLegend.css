@@ -43,13 +43,22 @@
 }
 
 .estado-icon.retardo {
-  background:var(--color-primary);
+  background: var(--color-primary);
 }
 
-.estado-icon.parcial,
-.estado-icon.parcial1,
-.estado-icon.parcial2 {
+/* ✅ Parcial para duración 2 (1h presente, 1h ausente) */
+.estado-icon.parcial {
   background: var(--color-accent);
+}
+
+/* ✅ Parcial 1 para duración 3 (2h presente, 1h ausente) - Más positivo */
+.estado-icon.parcial1 {
+  background: var(--color-warning);
+}
+
+/* ✅ Parcial 2 para duración 3 (1h presente, 2h ausente) - Más negativo */
+.estado-icon.parcial2 {
+  background: color-mix(in srgb, var(--color-warning) 70%, var(--color-error) 30%);
 }
 
 .leyenda-nota {

@@ -24,17 +24,18 @@ import { getStudentsByGroup } from "@/data/studentsData";
 import "./ClassworkPage.css";
 
 // 2. Constantes y Funciones Auxiliares
+// ✅ FASE 3: Colores de avatares usando tokens CSS
 const AVATAR_COLORS = [
-  "#D6285C",
-  "#1DA851",
-  "#3568D6",
-  "#8347D9",
-  "#D97D1F",
-  "#1CA5A0",
+  "var(--avatar-color-1)",
+  "var(--avatar-color-2)",
+  "var(--avatar-color-3)",
+  "var(--avatar-color-4)",
+  "var(--avatar-color-5)",
+  "var(--avatar-color-6)",
 ];
 
 const getInitials = (nombre) =>
-  nombre
+  (nombre || "")
     .split(" ")
     .map((w) => w[0])
     .slice(0, 2)
@@ -49,7 +50,7 @@ const ClassworkPage = () => {
   // 4. Estados Locales
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [pendingData, setPendingData] = useState(null);
-  const [loading, setLoading] = useState({ guardar: false, borrar: false });
+  const [loading, setLoading] = useState({ guardar: false });
 
   const [students, setStudents] = useState([]);
   const [loadedKey, setLoadedKey] = useState("");
@@ -70,20 +71,25 @@ const ClassworkPage = () => {
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues,
     mode: "onChange",
   });
 
-  const values = useWatch({ control });
+  // 6. Observadores específicos (Fase 2)
+  const grupoValue = useWatch({ control, name: "grupo" });
+  const asignaturaValue = useWatch({ control, name: "asignatura" });
+  const fechaInicioValue = useWatch({ control, name: "fechaInicio" });
+  const fechaFinValue = useWatch({ control, name: "fechaFin" });
+  const temaValue = useWatch({ control, name: "tema" });
+  const descripcionValue = useWatch({ control, name: "descripcion" });
 
-  // 6. Lógica de Validación del Stepper
-  const grupoAsignaturaOk = Boolean(values.grupo && values.asignatura);
-  const fechasOk =
-    grupoAsignaturaOk && Boolean(values.fechaInicio && values.fechaFin);
-  const temaDescripcionOk =
-    fechasOk && Boolean(values.tema && values.descripcion);
+  // 7. Lógica de Validación del Stepper
+  const grupoAsignaturaOk = Boolean(grupoValue && asignaturaValue);
+  const fechasOk = grupoAsignaturaOk && Boolean(fechaInicioValue && fechaFinValue);
+  const temaDescripcionOk = fechasOk && Boolean(temaValue && descripcionValue);
   const estudiantesOk = temaDescripcionOk && selectedStudents.length > 0;
 
   const { currentStep } = useStepper([
@@ -91,12 +97,12 @@ const ClassworkPage = () => {
     fechasOk,
     temaDescripcionOk,
     estudiantesOk,
-    true, // ← true dummy para que el hook retorne 5 cuando todos estén completos
+    true,
   ]);
 
   const groupKey =
-    values.grupo && values.asignatura
-      ? `${values.grupo}|${values.asignatura}`
+    grupoValue && asignaturaValue
+      ? `${grupoValue}|${asignaturaValue}`
       : "";
 
   const loadingStudents = groupKey !== "" && loadedKey !== groupKey;
@@ -107,7 +113,7 @@ const ClassworkPage = () => {
     if (!groupKey) return;
     let cancel = false;
 
-    getStudentsByGroup(values.grupo).then((data) => {
+    getStudentsByGroup(grupoValue).then((data) => {
       if (cancel) return;
       setStudents(data);
       setSelectedStudents([]);
@@ -118,7 +124,7 @@ const ClassworkPage = () => {
     return () => {
       cancel = true;
     };
-  }, [groupKey, values.grupo]);
+  }, [groupKey, grupoValue]);
 
   const handleToggleStudent = (id) => {
     setSelectedStudents((prev) =>
@@ -171,7 +177,7 @@ const ClassworkPage = () => {
     });
 
     formData.append("estudiantes", JSON.stringify(selectedStudents));
-    console.log("Tarea creada:", formData);
+    // ✅ FASE 4: console.log eliminado
 
     setTimeout(() => {
       setLoading((prev) => ({ ...prev, guardar: false }));
@@ -223,6 +229,7 @@ const ClassworkPage = () => {
                           register={register}
                           errors={errors}
                           control={control}
+                          setValue={setValue}
                         />
                       ))}
                     </div>
@@ -264,7 +271,7 @@ const ClassworkPage = () => {
                 <span className="form-section-title__badge">4</span>
                 <span className="form-section-title__text">Estudiantes</span>
               </div>
-
+             
               <Input
                 name="searchStudent"
                 leftIcon={TbSearch}
@@ -273,6 +280,7 @@ const ClassworkPage = () => {
                 disabled={!groupKey || loadingStudents}
                 wrapperClassName="student-panel__search"
                 variant="square"
+                aria-label="Buscar estudiante por nombre"
               />
 
               <div className="student-panel__select-all">
@@ -325,6 +333,7 @@ const ClassworkPage = () => {
                         checked={selectedStudents.includes(student.id)}
                         onChange={() => handleToggleStudent(student.id)}
                       />
+                      {/* ✅ FASE 3: Colores desde tokens CSS */}
                       <span
                         className="student-panel__avatar"
                         style={{

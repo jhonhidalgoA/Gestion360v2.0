@@ -1,15 +1,12 @@
 import Select from "@/components/ui/Select/Select";
 import Input from "@/components/ui/Input/Input";
 import Textarea from "@/components/ui/Textarea/Textarea";
-import { optionsMap } from "@/data/optionsData";
+import { optionsMap } from "@/data/DBdataSimulation"; // ✅ antes: "@/data/optionsData" (archivo obsoleto, no el que usas)
 import "./FormField.css";
 
 const FormField = ({ field, register, errors }) => {
   const error = errors[field.id];
 
-  // Reglas efectivas: si el field trae `validation` custom, se respeta.
-  // Si no, y es required, se genera la regla básica ("Este campo es obligatorio").
-  // Esto es lo que antes faltaba conectar para los inputs nativos (text, url, date, textarea).
   const effectiveRules =
     field.validation ??
     (field.required ? { required: "Este campo es obligatorio" } : {});
@@ -19,7 +16,7 @@ const FormField = ({ field, register, errors }) => {
       <Select
         label={field.label}
         name={field.id}
-        options={optionsMap[field.optionsKey]}
+        options={field.options ?? optionsMap[field.optionsKey]} // ✅ prioriza options explícito (caso Estudiante), si no cae al optionsMap estático
         register={register}
         rules={effectiveRules}
         error={error}
@@ -63,7 +60,6 @@ const FormField = ({ field, register, errors }) => {
     );
   }
 
-  // text, url, date, y cualquier otro tipo compatible con Input
   return (
     <Input
       label={field.label}

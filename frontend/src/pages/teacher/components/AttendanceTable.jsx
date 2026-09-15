@@ -1,14 +1,13 @@
 import "./AttendanceTable.css";
 
-const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-const DIAS_DESHABILITADOS = [5, 6];
+const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie"]; // ✅ Solo 5 días
 
 const getFechasSemana = () => {
   const hoy = new Date();
   const lunes = new Date(hoy);
   lunes.setDate(hoy.getDate() - (hoy.getDay() === 0 ? 6 : hoy.getDay() - 1));
 
-  return Array.from({ length: 7 }, (_, i) => {
+  return Array.from({ length: 5 }, (_, i) => { // ✅ Cambiado de 7 a 5
     const dia = new Date(lunes);
     dia.setDate(lunes.getDate() + i);
     const mes = dia.toLocaleString("es-ES", { month: "short" });
@@ -18,7 +17,9 @@ const getFechasSemana = () => {
 
 const getIndiceHoy = () => {
   const dia = new Date().getDay();
-  return dia === 0 ? 6 : dia - 1;
+  // Si es sábado (6) o domingo (0), no hay "hoy" en la semana laboral
+  if (dia === 0 || dia === 6) return -1;
+  return dia - 1; // 0=Lun, 1=Mar, 2=Mié, 3=Jue, 4=Vie
 };
 
 const getEstadoCelda = (estado, confirmado, duracionSeleccionada) => {
@@ -39,8 +40,9 @@ const getEstadoCelda = (estado, confirmado, duracionSeleccionada) => {
 
   if (duracionSeleccionada === 3) {
     if (estado === "P") return { icono: "check", texto: "3h", clase: "presente" };
-    if (estado === "PARCIAL1" || estado === "PARCIAL2")
-      return { icono: "remove", texto: "-", clase: "parcial" };
+    // ✅ Diferenciación de PARCIAL1 y PARCIAL2
+    if (estado === "PARCIAL1") return { icono: "remove", texto: "P2", clase: "parcial1" };
+    if (estado === "PARCIAL2") return { icono: "remove", texto: "P1", clase: "parcial2" };
     if (estado === "A") return { icono: "close", texto: "A", clase: "ausente" };
     if (estado === "R") return { icono: "timer", texto: "R", clase: "retardo" };
   }
@@ -132,7 +134,7 @@ const AttendanceTable = ({ estudiantes, duracionSeleccionada, onCambiarEstado })
           </thead>
           <tbody>
             {estudiantes.map((est, estIndex) => {
-              const confirmadoArr = est.confirmado || Array(7).fill(false);
+              const confirmadoArr = est.confirmado || Array(5).fill(false); // ✅ Cambiado a 5
               const resumen = calcularResumen(est.asistencia, confirmadoArr, duracionSeleccionada);
 
               return (
@@ -144,7 +146,6 @@ const AttendanceTable = ({ estudiantes, duracionSeleccionada, onCambiarEstado })
                   {est.asistencia.map((estado, diaIndex) => {
                     const confirmado = confirmadoArr[diaIndex];
                     const { icono, texto, clase } = getEstadoCelda(estado, confirmado, duracionSeleccionada);
-                    const deshabilitado = DIAS_DESHABILITADOS.includes(diaIndex);
                     const esHoy = diaIndex === indiceHoy;
 
                     return (
@@ -152,14 +153,13 @@ const AttendanceTable = ({ estudiantes, duracionSeleccionada, onCambiarEstado })
                         <button
                           type="button"
                           onClick={() => onCambiarEstado(est.id, diaIndex)}
-                          className={`boton-estado ${clase} ${deshabilitado ? "deshabilitado" : ""}`}
-                          disabled={deshabilitado}
+                          className={`boton-estado ${clase}`}
                         >
                           <div className="icono-texto-container">
                             {icono && (
                               <span className="material-symbols-outlined icono-estado">{icono}</span>
                             )}
-                            {!icono && clase === "vacio" && !deshabilitado && (
+                            {!icono && clase === "vacio" && (
                               <span className="material-symbols-outlined icono-vacio">add</span>
                             )}
                             <span className="estado-texto">{texto}</span>
@@ -169,7 +169,7 @@ const AttendanceTable = ({ estudiantes, duracionSeleccionada, onCambiarEstado })
                     );
                   })}
 
-                 <td className="celda-resumen">
+                  <td className="celda-resumen">
                     {resumen.diasConfirmados === 0 ? (
                       <div className="resumen-vacio">Sin registros esta semana</div>
                     ) : (

@@ -2,9 +2,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  min-height: 170px;
-  background: var(--bg-card);
+  width: 100%;  
+  background:red;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   overflow: hidden;

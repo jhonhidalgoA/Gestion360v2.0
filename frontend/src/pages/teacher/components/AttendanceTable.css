@@ -111,6 +111,27 @@ thead th.columna-hoy {
   color: var(--text-on-primary);
 }
 
+
+.boton-estado.parcial {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--text-on-primary);
+}
+
+/* ✅ NUEVO: PARCIAL1 (2h presente, 1h ausente) - Tono más positivo */
+.boton-estado.parcial1 {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: var(--text-on-primary);
+}
+
+/* ✅ NUEVO: PARCIAL2 (1h presente, 2h ausente) - Tono más negativo */
+.boton-estado.parcial2 {
+  background: color-mix(in srgb, var(--color-warning) 70%, var(--color-error) 30%);
+  border-color: color-mix(in srgb, var(--color-warning) 70%, var(--color-error) 30%);
+  color: var(--text-on-primary);
+}
+
 .icono-texto-container {
   display: flex;
   flex-direction: column;

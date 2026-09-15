@@ -1,10 +1,9 @@
-import { TbAward, TbAlertTriangle } from "react-icons/tb";
+
 
 export const observationTypes = [
   {
     id: "reconocimiento",
-    category: "Documento",
-    icon: TbAward,
+    category: "Documento",    
     title: "Registrar reconocimiento",
     subtitle:
       "Logro destacado, méritos académicos o felicitación por comportamiento ejemplar.",
@@ -12,8 +11,7 @@ export const observationTypes = [
   },
   {
     id: "falta",
-    category: "Documento",
-    icon: TbAlertTriangle,
+    category: "Documento",   
     title: "Registrar situación disciplinaria",
     subtitle:
       "Incumplimiento del manual de convivencia, situación académica o disciplinaria grave.",

@@ -4,13 +4,14 @@ import { useForm, useWatch } from "react-hook-form";
 import { FaSave, FaPlus, FaUndo } from "react-icons/fa";
 
 import { filterFormsData } from "@/data/filterFormsData";
-import { optionsMap, getStudentsByGroup } from "@/data/DBdataSimulation";
-import { Button } from "@/components/ui/Button/Button";
+import { getStudentsByGroup } from "@/data/DBdataSimulation";
 
+import { Button } from "@/components/ui/Button/Button";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Coments from "@/components/ui/Coments/Coments";
-import Select from "@/components/ui/Select/Select";
 import Modal from "@/components/ui/Modal/Modal";
+import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
+
 import AttendanceTable from "@/pages/teacher/components/AttendanceTable";
 import AttendanceLegend from "@/pages/teacher/components/AttendanceLegend";
 import EmptyState from "@/pages/teacher/components/EmptyState";
@@ -24,11 +25,17 @@ const AttendancePage = () => {
   const [loading, setLoading] = useState({
     cargar: false,
     guardar: false,
+    reset: false,
   });
 
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-
   const [estudiantes, setEstudiantes] = useState([]);
+
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    variant: null,
+    onConfirm: null,
+  });
 
   const defaultValues = fields.reduce((acc, field) => {
     acc[field.id] = "";
@@ -40,6 +47,7 @@ const AttendancePage = () => {
     reset,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -49,26 +57,42 @@ const AttendancePage = () => {
   const grupoValue = useWatch({ control, name: "grupo" });
   const asignaturaValue = useWatch({ control, name: "asignatura" });
   const periodoValue = useWatch({ control, name: "periodo" });
-
   const duracion = useWatch({ control, name: "duracion" });
-  const duracionSeleccionada = Number(duracion) || 1;
 
-  // Navegación  //
+  const duracionSeleccionada = Number(duracion) || 1;
+  const filtrosCompletos = Boolean(
+    grupoValue && asignaturaValue && periodoValue && duracion,
+  );
 
   const handleBack = () => navigate("/teacher");
 
-  const handleReset = () => {
-    reset(defaultValues);
-    setEstudiantes([]);
+  // ✅ Función helper para calcular el siguiente estado (código más limpio)
+  const calcularSiguienteEstado = (estadoActual, duracion) => {
+    if (duracion === 1) {
+      if (estadoActual === "P") return "R";
+      if (estadoActual === "R") return "A";
+      return "P";
+    }
+    if (duracion === 2) {
+      if (estadoActual === "P") return "PARCIAL";
+      if (estadoActual === "PARCIAL") return "A";
+      if (estadoActual === "A") return "R";
+      return "P";
+    }
+    // Duración 3
+    if (estadoActual === "P") return "PARCIAL1";
+    if (estadoActual === "PARCIAL1") return "PARCIAL2";
+    if (estadoActual === "PARCIAL2") return "A";
+    if (estadoActual === "A") return "R";
+    return "P";
   };
 
-  // Cargar estudiantes //
+  const hayCambiosEnAsistencia = () => {
+    return estudiantes.some((est) => est.confirmado.some((c) => c === true));
+  };
 
   const onFiltroValido = async (data) => {
-    setLoading((prev) => ({
-      ...prev,
-      cargar: true,
-    }));
+    setLoading((prev) => ({ ...prev, cargar: true }));
 
     try {
       const students = await getStudentsByGroup(data.grupo);
@@ -79,43 +103,74 @@ const AttendancePage = () => {
             id: s.id,
             apellidos: apellidosArr.join(" "),
             nombres,
-            asistencia: Array(7).fill("P"),
-            confirmado: Array(7).fill(false),
+            asistencia: Array(5).fill("P"),
+            confirmado: Array(5).fill(false),
           };
         }),
       );
     } catch (error) {
       console.error("Error cargando estudiantes:", error);
+      alert("Error al cargar los estudiantes. Por favor, inténtalo de nuevo.");
     } finally {
-      setLoading((prev) => ({
-        ...prev,
-        cargar: false,
-      }));
+      setLoading((prev) => ({ ...prev, cargar: false }));
     }
   };
 
   const handleCargar = handleSubmit(onFiltroValido);
 
-  // Guardar //
+  const handleCargarClick = () => {
+    if (hayCambiosEnAsistencia()) {
+      setConfirmModal({
+        isOpen: true,
+        variant: "overwrite",
+        onConfirm: () => {
+          setConfirmModal({ isOpen: false, variant: null, onConfirm: null });
+          handleCargar();
+        },
+      });
+    } else {
+      handleCargar();
+    }
+  };
+
+  const handleResetClick = () => {
+    if (hayCambiosEnAsistencia()) {
+      setConfirmModal({
+        isOpen: true,
+        variant: "reset",
+        onConfirm: () => {
+          setConfirmModal({ isOpen: false, variant: null, onConfirm: null });
+          handleReset();
+        },
+      });
+    } else {
+      handleReset();
+    }
+  };
+
+  const handleReset = () => {
+    setLoading((prev) => ({ ...prev, reset: true }));
+    reset(defaultValues);
+    setEstudiantes([]);
+    setTimeout(() => {
+      setLoading((prev) => ({ ...prev, reset: false }));
+    }, 300);
+  };
 
   const handleGuardar = () => {
-    setLoading((prev) => ({
-      ...prev,
-      guardar: true,
-    }));
+    if (estudiantes.length === 0) {
+      alert("No hay estudiantes cargados para guardar la asistencia.");
+      return;
+    }
 
+    setLoading((prev) => ({ ...prev, guardar: true }));
     setTimeout(() => {
-      setLoading((prev) => ({
-        ...prev,
-        guardar: false,
-      }));
-
+      setLoading((prev) => ({ ...prev, guardar: false }));
       setIsSuccessOpen(true);
     }, 1000);
   };
 
-  // Cambiar estado asistencia //
-
+  // ✅ handleCambiarEstado corregido y optimizado
   const handleCambiarEstado = (estId, diaIndex) => {
     setEstudiantes((prev) =>
       prev.map((est) => {
@@ -123,29 +178,12 @@ const AttendancePage = () => {
 
         const nuevaAsistencia = [...est.asistencia];
         const nuevoConfirmado = [...est.confirmado];
-
         const estadoActual = nuevaAsistencia[diaIndex];
 
-        let nuevoEstado;
-
-        if (!nuevoConfirmado[diaIndex]) {
-          nuevoEstado = "P";
-        } else if (duracionSeleccionada === 1) {
-          if (estadoActual === "P") nuevoEstado = "R";
-          else if (estadoActual === "R") nuevoEstado = "A";
-          else nuevoEstado = "P";
-        } else if (duracionSeleccionada === 2) {
-          if (estadoActual === "P") nuevoEstado = "PARCIAL";
-          else if (estadoActual === "PARCIAL") nuevoEstado = "A";
-          else if (estadoActual === "A") nuevoEstado = "R";
-          else nuevoEstado = "P";
-        } else {
-          if (estadoActual === "P") nuevoEstado = "PARCIAL1";
-          else if (estadoActual === "PARCIAL1") nuevoEstado = "PARCIAL2";
-          else if (estadoActual === "PARCIAL2") nuevoEstado = "A";
-          else if (estadoActual === "A") nuevoEstado = "R";
-          else nuevoEstado = "P";
-        }
+        // ✅ Sin variable inicializada innecesariamente
+        const nuevoEstado = !nuevoConfirmado[diaIndex]
+          ? "P"
+          : calcularSiguienteEstado(estadoActual, duracionSeleccionada);
 
         nuevaAsistencia[diaIndex] = nuevoEstado;
         nuevoConfirmado[diaIndex] = true;
@@ -159,69 +197,6 @@ const AttendancePage = () => {
     );
   };
 
-  const renderField = (field) => {
-    if (field.id === "asignatura") {
-      return (
-        <Select
-          key={field.id}
-          label={field.label}
-          name={field.id}
-          options={optionsMap[field.optionsKey]}
-          register={register}
-          error={errors[field.id]}
-          variant="square"
-          required={field.required}
-          disabled={!grupoValue}
-        />
-      );
-    }
-
-    if (field.id === "periodo") {
-      return (
-        <Select
-          key={field.id}
-          label={field.label}
-          name={field.id}
-          options={optionsMap[field.optionsKey]}
-          register={register}
-          error={errors[field.id]}
-          variant="square"
-          required={field.required}
-          disabled={!asignaturaValue}
-        />
-      );
-    }
-
-    if (field.id === "duracion") {
-      return (
-        <Select
-          key={field.id}
-          label={field.label}
-          name={field.id}
-          options={optionsMap[field.optionsKey]}
-          register={register}
-          error={errors[field.id]}
-          variant="square"
-          required={field.required}
-          disabled={!periodoValue}
-        />
-      );
-    }
-
-    return (
-      <Select
-        key={field.id}
-        label={field.label}
-        name={field.id}
-        options={optionsMap[field.optionsKey]}
-        register={register}
-        error={errors[field.id]}
-        variant="square"
-        required={field.required}
-      />
-    );
-  };
-
   return (
     <div className="attendance-page">
       <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
@@ -231,10 +206,20 @@ const AttendancePage = () => {
           <div className="report-main">
             <Coments text="Selecciona y completa los campos para visualizar la asistencia." />
           </div>
+
           <div className="assessment-header">
             <div className="filter-card">
               <div className="form-row">
-                {fields.map((field) => renderField(field))}
+                {fields.map((field) => (
+                  <FormFieldCascada
+                    key={field.id}
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    control={control}
+                    setValue={setValue}
+                  />
+                ))}
               </div>
             </div>
 
@@ -244,28 +229,41 @@ const AttendancePage = () => {
                 variant="info"
                 icon={FaPlus}
                 iconPosition="left"
-                disabled={loading.cargar}
-                onClick={handleCargar}
+                disabled={loading.cargar || !filtrosCompletos}
+                title={
+                  !filtrosCompletos
+                    ? "Completa todos los filtros primero"
+                    : undefined
+                }
+                onClick={handleCargarClick}
               >
                 {loading.cargar ? "Cargando..." : "Estudiantes"}
               </Button>
+
               <Button
                 type="submit"
                 variant="success"
                 icon={FaSave}
                 iconPosition="left"
-                disabled={loading.guardar}
+                disabled={loading.guardar || estudiantes.length === 0}
+                title={
+                  estudiantes.length === 0
+                    ? "Carga estudiantes primero"
+                    : undefined
+                }
               >
-                Guardar
+                {loading.guardar ? "Guardando..." : "Guardar"}
               </Button>
+
               <Button
                 type="button"
                 variant="outline-primary"
                 icon={FaUndo}
                 iconPosition="left"
-                onClick={handleReset}
+                onClick={handleResetClick}
+                disabled={loading.reset}
               >
-                Restablecer selección
+                {loading.reset ? "Restableciendo..." : "Restablecer selección"}
               </Button>
             </div>
           </div>
@@ -293,6 +291,15 @@ const AttendancePage = () => {
         message="¡Asistencia guardada!"
         description="La asistencia se registró correctamente."
         autoCloseMs={5000}
+      />
+
+      <Modal
+        isOpen={confirmModal.isOpen}
+        onClose={() =>
+          setConfirmModal({ isOpen: false, variant: null, onConfirm: null })
+        }
+        onConfirm={confirmModal.onConfirm}
+        variant={confirmModal.variant}
       />
     </div>
   );

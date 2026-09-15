@@ -4,14 +4,10 @@ import FormField from "@/pages/teacher/classwork/components/FormField";
 
 const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
   const dependValue = useWatch({ control, name: field.dependsOn || "" });
-
-  const isDisabled = field.dependsOn
-    ? dependValue === undefined || dependValue === ""
+  
+  const isDisabled = field.dependsOn 
+    ? dependValue === undefined || dependValue === "" 
     : false;
-
-  const dynamicPlaceholder = isDisabled
-    ? `Selecciona "${field.dependsOn}" primero`
-    : field.placeholder;
 
   const isFirstRender = useRef(true);
   const prevDependValue = useRef(dependValue);
@@ -21,7 +17,6 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
       if (!isFirstRender.current && prevDependValue.current !== dependValue) {
         setValue(field.id, "");
       }
-
       prevDependValue.current = dependValue;
       isFirstRender.current = false;
     }
@@ -33,7 +28,7 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
       field={{
         ...field,
         disabled: isDisabled,
-        placeholder: dynamicPlaceholder,
+       
       }}
       register={register}
       errors={errors}
@@ -42,3 +37,5 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
 };
 
 export default FormFieldCascada;
+
+
