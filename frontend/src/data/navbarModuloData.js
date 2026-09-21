@@ -1,11 +1,12 @@
-
 export const userMenuActions = {
   editarPerfil: {
     title: "Editar perfil",
     to: "/perfil/editar",
     icon: "person",
     cName: "user-menu-action",
-    type: "page",
+    type: "panel",
+    section: "cuenta",
+    accent: "neutral",
   },
   cambiarPassword: {
     title: "Cambiar contraseña",
@@ -13,6 +14,8 @@ export const userMenuActions = {
     icon: "lock",
     cName: "user-menu-action",
     type: "page",
+    section: "cuenta",
+    accent: "neutral",
   },
   configuracion: {
     title: "Configuración",
@@ -20,6 +23,8 @@ export const userMenuActions = {
     icon: "settings",
     cName: "user-menu-action",
     type: "page",
+    section: "cuenta",
+    accent: "neutral",
   },
   misGrupos: {
     title: "Mis grupos",
@@ -27,6 +32,17 @@ export const userMenuActions = {
     icon: "groups",
     cName: "user-menu-action",
     type: "page",
+    section: "academico",
+    accent: "green",
+  },
+  misHorario: {
+    title: "Mi horario",
+    to: "/docente/horario",
+    icon: "calendar_month",
+    cName: "user-menu-action",
+    type: "page",
+    section: "academico",
+    accent: "blue",
   },
   misCalificaciones: {
     title: "Mis calificaciones",
@@ -34,6 +50,8 @@ export const userMenuActions = {
     icon: "grade",
     cName: "user-menu-action",
     type: "page",
+    section: "academico",
+    accent: "green",
   },
   misHijos: {
     title: "Mis hijos",
@@ -41,11 +59,17 @@ export const userMenuActions = {
     icon: "family_restroom",
     cName: "user-menu-action",
     type: "page",
+    section: "academico",
+    accent: "pink",
   },
 };
 
-// 2) Config por rol: nombre a mostrar, título del menú, y QUÉ acciones de arriba usar.
-//    Agregar un rol nuevo = agregar una entrada aquí. No se toca el componente.
+// Etiquetas visibles de cada sección. Agregar una sección nueva = agregar una línea aquí.
+export const sectionLabels = {
+  cuenta: "Cuenta",
+  academico: "Académico",
+};
+
 export const roleConfig = {
   administrador: {
     moduleLabel: "Administrador",
@@ -57,7 +81,7 @@ export const roleConfig = {
     moduleLabel: "Docente",
     roleTitle: "Docente",
     homePath: "/teacher",
-    menuItems: ["editarPerfil", "cambiarPassword", "misGrupos"],
+    menuItems: ["editarPerfil", "cambiarPassword", "misGrupos", "misHorario"],
   },
   estudiante: {
     moduleLabel: "Estudiante",
@@ -73,7 +97,6 @@ export const roleConfig = {
   },
 };
 
-// Fallback por si llega un rol desconocido o sin definir (nunca dejar el navbar roto)
 export const defaultRoleConfig = {
   moduleLabel: "Usuario",
   roleTitle: "Usuario",

@@ -23,8 +23,6 @@ import { getStudentsByGroup } from "@/data/studentsData";
 
 import "./ClassworkPage.css";
 
-// 2. Constantes y Funciones Auxiliares
-// ✅ FASE 3: Colores de avatares usando tokens CSS
 const AVATAR_COLORS = [
   "var(--avatar-color-1)",
   "var(--avatar-color-2)",
@@ -177,7 +175,7 @@ const ClassworkPage = () => {
     });
 
     formData.append("estudiantes", JSON.stringify(selectedStudents));
-    // ✅ FASE 4: console.log eliminado
+    
 
     setTimeout(() => {
       setLoading((prev) => ({ ...prev, guardar: false }));

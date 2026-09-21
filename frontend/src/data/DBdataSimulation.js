@@ -1,4 +1,4 @@
-// --- DBA (declarado primero para poder usarlo dentro de optionsMap) ---
+
 export const dbaPensamientoNumerico = {
   grado1: [
     {
@@ -394,8 +394,7 @@ export const optionsMap = {
     { value: "undecimo", label: "Undécimo" },
   ],
 
-  asignaturas: [
-    
+  asignaturas: [    
     { value: "ciencias_naturales", label: "Ciencias Naturales" },
     { value: "biologia", label: "Biología" },
     { value: "quimica", label: "Química" },

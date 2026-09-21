@@ -1,11 +1,42 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuth } from "@/components/hooks/useAuth";
 import { useClickOutside } from "@/components/hooks/useClickOutside";
-import { roleConfig, defaultRoleConfig, userMenuActions } from "@/data/navbarModuloData";
+import {
+  roleConfig,
+  defaultRoleConfig,
+  userMenuActions,
+  sectionLabels,
+} from "@/data/navbarModuloData";
 import Modal from "@/components/ui/Modal/Modal";
+import EditProfile from "@/pages/common/EditProfile";
 import logo from "@/assets/icons/espiral.svg";
+
 import "./NavbarModulo.css";
+
+const getInitials = (fullName = "") =>
+  fullName
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase() ?? "")
+    .join("");
+
+// Agrupa las keys de menuItems por su "section" respetando el orden en que llegan.
+const groupBySection = (menuItems) => {
+  const groups = [];
+  menuItems.forEach((key) => {
+    const item = userMenuActions[key];
+    if (!item) return;
+    const lastGroup = groups[groups.length - 1];
+    if (lastGroup && lastGroup.section === item.section) {
+      lastGroup.items.push(key);
+    } else {
+      groups.push({ section: item.section, items: [key] });
+    }
+  });
+  return groups;
+};
 
 const NavbarModulo = () => {
   const { user, logout } = useAuth();
@@ -13,21 +44,31 @@ const NavbarModulo = () => {
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   const currentRole = roleConfig[user?.role] ?? defaultRoleConfig;
+  const initials = useMemo(() => getInitials(user?.fullName), [user?.fullName]);
+  const sectionGroups = useMemo(
+    () => groupBySection(currentRole.menuItems),
+    [currentRole.menuItems],
+  );
 
   useClickOutside(
     [".nav-user-btn", ".user-menu-dropdown"],
     () => setIsUserMenuOpen(false),
-    isUserMenuOpen
+    isUserMenuOpen,
   );
 
-  const handleMenuItemClick = (to) => {
+  const handleMenuItemClick = (item) => {
     setIsUserMenuOpen(false);
-    navigate(to);
-  };
 
-  
+    if (item.type === "panel") {
+      setIsEditProfileOpen(true);
+      return;
+    }
+
+    navigate(item.to);
+  };
 
   const handleLogout = () => {
     logout();
@@ -68,25 +109,50 @@ const NavbarModulo = () => {
           {isUserMenuOpen && (
             <div className="user-menu-dropdown">
               <div className="user-menu-header">
-                <div>
-                  <p className="user-role">{currentRole.roleTitle}</p>
-                  <p className="user-email">{user?.correo || "usuario@ejemplo.com"}</p>
+                <div className="user-menu-avatar" aria-hidden="true">
+                  {initials}
+                </div>
+                <div className="user-menu-header-text">
+                  <p className="user-full-name">{user?.fullName}</p>
+                  <p className="user-email">
+                    {user?.correo || "usuario@ejemplo.com"}
+                  </p>
                 </div>
               </div>
+
               <div className="user-menu-actions-vertical">
-                {currentRole.menuItems.map((key) => {
-                  const item = userMenuActions[key];
-                  return (
-                    <div
-                      key={key}
-                      className={item.cName}
-                      onClick={() => handleMenuItemClick(item.to)}
-                    >
-                      <span className="material-symbols-outlined">{item.icon}</span>
-                      <p>{item.title}</p>
-                    </div>
-                  );
-                })}
+                {sectionGroups.map((group) => (
+                  <div className="user-menu-section" key={group.section}>
+                    <p className="user-menu-section-label">
+                      {sectionLabels[group.section]}
+                    </p>
+                    {group.items.map((key) => {
+                      const item = userMenuActions[key];
+                      return (
+                        <div
+                          key={key}
+                          className={item.cName}
+                          onClick={() => handleMenuItemClick(item)}
+                        >
+                          <span
+                            className={`icon-badge icon-badge--${item.accent}`}
+                          >
+                            <span className="material-symbols-outlined">
+                              {item.icon}
+                            </span>
+                          </span>
+                          <p>{item.title}</p>
+                          <span
+                            className="material-symbols-outlined chevron-hint"
+                            aria-hidden="true"
+                          >
+                            chevron_right
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -104,11 +170,17 @@ const NavbarModulo = () => {
           </button>
         </li>
       </ul>
+
       <Modal
         isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
         onConfirm={handleLogout}
         variant="logout"
+      />
+
+      <EditProfile
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
       />
     </nav>
   );

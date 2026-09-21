@@ -17,7 +17,7 @@ const PlanningPage = () => {
   };
 
   return (
-    <>
+    <div className="plan-page">
       <NavbarSection sectionKey="planeacion" handleBack={handleBack} />
       <div className="planning-container">
         <div className="planning-title">
@@ -64,7 +64,7 @@ const PlanningPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -90,7 +90,6 @@ export const filterFormsData = {
       },
     ],
   },
-
   tareas: {
     rows: [
       {
@@ -150,7 +149,7 @@ export const filterFormsData = {
             type: "text",
             label: "Tema:",
             required: true,
-            placeholder: "Escribir el  tema", 
+            placeholder: "Escribir el  tema",
             dependsOn: "fechaFin",
           },
           {
@@ -169,7 +168,7 @@ export const filterFormsData = {
             type: "textarea",
             label: "Descripción:",
             required: true,
-            placeholder: "Escribir la descripción de la tarea", 
+            placeholder: "Escribir la descripción de la tarea",
             rows: 4,
             dependsOn: "tema",
           },
@@ -177,7 +176,7 @@ export const filterFormsData = {
       },
     ],
   },
-    comunication: {
+  comunication: {
     rows: [
       {
         id: "destinatarios",
@@ -189,7 +188,7 @@ export const filterFormsData = {
             type: "select",
             label: "Grupo:",
             optionsKey: "grupos",
-            required: true,            
+            required: true,
             placeholder: "Seleccione un grupo",
           },
           {
@@ -197,7 +196,7 @@ export const filterFormsData = {
             type: "select",
             label: "Estudiante:",
             required: true,
-            dependsOn: "grupo", 
+            dependsOn: "grupo",
             placeholder: "Seleccione una opción",
           },
         ],
@@ -381,6 +380,7 @@ export const filterFormsData = {
             label: "Fecha de fin:",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "fechaInicio",
           },
           {
             id: "periodo",
@@ -389,6 +389,7 @@ export const filterFormsData = {
             optionsKey: "periodos",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "fechaFin",
           },
         ],
       },
@@ -402,6 +403,7 @@ export const filterFormsData = {
             optionsKey: "grupos",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "periodo",
           },
           {
             id: "asignatura",
@@ -410,14 +412,16 @@ export const filterFormsData = {
             optionsKey: "asignaturas",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "grupo",
           },
           {
-            id: "tipo",
+            id: "actividadAcademica",
             type: "select",
-            label: "Tipo:",
+            label: "Actividad Académica:",
             optionsKey: "typePlan",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "asignatura",
           },
         ],
       },
@@ -438,6 +442,7 @@ export const filterFormsData = {
             placeholder: "Ej: Números enteros, Literatura Colombiana",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "actividadAcademica",
           },
           {
             id: "nombreTema",
@@ -446,14 +451,16 @@ export const filterFormsData = {
             placeholder: "Ej: Orden de los números, Literatura indígena",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "nombreUnidad",
           },
           {
-            id: "tipo",
+            id: "proyectoTransversal",
             type: "select",
             label: "Proyecto transversal:",
             optionsKey: "projectCurricular",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "nombreTema",
           },
         ],
       },
@@ -467,6 +474,7 @@ export const filterFormsData = {
             optionsKey: "estandares",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "proyectoTransversal",
           },
           {
             id: "dba",
@@ -475,6 +483,7 @@ export const filterFormsData = {
             optionsKey: "dba",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "estandar",
           },
           {
             id: "evidenciaAprendizaje",
@@ -483,29 +492,9 @@ export const filterFormsData = {
             optionsKey: "evidenciasAprendizaje",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "dba",
           },
         ],
-      },
-    ],
-  },
-
-  planLibrary: {
-    fields: [
-      {
-        id: "grupo",
-        type: "select",
-        label: "Grupo:",
-        optionsKey: "grupos",
-        required: true,
-        validation: { required: "Este campo es obligatorio" },
-      },
-      {
-        id: "asignatura",
-        type: "select",
-        label: "Asignatura:",
-        optionsKey: "asignaturas",
-        required: true,
-        validation: { required: "Este campo es obligatorio" },
       },
     ],
   },
@@ -524,6 +513,7 @@ export const filterFormsData = {
             placeholder: "Escribe aquí las competencias a desarrollar...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "evidenciaAprendizaje",
           },
           {
             id: "objetivos",
@@ -532,6 +522,7 @@ export const filterFormsData = {
             placeholder: "Escribe aquí los objetivos a desarrollar...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "competencias",
           },
         ],
       },
@@ -546,6 +537,7 @@ export const filterFormsData = {
               "Describe actividades o preguntas para activar conocimientos previos...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "objetivos",
           },
           {
             id: "analiza",
@@ -555,6 +547,7 @@ export const filterFormsData = {
               "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "saberesPrevios",
           },
         ],
       },
@@ -575,6 +568,7 @@ export const filterFormsData = {
               "Describe los temas, explicaciones, ejemplos o actividades del desarrollo...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "analiza",
           },
           {
             id: "evaluacion",
@@ -584,6 +578,7 @@ export const filterFormsData = {
               "Describe cómo se evaluará el aprendizaje (instrumentos, criterios, actividades)...",
             required: true,
             validation: { required: "Este campo es obligatorio" },
+            dependsOn: "contenidos",
           },
         ],
       },
@@ -610,3 +605,4 @@ export const filterFormsData = {
     ],
   },
 };
+

@@ -1,13 +1,13 @@
 import { Check } from "lucide-react";
 import "./Stepper.css";
 
-const Stepper = ({ steps, currentStep, className = "" }) => {
+const Stepper = ({ steps, currentStep, isFinished = false, className = "" }) => {
   return (
-     <div className={`stepper-container ${className}`}>
+    <div className={`stepper-container ${className}`}>
       <div className="stepper">
         {steps.map((step, index) => {
-          const isCompleted = step.id < currentStep;
-          const isActive = step.id === currentStep;
+          const isCompleted = isFinished || step.id < currentStep;
+          const isActive = !isFinished && step.id === currentStep;
 
           return (
             <div className="stepper__item" key={step.id}>
@@ -36,7 +36,7 @@ const Stepper = ({ steps, currentStep, className = "" }) => {
                 <div
                   className={
                     "stepper__connector" +
-                    (step.id < currentStep ? " stepper__connector--done" : "")
+                    (isCompleted ? " stepper__connector--done" : "")
                   }
                 />
               )}

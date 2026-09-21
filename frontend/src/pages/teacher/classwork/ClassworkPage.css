@@ -1,9 +1,6 @@
-
-
 .classwork-page {  
   --notice-color: var(--color-accent); 
 }
-
 
 .classwork-container {
   display: flex;

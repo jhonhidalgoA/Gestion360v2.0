@@ -22,7 +22,6 @@
 .navbar-modulo .logo {
   width: 36px;
   height: 36px;
-  
 }
 
 .navbar-modulo .nav-logo-text h3 {
@@ -70,7 +69,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease, background var(--transition-fast);
+  transition:
+    transform 0.3s ease,
+    background var(--transition-fast);
 }
 
 .navbar-modulo .nav-icon-btn:hover {
@@ -81,7 +82,9 @@
 
 .navbar-modulo .nav-icon-btn .material-symbols-outlined {
   font-size: 28px;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 .navbar-modulo .nav-icon-btn:hover .material-symbols-outlined {
@@ -129,12 +132,11 @@
   padding: var(--space-2) var(--space-3);
 }
 
-/* Dropdown de usuario */
 .navbar-modulo .user-menu-dropdown {
   position: absolute;
   top: calc(100% + var(--space-3));
   right: 0;
-  width: 260px;
+  width: 320px;
   background: var(--bg-page);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
@@ -154,11 +156,45 @@
   }
 }
 
+/* Header con avatar + chip de rol */
 .navbar-modulo .user-menu-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
   padding: var(--space-4) var(--space-5);
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border-color);
   text-align: left;
+}
+
+.navbar-modulo .user-menu-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--border-radius-full);
+  background: var(--color-primary);
+  color: var(--text-on-primary);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-modulo .user-menu-header-text {
+  min-width: 0;
+}
+
+.navbar-modulo .user-full-name {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navbar-modulo .user-role {
@@ -172,6 +208,20 @@
   margin: 2px 0 0;
   color: var(--text-muted);
   font-size: var(--fs-xs);
+  text-align: center;
+}
+
+.navbar-modulo .user-role-chip {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 2px 9px;
+  border-radius: var(--border-radius-full);
+  background: rgba(2, 62, 138, 0.1);
+  color: var(--color-primary);
+  font-size: 10.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .navbar-modulo .user-menu-actions-vertical {
@@ -180,11 +230,26 @@
   padding: var(--space-2) 0;
 }
 
+.navbar-modulo .user-menu-section + .user-menu-section {
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+}
+
+.navbar-modulo .user-menu-section-label {
+  margin: var(--space-2) var(--space-5) 4px;
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
 .navbar-modulo .user-menu-action {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-2) var(--space-5);
   color: var(--text-primary);
   font-size: var(--fs-sm);
   cursor: pointer;
@@ -202,4 +267,56 @@
 
 .navbar-modulo .user-menu-action p {
   margin: 0;
+  flex: 1;
+}
+
+/* Badge de ícono por categoría */
+.navbar-modulo .icon-badge {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-modulo .icon-badge .material-symbols-outlined {
+  font-size: 25px;
+}
+
+.navbar-modulo .icon-badge--neutral .material-symbols-outlined {
+  color: var(--text-secondary);
+}
+
+
+.navbar-modulo .icon-badge--blue .material-symbols-outlined {
+  color: var(--text-secondary);
+}
+
+.navbar-modulo .icon-badge--green .material-symbols-outlined {
+  color: #3a7a1f;
+}
+
+.navbar-modulo .icon-badge--pink {
+  background: #fbeaf0;
+}
+.navbar-modulo .icon-badge--pink .material-symbols-outlined {
+  color: #b93368;
+}
+
+/* Flechita que solo aparece en hover */
+.navbar-modulo .chevron-hint {
+  font-size: 16px;
+  color: var(--color-primary);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.navbar-modulo .user-menu-action:hover .chevron-hint {
+  opacity: 1;
+  transform: translateX(0);
 }
