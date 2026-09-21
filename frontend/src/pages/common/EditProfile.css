@@ -1,4 +1,3 @@
-/* Overlay oscuro detrás del panel */
 .edit-perfil-overlay {
   position: fixed;
   inset: 0;
@@ -16,7 +15,6 @@
   }
 }
 
-/* Panel lateral (drawer) */
 .edit-perfil-panel {
   position: fixed;
   top: 0;
@@ -41,7 +39,13 @@
   }
 }
 
-/* Header */
+.edit-perfil-panel form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .edit-perfil-header {
   display: flex;
   align-items: center;
@@ -65,19 +69,6 @@
   color: var(--text-primary);
 }
 
-.edit-perfil-icon-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--border-radius-sm);
-  background: rgba(2, 62, 138, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-
-
 .edit-perfil-close-btn {
   background: transparent;
   border: none;
@@ -100,7 +91,6 @@
   font-size: 20px;
 }
 
-/* Tabs */
 .edit-perfil-tabs {
   display: flex;
   gap: var(--space-5);
@@ -141,7 +131,6 @@
   color: var(--color-primary);
 }
 
-/* Body / formulario */
 .edit-perfil-body {
   padding: var(--space-5);
   overflow-y: auto;
@@ -184,20 +173,13 @@
   color: var(--text-muted);
 }
 
-/* ✅ CAMBIO: Grilla de 1 columna (vertical) */
-.edit-perfil-field-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* ✅ Una sola columna */
-  gap: var(--space-4);
-}
-
-.edit-perfil-field {
-  margin-bottom: 0; /* Ya no necesita margen porque el gap lo maneja */
+.form-row-profile > * {
+  margin-bottom: var(--space-2);
 }
 
 .edit-perfil-field label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-size: var(--fs-xs);
   color: var(--text-secondary);
 }
@@ -227,50 +209,31 @@
   cursor: not-allowed;
 }
 
-/* Campo con ícono (documento de identidad bloqueado) */
-.edit-perfil-field-icon-wrap {
-  position: relative;
-}
-
-.edit-perfil-field-icon-wrap input {
-  padding-right: calc(var(--space-3) + 20px);
-}
-
-.edit-perfil-field-icon {
-  position: absolute;
-  right: var(--space-3);
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px !important;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
-/* Nota informativa bajo el formulario */
-.edit-perfil-note {
-  margin-top: var(--space-4);
-  padding: var(--space-3);
+.edit-perfil-info-banner {
+  text-align: center;
+  font-size: var(--fs-base);
+  color: var(--color-primary);
   background: rgba(2, 62, 138, 0.06);
   border: 1px solid rgba(2, 62, 138, 0.15);
   border-radius: var(--border-radius-sm);
-  font-size: var(--fs-xs);
-  color: var(--text-secondary);
+  padding: var(--space-3);
+  margin: var(--space-4) 0;
 }
 
 .edit-perfil-error {
-  margin: 5px 0 0;
+  margin: 8px 0 0;
   font-size: var(--fs-xs);
   color: var(--color-danger, #d43f3f);
+  line-height: 1.4;
 }
 
 .edit-perfil-error--general {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
   padding: var(--space-2) var(--space-3);
   background: rgba(212, 63, 63, 0.08);
   border-radius: var(--border-radius-sm);
 }
 
-/* Footer */
 .edit-perfil-footer {
   display: flex;
   justify-content: flex-end;
@@ -315,6 +278,26 @@
 .edit-perfil-btn-primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.input__meta {
+  margin-top: 3px;
+}
+
+.input__error {
+  margin-top: 3px !important;
+  padding-top: 0 !important;
+  line-height: 1.4;
+}
+
+.select__meta {
+  margin-top: 3px;
+}
+
+.select__error {
+  margin-top: 3px !important;
+  padding-top: 0 !important;
+  line-height: 1.4;
 }
 
 @media (max-width: 480px) {

@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/components/hooks/useAuth";
-import { profileFields, passwordFields } from "@/data/profileData";
+import {
+  profileFields,
+  passwordFields,
+  profileDefaultValues,
+  passwordDefaultValues,
+  profileSchema,
+  passwordSchema,
+} from "@/schemas/profileSchema";
 import { FaSave } from "react-icons/fa";
 
-import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
+import Input from "@/components/ui/Input/Input";
+import Select from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import "./EditProfile.css";
 
@@ -19,89 +28,68 @@ const EditPerfil = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState(TABS.PERSONAL);
   const [isSavingPersonal, setIsSavingPersonal] = useState(false);
   const [isSavingPassword, setIsSavingPassword] = useState(false);
-
-  const [passwordErrors, setPasswordErrors] = useState({});
-
-  const defaultValues = {
-    documento: user?.documento || "",
-    nombre: user?.fullName || "",
-    correo: user?.correo || "",
-    telefono: user?.telefono || "",
-    actual: "",
-    nueva: "",
-    confirmar: "",
-  };
+  const [generalError, setGeneralError] = useState("");
 
   const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    reset,
-    formState: { errors },
+    register: registerProfile,
+    handleSubmit: handleSubmitProfile,
+    formState: { errors: profileErrors },
   } = useForm({
-    defaultValues,
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      ...profileDefaultValues,
+      nombre: user?.fullName || "",
+      correo: user?.correo || "",
+      telefono: user?.telefono || "",
+      area: user?.area || "",
+    },
+    mode: "onChange",
+  });
+
+  const {
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    reset: resetPassword,
+    formState: { errors: passwordErrors },
+  } = useForm({
+    resolver: zodResolver(passwordSchema),
+    defaultValues: passwordDefaultValues,
     mode: "onChange",
   });
 
   if (!isOpen) return null;
 
-  const validatePassword = (data) => {
-    const errors = {};
-    if (!data.actual) {
-      errors.actual = "Ingresa tu contraseña actual";
-    }
-    if (data.nueva.length < 8) {
-      errors.nueva = "Debe tener al menos 8 caracteres";
-    }
-    if (data.confirmar !== data.nueva) {
-      errors.confirmar = "Las contraseñas no coinciden";
-    }
-    setPasswordErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
   const onSavePersonal = async (data) => {
-    if (!data.nombre.trim()) {
-      alert("El nombre es obligatorio");
-      return;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(data.correo)) {
-      alert("Ingresa un correo válido");
-      return;
-    }
-
     setIsSavingPersonal(true);
+    setGeneralError("");
     try {
       await updateProfile({
         nombreCompleto: data.nombre,
         correo: data.correo,
         telefono: data.telefono,
+        area: data.area,
       });
       onClose();
     } catch (error) {
       console.error("Error al guardar perfil:", error);
-      alert("No se pudo guardar. Intenta de nuevo.");
+      setGeneralError("No se pudo guardar. Intenta de nuevo.");
     } finally {
       setIsSavingPersonal(false);
     }
   };
 
-  const handleUpdatePassword = async (data) => {
-    if (!validatePassword(data)) return;
+  const onUpdatePassword = async (data) => {
     setIsSavingPassword(true);
+    setGeneralError("");
     try {
-      await updatePassword({
-        actual: data.actual,
-        nueva: data.nueva,
-      });
-      reset({ ...defaultValues, actual: "", nueva: "", confirmar: "" });
+      await updatePassword({ actual: data.actual, nueva: data.nueva });
+      resetPassword(passwordDefaultValues);
       onClose();
     } catch (error) {
       console.error("Error al actualizar contraseña:", error);
-      setPasswordErrors({
-        general: "No se pudo actualizar la contraseña. Verifica los datos.",
-      });
+      setGeneralError(
+        "No se pudo actualizar la contraseña. Verifica los datos.",
+      );
     } finally {
       setIsSavingPassword(false);
     }
@@ -120,7 +108,7 @@ const EditPerfil = ({ isOpen, onClose }) => {
       <div className="edit-perfil-overlay" onClick={onClose} />
       <div className="edit-perfil-panel">
         <div className="edit-perfil-header">
-          <div className="edit-perfil-header-title">            
+          <div className="edit-perfil-header-title">
             <p>Editar perfil</p>
           </div>
           <button
@@ -153,7 +141,7 @@ const EditPerfil = ({ isOpen, onClose }) => {
         </div>
 
         {activeTab === TABS.PERSONAL && (
-          <form onSubmit={handleSubmit(onSavePersonal)}>
+          <form onSubmit={handleSubmitProfile(onSavePersonal)}>
             <div className="edit-perfil-body">
               <div className="edit-perfil-avatar-row">
                 <div className="edit-perfil-avatar">
@@ -166,52 +154,86 @@ const EditPerfil = ({ isOpen, onClose }) => {
               </div>
 
               <div className="form-row-profile">
-                {profileFields.map((field) => (
-                  <FormFieldCascada
-                    key={field.id}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                    control={control}
-                    setValue={setValue}
-                  />
-                ))}
-              </div>              
-              <div className="edit-perfil-footer">
-                <Button
-                  type="button"
-                  variant="light"
-                  className="btn-uniform-width"
-                  onClick={onClose}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  icon={FaSave}
-                  iconPosition="left"
-                  disabled={isSavingPersonal}
-                >
-                  {isSavingPersonal ? "Guardando..." : "Guardar cambios"}
-                </Button>
+                {profileFields.map((field) =>
+                  field.type === "select" ? (
+                    <Select
+                      key={field.id}
+                      label={field.label}
+                      name={field.id}
+                      id={field.id}
+                      options={field.options || []}
+                      placeholder="Seleccione una opción"
+                      register={registerProfile}
+                      error={profileErrors[field.id]}
+                      required={field.required}
+                      disabled={field.disabled}
+                      variant="square"
+                    />
+                  ) : (
+                    <Input
+                      key={field.id}
+                      label={field.label}
+                      name={field.id}
+                      id={field.id}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      register={registerProfile}
+                      error={profileErrors[field.id]}
+                      required={field.required}
+                      disabled={field.disabled}
+                      variant="square"
+                      autoComplete="off"
+                    />
+                  ),
+                )}
               </div>
+
+              {generalError && (
+                <p className="edit-perfil-error edit-perfil-error--general">
+                  {generalError}
+                </p>
+              )}
+            </div>
+
+            <div className="edit-perfil-footer">
+              <Button
+                type="button"
+                variant="light"
+                className="btn-uniform-width"
+                onClick={onClose}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                icon={FaSave}
+                iconPosition="left"
+                disabled={isSavingPersonal}
+              >
+                {isSavingPersonal ? "Guardando..." : "Guardar cambios"}
+              </Button>
             </div>
           </form>
         )}
 
         {activeTab === TABS.SEGURIDAD && (
-          <form onSubmit={handleSubmit(handleUpdatePassword)}>
+          <form onSubmit={handleSubmitPassword(onUpdatePassword)}>
             <div className="edit-perfil-body">
               <div className="form-row-profile">
                 {passwordFields.map((field) => (
-                  <FormFieldCascada
+                  <Input
                     key={field.id}
-                    field={field}
-                    register={register}
-                    errors={passwordErrors}
-                    control={control}
-                    setValue={setValue}
+                    label={field.label}
+                    name={field.id}
+                    id={field.id}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    register={registerPassword}
+                    error={passwordErrors[field.id]}
+                    required={field.required}
+                    variant="square"
+                    autoComplete="off"
                   />
                 ))}
               </div>
@@ -220,9 +242,9 @@ const EditPerfil = ({ isOpen, onClose }) => {
                 Usa al menos 8 caracteres, una mayúscula y un número.
               </div>
 
-              {passwordErrors.general && (
+              {generalError && (
                 <p className="edit-perfil-error edit-perfil-error--general">
-                  {passwordErrors.general}
+                  {generalError}
                 </p>
               )}
             </div>
