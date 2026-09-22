@@ -6,7 +6,8 @@
 const mockUser = {
   fullName: "Jhon Fredy Hidalgo Arango",
   correo: "jhon.hidalgo@ejemplo.com",
-  role: "docente", // cambiar aquí para probar los otros roles: administrador | docente | estudiante | padre
+  role: "docente", // rol activo — cambiar aquí para probar los otros roles: administrador | docente | estudiante | padre
+  roles: ["docente", "padre"], // roles disponibles para este usuario (para "Cambiar de rol")
 };
 
 export function useAuth() {

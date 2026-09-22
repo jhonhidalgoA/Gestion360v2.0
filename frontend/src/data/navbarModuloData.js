@@ -1,4 +1,5 @@
 export const userMenuActions = {
+  
   editarPerfil: {
     title: "Editar perfil",
     to: "/perfil/editar",
@@ -8,15 +9,7 @@ export const userMenuActions = {
     section: "cuenta",
     accent: "neutral",
   },
-  cambiarPassword: {
-    title: "Cambiar contraseña",
-    to: "/perfil/password",
-    icon: "lock",
-    cName: "user-menu-action",
-    type: "page",
-    section: "cuenta",
-    accent: "neutral",
-  },
+ 
   configuracion: {
     title: "Configuración",
     to: "/admin/configuracion",
@@ -62,12 +55,30 @@ export const userMenuActions = {
     section: "academico",
     accent: "pink",
   },
+  cambiarRol: {
+    title: "Cambiar de rol",
+    icon: "shuffle",
+    cName: "user-menu-action",
+    type: "roleSwitch",
+    section: "otros",
+    accent: "amber",
+  },
+  contactarSoporte: {
+    title: "Contactar soporte",
+    to: "/soporte",
+    icon: "headset_mic",
+    cName: "user-menu-action",
+    type: "page",
+    section: "otros",
+    accent: "slate",
+  },
 };
 
 // Etiquetas visibles de cada sección. Agregar una sección nueva = agregar una línea aquí.
 export const sectionLabels = {
   cuenta: "Cuenta",
   academico: "Académico",
+  otros: "Otros",
 };
 
 export const roleConfig = {
@@ -75,25 +86,25 @@ export const roleConfig = {
     moduleLabel: "Administrador",
     roleTitle: "Administrador del Sistema",
     homePath: "/admin",
-    menuItems: ["editarPerfil", "cambiarPassword", "configuracion"],
+    menuItems: ["editarPerfil", "cambiarPassword", "configuracion", "cambiarRol", "contactarSoporte"],
   },
   docente: {
     moduleLabel: "Docente",
     roleTitle: "Docente",
     homePath: "/teacher",
-    menuItems: ["editarPerfil", "cambiarPassword", "misGrupos", "misHorario"],
+    menuItems: ["editarPerfil", "cambiarPassword", "misGrupos", "misHorario", "cambiarRol", "contactarSoporte"],
   },
   estudiante: {
     moduleLabel: "Estudiante",
     roleTitle: "Estudiante",
     homePath: "/student",
-    menuItems: ["editarPerfil", "cambiarPassword", "misCalificaciones"],
+    menuItems: ["editarPerfil", "cambiarPassword", "misCalificaciones", "cambiarRol", "contactarSoporte"],
   },
   padre: {
     moduleLabel: "Padre de Familia",
     roleTitle: "Padre de Familia",
     homePath: "/parent",
-    menuItems: ["editarPerfil", "cambiarPassword", "misHijos"],
+    menuItems: ["editarPerfil", "cambiarPassword", "misHijos", "cambiarRol", "contactarSoporte"],
   },
 };
 
@@ -101,5 +112,5 @@ export const defaultRoleConfig = {
   moduleLabel: "Usuario",
   roleTitle: "Usuario",
   homePath: "/",
-  menuItems: ["editarPerfil", "cambiarPassword"],
+  menuItems: ["editarPerfil", "cambiarPassword", "contactarSoporte"],
 };

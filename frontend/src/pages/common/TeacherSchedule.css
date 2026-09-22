@@ -1,0 +1,263 @@
+/* Overlay */
+.schedule-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.5);
+  z-index: var(--z-modal);
+  animation: schedule-overlay-fade var(--transition-fast);
+}
+
+@keyframes schedule-overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Panel principal: modal centrado y ancho (la tabla necesita espacio) */
+.schedule-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(920px, calc(100vw - 32px));
+  max-height: calc(100vh - 64px);
+  background: var(--bg-page);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: calc(var(--z-modal) + 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: schedule-panel-pop var(--transition-fast);
+}
+
+@keyframes schedule-panel-pop {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Header */
+.schedule-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #172a63));
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.schedule-title h2 {
+  margin: 0 0 2px 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+}
+
+.schedule-title p {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.schedule-close-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.schedule-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.schedule-close-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Navegación de semana */
+.schedule-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--bg-page);
+  color: var(--color-primary);
+  border: 1px solid var(--border-color);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  transition: all var(--transition-fast);
+}
+
+.nav-btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.week-info {
+  text-align: center;
+}
+
+.week-info h3 {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+/* Cuerpo scrollable */
+.schedule-body {
+  flex: 1;
+  overflow: auto;
+  padding: var(--space-5);
+}
+
+.schedule-table {
+  display: flex;
+  flex-direction: column;
+  min-width: 560px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 70px repeat(5, 1fr);
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.time-column-header {
+  border-right: 1px solid var(--border-color);
+}
+
+.day-column-header {
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  border-right: 1px solid var(--border-color);
+}
+
+.day-column-header:last-child {
+  border-right: none;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: 70px repeat(5, 1fr);
+  border-bottom: 1px solid var(--border-color);
+  min-height: 64px;
+}
+
+.time-row:last-child {
+  border-bottom: none;
+}
+
+.time-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  background: var(--bg-subtle);
+  border-right: 1px solid var(--border-color);
+}
+
+.schedule-cell {
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-page);
+  transition: background var(--transition-fast);
+}
+
+.schedule-cell:last-child {
+  border-right: none;
+}
+
+.schedule-cell:hover {
+  background: var(--bg-subtle);
+}
+
+.schedule-cell.has-content {
+  background: rgba(2, 62, 138, 0.06);
+  border-left: 3px solid var(--color-primary);
+}
+
+/* Filas especiales: descanso / almuerzo */
+.full-row {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border-right: none;
+}
+
+.full-row.break {
+  background: rgba(139, 92, 246, 0.08);
+  color: #7c3aed;
+}
+
+.full-row.lunch {
+  background: rgba(2, 62, 138, 0.08);
+  color: var(--color-primary);
+}
+
+.break-icon {
+  font-size: var(--fs-base);
+}
+
+/* Responsive: la tabla escala con scroll horizontal en vez de romperse */
+@media (max-width: 640px) {
+  .schedule-panel {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+  }
+
+  .schedule-navigation {
+    flex-wrap: wrap;
+  }
+
+  .schedule-body {
+    padding: var(--space-3);
+  }
+}

@@ -10,6 +10,7 @@ import {
 } from "@/data/navbarModuloData";
 import Modal from "@/components/ui/Modal/Modal";
 import EditProfile from "@/pages/common/EditProfile";
+import TeacherSchedule from "@/pages/common/TeacherSchedule"; // ✅ 1. Importa el componente
 import logo from "@/assets/icons/espiral.svg";
 
 import "./NavbarModulo.css";
@@ -22,7 +23,8 @@ const getInitials = (fullName = "") =>
     .map((word) => word[0]?.toUpperCase() ?? "")
     .join("");
 
-// Agrupa las keys de menuItems por su "section" respetando el orden en que llegan.
+const getPrimarySubject = (area = "") => area.split(/\s+y\s+/i)[0].trim();
+
 const groupBySection = (menuItems) => {
   const groups = [];
   menuItems.forEach((key) => {
@@ -45,21 +47,41 @@ const NavbarModulo = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false); // ✅ 2. Nuevo estado
+  const [isRoleSwitchOpen, setIsRoleSwitchOpen] = useState(false); // ✅ Cambiar de rol (expandible)
 
   const currentRole = roleConfig[user?.role] ?? defaultRoleConfig;
   const initials = useMemo(() => getInitials(user?.fullName), [user?.fullName]);
+  const primarySubject = useMemo(
+    () => getPrimarySubject(user?.area),
+    [user?.area],
+  );
   const sectionGroups = useMemo(
     () => groupBySection(currentRole.menuItems),
     [currentRole.menuItems],
   );
 
+  // Roles disponibles para este usuario (ej. ["docente", "padre"]).
+  // ⚠️ Asumo que useAuth expone user.roles como array — ajusta el nombre si es otro.
+  const availableRoles = user?.roles || [];
+
   useClickOutside(
     [".nav-user-btn", ".user-menu-dropdown"],
-    () => setIsUserMenuOpen(false),
+    () => {
+      setIsUserMenuOpen(false);
+      setIsRoleSwitchOpen(false);
+    },
     isUserMenuOpen,
   );
 
   const handleMenuItemClick = (item) => {
+    console.log("handleMenuItemClick →", item);
+
+    if (item.type === "roleSwitch") {
+      setIsRoleSwitchOpen((prev) => !prev);
+      return;
+    }
+
     setIsUserMenuOpen(false);
 
     if (item.type === "panel") {
@@ -67,7 +89,20 @@ const NavbarModulo = () => {
       return;
     }
 
+    // ✅ 3. Si es el horario, abrimos el panel en lugar de navegar
+    if (item.to === "/docente/horario" || item.title === "Mi horario") {
+      setIsScheduleOpen(true);
+      return;
+    }
+
     navigate(item.to);
+  };
+
+  const handleRoleSelect = (role) => {
+    // ⚠️ Aquí falta conectar la función real de cambio de rol (ej. useAuth().switchRole).
+    console.log("Cambiar a rol →", role);
+    setIsUserMenuOpen(false);
+    setIsRoleSwitchOpen(false);
   };
 
   const handleLogout = () => {
@@ -113,13 +148,15 @@ const NavbarModulo = () => {
                   {initials}
                 </div>
                 <div className="user-menu-header-text">
-                  <p className="user-full-name">{user?.fullName}</p>
+                  <p className="user-role">
+                    {currentRole.moduleLabel}
+                    {primarySubject ? ` · ${primarySubject}` : ""}
+                  </p>
                   <p className="user-email">
                     {user?.correo || "usuario@ejemplo.com"}
                   </p>
                 </div>
               </div>
-
               <div className="user-menu-actions-vertical">
                 {sectionGroups.map((group) => (
                   <div className="user-menu-section" key={group.section}>
@@ -129,25 +166,58 @@ const NavbarModulo = () => {
                     {group.items.map((key) => {
                       const item = userMenuActions[key];
                       return (
-                        <div
-                          key={key}
-                          className={item.cName}
-                          onClick={() => handleMenuItemClick(item)}
-                        >
-                          <span
-                            className={`icon-badge icon-badge--${item.accent}`}
+                        <div key={key}>
+                          <div
+                            className={item.cName}
+                            onClick={() => handleMenuItemClick(item)}
                           >
-                            <span className="material-symbols-outlined">
-                              {item.icon}
+                            <span
+                              className={`icon-badge icon-badge--${item.accent}`}
+                            >
+                              <span className="material-symbols-outlined">
+                                {item.icon}
+                              </span>
                             </span>
-                          </span>
-                          <p>{item.title}</p>
-                          <span
-                            className="material-symbols-outlined chevron-hint"
-                            aria-hidden="true"
-                          >
-                            chevron_right
-                          </span>
+                            <p>{item.title}</p>
+                            {item.type === "roleSwitch" ? (
+                              <span
+                                className={`material-symbols-outlined role-switch-chevron ${
+                                  isRoleSwitchOpen ? "role-switch-chevron--open" : ""
+                                }`}
+                                aria-hidden="true"
+                              >
+                                chevron_right
+                              </span>
+                            ) : (
+                              <span
+                                className="material-symbols-outlined chevron-hint"
+                                aria-hidden="true"
+                              >
+                                chevron_right
+                              </span>
+                            )}
+                          </div>
+
+                          {item.type === "roleSwitch" && isRoleSwitchOpen && (
+                            <div className="role-switch-list">
+                              {availableRoles.map((role) => {
+                                const roleInfo = roleConfig[role] ?? {};
+                                const isActive = role === user?.role;
+                                return (
+                                  <div
+                                    key={role}
+                                    className={`role-switch-option ${
+                                      isActive ? "role-switch-option--active" : ""
+                                    }`}
+                                    onClick={() => handleRoleSelect(role)}
+                                  >
+                                    <span className="role-switch-dot" />
+                                    {roleInfo.moduleLabel || role}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -181,6 +251,12 @@ const NavbarModulo = () => {
       <EditProfile
         isOpen={isEditProfileOpen}
         onClose={() => setIsEditProfileOpen(false)}
+      />
+
+      {/* ✅ 4. Renderiza el panel del horario */}
+      <TeacherSchedule
+        isOpen={isScheduleOpen}
+        onClose={() => setIsScheduleOpen(false)}
       />
     </nav>
   );
