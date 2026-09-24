@@ -65,7 +65,7 @@ export const userMenuActions = {
   },
   contactarSoporte: {
     title: "Contactar soporte",
-    to: "/soporte",
+    to: "/soport",
     icon: "headset_mic",
     cName: "user-menu-action",
     type: "page",

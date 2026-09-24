@@ -20,6 +20,7 @@ import ComunicationPage from "./pages/teacher/comunication/ComunicationPage"
 import ObserverStudentPage from "./pages/teacher/observerStudent/ObserverStudentPage";
 import LessonPlanPage from "./pages/teacher/planning/components/LessonPlanPage"
 import LessonPlanLibrary from "./pages/teacher/planning/components/LessonPlanLibrary"
+import SoportPage from "./pages/common/SupportPage"
 
 
 
@@ -54,7 +55,9 @@ function App() {
         <Route path="/comunicationPage" element={<ComunicationPage />}/>
         <Route path="/observerStudentPage" element={<ObserverStudentPage />}/>
         <Route path="/LessonPlanPage" element={<LessonPlanPage />}/>
-         <Route path="/LessonPlanLibrary" element={<LessonPlanLibrary />}/>
+        <Route path="/LessonPlanLibrary" element={<LessonPlanLibrary />}/>
+        <Route path="/soport" element={<SoportPage />} />
+
       </Routes>
     </Router>
   );

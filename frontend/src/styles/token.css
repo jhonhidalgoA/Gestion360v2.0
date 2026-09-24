@@ -128,7 +128,7 @@
   /* 9. LAYOUT & UTILITIES */
 
   --container-max: 1450px;
-  --navbar-h: 68px;
+  --navbar-h: 100px;
   --sidebar-w: 260px;
 
   --opacity-disabled: 0.5;

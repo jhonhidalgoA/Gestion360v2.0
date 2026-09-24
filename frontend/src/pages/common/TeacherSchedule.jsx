@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 import "./TeacherSchedule.css";
 
 const TeacherSchedule = ({ isOpen, onClose }) => {
-  const [currentWeek] = useState("14 - 18 de septiembre, 2026");
+  
   const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
   const timeSlots = [
-    { time: "7:00", end: "8:00", type: "class" },
-    { time: "8:00", end: "9:00", type: "class" },
-    { time: "9:00", end: "10:00", type: "class" },
-    { time: "10:00", end: "10:30", type: "break", label: "Descanso" },
-    { time: "10:30", end: "11:30", type: "class" },
-    { time: "11:30", end: "12:30", type: "class" },
-    { time: "12:30", end: "1:30", type: "lunch", label: "Almuerzo" },
-    { time: "1:30", end: "2:30", type: "class" },
-    { time: "2:30", end: "3:30", type: "class" },
+    { time: "7:00 - 8:00", end: "8:00", type: "class" },
+    { time: "8:00 - 9:00", end: "9:00", type: "class" },
+    { time: "9:00 - 10:00", end: "10:00", type: "class" },
+    { time: "10:00 - 10:30", end: "10:30", type: "break", label: "Descanso" },
+    { time: "10:30 - 11:30", end: "11:30", type: "class" },
+    { time: "11:30 - 12:30", end: "12:30", type: "class" },
+    { time: "12:30 - 1:30", end: "1:30", type: "lunch", label: "Almuerzo" },
+    { time: "1:30 - 2:30 ", end: "2:30", type: "class" },
+    { time: "2:30 -3:30", end: "3:30", type: "class" },
+    
   ];
 
   if (!isOpen) return null;
@@ -32,19 +32,7 @@ const TeacherSchedule = ({ isOpen, onClose }) => {
           <button className="schedule-close-btn" onClick={onClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
-        </div>
-
-        <div className="schedule-navigation">
-          <button className="nav-btn">
-            <FaChevronLeft /> Anterior
-          </button>
-          <div className="week-info">
-            <h3>{currentWeek}</h3>
-          </div>
-          <button className="nav-btn">
-            Siguiente <FaChevronRight />
-          </button>
-        </div>
+        </div>     
 
         <div className="schedule-body">
           <div className="schedule-table">

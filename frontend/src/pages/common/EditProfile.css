@@ -53,6 +53,7 @@
   padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+  background: var(--color-primary);
 }
 
 .edit-perfil-header-title {
@@ -66,14 +67,14 @@
   font-family: var(--font-heading);
   font-size: var(--fs-md);
   font-weight: var(--fw-medium);
-  color: var(--text-primary);
+  color: var(--text-on-primary);
 }
 
 .edit-perfil-close-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--text-muted);
+  color: var(--text-on-primary);
   width: 32px;
   height: 32px;
   border-radius: var(--border-radius-full);
@@ -83,9 +84,7 @@
   transition: background var(--transition-fast);
 }
 
-.edit-perfil-close-btn:hover {
-  background: var(--bg-subtle);
-}
+
 
 .edit-perfil-close-btn .material-symbols-outlined {
   font-size: 20px;
@@ -111,7 +110,9 @@
   font-weight: var(--fw-medium);
   color: var(--text-muted);
   border-bottom: 2px solid transparent;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .edit-perfil-tab .material-symbols-outlined {
@@ -194,7 +195,9 @@
   font-size: var(--fs-sm);
   color: var(--text-primary);
   font-family: inherit;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
 }
 
 .edit-perfil-field input:focus,

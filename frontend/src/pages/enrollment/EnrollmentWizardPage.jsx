@@ -30,7 +30,13 @@ const STEP_TITLES = {
 
 const TOTAL_STEPS = 4;
 
-function EnrollmentWizardPage() {
+// ✅ Define los datos del navbar directamente aquí
+const NAVBAR_DATA = {
+  title: "Matrícula",
+  color: "#0d3b7a", // o el color que uses para matrícula
+};
+
+function EnrollmentWizardPage({ context }) {
   const [currentStep, setCurrentStep] = useState(1);
 
   const [studentData, setStudentData] = useState(studentDefaultValues);
@@ -48,8 +54,10 @@ function EnrollmentWizardPage() {
   const navigate = useNavigate();
 
   const isLastStep = currentStep === TOTAL_STEPS;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // ✅ Usa los datos definidos arriba
+  const { title, color } = NAVBAR_DATA;
 
   const handleStudentFieldChange = (field, value) => {
     setStudentData((prev) => ({ ...prev, [field]: value }));
@@ -65,8 +73,6 @@ function EnrollmentWizardPage() {
     }
   };
 
-  // manualError permite marcar un error de validación de archivo (tipo/tamaño)
-  // sin depender del ciclo de safeParse, para feedback inmediato al soltar el archivo.
   const handleDocumentFieldChange = (field, value, manualError) => {
     setDocumentData((prev) => ({ ...prev, [field]: value }));
     setDocumentErrors((prev) => ({
@@ -84,109 +90,90 @@ function EnrollmentWizardPage() {
 
   const validateStudentStep = () => {
     const result = studentSchema.safeParse(studentData);
-
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors = Object.fromEntries(
         Object.entries(fieldErrors).map(([field, messages]) => [
           field,
           messages[0],
-        ]),
+        ])
       );
       setStudentErrors(newErrors);
       return false;
     }
-
     setStudentErrors({});
     return true;
   };
 
   const validateGuardianStep = () => {
     const result = guardianSchema.safeParse(guardianData);
-
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors = Object.fromEntries(
         Object.entries(fieldErrors).map(([field, messages]) => [
           field,
           messages[0],
-        ]),
+        ])
       );
       setGuardianErrors(newErrors);
       return false;
     }
-
     setGuardianErrors({});
     return true;
   };
 
   const validateDocumentStep = () => {
     const result = documentSchema.safeParse(documentData);
-
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors = Object.fromEntries(
         Object.entries(fieldErrors).map(([field, messages]) => [
           field,
           messages[0],
-        ]),
+        ])
       );
       setDocumentErrors(newErrors);
       return false;
     }
-
     setDocumentErrors({});
     return true;
   };
 
   const validateReviewStep = () => {
     const result = reviewSchema.safeParse(reviewData);
-
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors = Object.fromEntries(
         Object.entries(fieldErrors).map(([field, messages]) => [
           field,
           messages[0],
-        ]),
+        ])
       );
       setReviewErrors(newErrors);
       return false;
     }
-
     setReviewErrors({});
     return true;
   };
 
   const goNext = () => {
-    if (currentStep === 1 && !validateStudentStep()) {
-      return;
-    }
-    if (currentStep === 2 && !validateGuardianStep()) {
-      return;
-    }
-    if (currentStep === 3 && !validateDocumentStep()) {
-      return;
-    }
+    if (currentStep === 1 && !validateStudentStep()) return;
+    if (currentStep === 2 && !validateGuardianStep()) return;
+    if (currentStep === 3 && !validateDocumentStep()) return;
     setCurrentStep((step) => Math.min(step + 1, TOTAL_STEPS));
   };
+
   const goBack = () => setCurrentStep((step) => Math.max(step - 1, 1));
 
   const handleSaveAndExit = () => {
-    // TODO: persistir el progreso actual en el backend antes de salir
     navigate("/matricula");
   };
 
   const handleSubmit = () => {
-    if (!validateReviewStep()) {
-      return;
-    }
+    if (!validateReviewStep()) return;
 
     setIsSubmitting(true);
 
-    // Simulación temporal mientras no hay backend conectado.
-    // Cuando exista el backend, aquí va el POST real con studentData,
-    // guardianData y documentData, y el radicado/fecha vendrán de la respuesta.
     setTimeout(() => {
       const radicado = generateRadicado();
       const estimatedDate = new Date();
@@ -203,21 +190,28 @@ function EnrollmentWizardPage() {
       });
     }, 1200);
   };
+
   return (
     <div className="enrollment-wizard-page">
-      <div className="navbar-enrollment">
+      <div className="navbar-enrollment" style={{ backgroundColor: color }}>
         <RouterLink to="/" className="navbar-logo logo-enrollment">
           <img src={logo} alt="logo" className="logo-icon" />
           <span className="logo-text">
             Gestión <span className="danger">360</span>
           </span>
         </RouterLink>
-        <p>Matrícula 2026</p>
+        <div className="navbar-content">
+          <h2 className="navbar-title">
+            {title}
+            {context && <span className="navbar-context"> / {context}</span>}
+          </h2>
+          <p>Gestión de matrícula y procesos académicos</p>
+        </div>
         <Button
           variant="outline-white"
-          shape="pill"          
+          shape="pill"
           size="md"
-          type="button"          
+          type="button"
           onClick={handleSaveAndExit}
         >
           Guardar y salir
