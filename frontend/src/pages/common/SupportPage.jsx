@@ -1,9 +1,8 @@
+// SoportePage.jsx
 import { useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import {
   FaSearch,
-  FaCommentDots,
-  FaEnvelope,
-  FaPhone,
   FaChevronDown,
   FaPaperclip,
   FaClock,
@@ -12,6 +11,12 @@ import {
 
 import { Link as RouterLink } from "react-router-dom";
 import logo from "@/assets/icons/espiral.svg";
+
+import { supportData,  ticketFormFields } from "@/data/supportData";
+
+import SupportCard from "@/components/ui/Card/SupportCard";
+import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
+import { Button } from "@/components/ui/Button/Button";
 
 import "./SupportPage.css";
 
@@ -24,12 +29,24 @@ const SoportePage = ({ context }) => {
   const { title, color } = NAVBAR_DATA;
 
   const [openFaq, setOpenFaq] = useState("q1");
-
-  const [categoria, setCategoria] = useState("Cuenta y acceso");
-  const [prioridad, setPrioridad] = useState("Baja");
-  const [asunto, setAsunto] = useState("");
-  const [descripcion, setDescripcion] = useState("");
   const [archivo, setArchivo] = useState(null);
+
+  const ticketDefaultValues = ticketFormFields.reduce((acc, field) => {
+    acc[field.id] = "";
+    return acc;
+  }, {});
+
+  const {
+    register,
+    control,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: ticketDefaultValues, mode: "onChange" });
+
+  const descripcionValue = useWatch({ control, name: "descripcion" });
+  const archivoHabilitado = Boolean(descripcionValue);
 
   const toggleFaq = (id) => {
     setOpenFaq(openFaq === id ? null : id);
@@ -39,9 +56,19 @@ const SoportePage = ({ context }) => {
     setArchivo(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmitTicket = () => {
     alert("Ticket enviado correctamente");
+    reset(ticketDefaultValues);
+    setArchivo(null);
+  };
+
+  const handleChannelSelect = (id) => {
+    if (id === "email") {
+      window.location.href = "mailto:soporte@gestion360.edu.co";
+    } else if (id === "phone") {
+      window.location.href = "tel:+576044440000";
+    }
+    // "chat": abrir el widget de chat cuando esté disponible
   };
 
   const faqs = [
@@ -119,33 +146,14 @@ const SoportePage = ({ context }) => {
         {/* Canales de contacto */}
         <section className="section">
           <h2>Canales de contacto</h2>
-          <div className="contact-cards">
-            <div className="contact-card">
-              <div className="card-icon chat-icon">
-                <FaCommentDots size={24} color="#16a34a" />
-              </div>
-              <h3>Chat en vivo</h3>
-              <p>Respuesta inmediata en horario de atención</p>
-              <span className="status-online">● En línea ahora</span>
-            </div>
-
-            <div className="contact-card">
-              <div className="card-icon email-icon">
-                <FaEnvelope size={24} color="#1e40af" />
-              </div>
-              <h3>Correo electrónico</h3>
-              <p className="email-link">soporte@gestion360.edu.co</p>
-              <span className="response-time">Respuesta en 24 h</span>
-            </div>
-
-            <div className="contact-card">
-              <div className="card-icon phone-icon">
-                <FaPhone size={24} color="#b45309" />
-              </div>
-              <h3>Teléfono</h3>
-              <p>Lunes a viernes, 7:00 a.m. – 5:00 p.m.</p>
-              <span className="phone-number">(604) 444 0000</span>
-            </div>
+          <div className="channels-grid-2">
+            {supportData.map((channel) => (
+              <SupportCard
+                key={channel.id}
+                channel={channel}
+                onSelect={handleChannelSelect}
+              />
+            ))}
           </div>
         </section>
 
@@ -181,57 +189,47 @@ const SoportePage = ({ context }) => {
         {/* Enviar un ticket */}
         <section className="section">
           <h2>Enviar un ticket</h2>
-          <form className="ticket-form" onSubmit={handleSubmit}>
+          <form className="ticket-form" onSubmit={handleSubmit(onSubmitTicket)}>
             <div className="form-row">
-              <div className="form-group">
-                <label>Categoría</label>
-                <select
-                  value={categoria}
-                  onChange={(e) => setCategoria(e.target.value)}
-                >
-                  <option>Cuenta y acceso</option>
-                  <option>Calificaciones y reportes</option>
-                  <option>Problemas técnicos</option>
-                  <option>Otro</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Prioridad</label>
-                <select
-                  value={prioridad}
-                  onChange={(e) => setPrioridad(e.target.value)}
-                >
-                  <option>Baja</option>
-                  <option>Media</option>
-                  <option>Alta</option>
-                  <option>Urgente</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>Asunto</label>
-              <input
-                type="text"
-                placeholder="Resume tu solicitud en pocas palabras"
-                value={asunto}
-                onChange={(e) => setAsunto(e.target.value)}
+              <FormFieldCascada
+                field={ticketFormFields[0]}
+                register={register}
+                errors={errors}
+                control={control}
+                setValue={setValue}
+              />
+              <FormFieldCascada
+                field={ticketFormFields[1]}
+                register={register}
+                errors={errors}
+                control={control}
+                setValue={setValue}
               />
             </div>
 
-            <div className="form-group">
-              <label>Descripción</label>
-              <textarea
-                placeholder="Cuéntanos qué ocurrió, qué esperabas ver y en qué módulo pasó"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
-                rows="4"
-              />
-            </div>
+            <FormFieldCascada
+              field={ticketFormFields[2]}
+              register={register}
+              errors={errors}
+              control={control}
+              setValue={setValue}
+            />
+
+            <FormFieldCascada
+              field={ticketFormFields[3]}
+              register={register}
+              errors={errors}
+              control={control}
+              setValue={setValue}
+            />
 
             <div className="form-group">
               <label>Adjuntar captura o archivo (opcional)</label>
-              <div className="file-upload">
+              <div
+                className={`file-upload ${
+                  !archivoHabilitado ? "file-upload--disabled" : ""
+                }`}
+              >
                 <FaPaperclip size={20} color="#6b7280" />
                 <label className="file-label">
                   <span className="file-link">Elige un archivo</span> o
@@ -240,6 +238,7 @@ const SoportePage = ({ context }) => {
                     type="file"
                     accept=".png,.jpg,.jpeg,.pdf"
                     onChange={handleFileChange}
+                    disabled={!archivoHabilitado}
                     hidden
                   />
                 </label>
@@ -252,10 +251,15 @@ const SoportePage = ({ context }) => {
                 <FaClock size={18} color="#16a34a" />
                 <span>Tiempo de respuesta estimado: 24 horas hábiles</span>
               </div>
-              <button type="submit" className="btn-submit">
+              <Button
+                type="submit"
+                variant="success"
+                icon={FaArrowRight}
+                iconPosition="right"
+                disabled={!archivoHabilitado}
+              >
                 Enviar ticket
-                <FaArrowRight size={18} color="#ffffff" />
-              </button>
+              </Button>
             </div>
           </form>
         </section>

@@ -107,6 +107,14 @@
   margin-bottom: var(--space-5);
 }
 
+
+.channels-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+
 /* ===== Contact Cards ===== */
 .contact-cards {
   display: grid;

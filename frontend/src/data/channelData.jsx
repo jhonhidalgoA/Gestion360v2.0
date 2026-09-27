@@ -4,7 +4,7 @@ export const channelData = [
   {
     id: "whatsapp",
     name: "WhatsApp",
-    icon: <FaWhatsapp size={50} className="channel-icon--whatsapp" />,
+    icon: <FaWhatsapp size={40} className="channel-icon--whatsapp" />,
     color: "#25D366",
     description: "Mensaje instantáneo",
   },

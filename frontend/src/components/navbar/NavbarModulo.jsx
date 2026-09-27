@@ -10,8 +10,9 @@ import {
 } from "@/data/navbarModuloData";
 import Modal from "@/components/ui/Modal/Modal";
 import EditProfile from "@/pages/common/EditProfile";
-import TeacherSchedule from "@/pages/common/TeacherSchedule"; // ✅ 1. Importa el componente
+import TeacherSchedule from "@/pages/common/TeacherSchedule";
 import logo from "@/assets/icons/espiral.svg";
+import NotificationsPanel from "@/pages/common/NotificationsPanel";
 
 import "./NavbarModulo.css";
 
@@ -124,12 +125,7 @@ const NavbarModulo = () => {
 
       <ul>
         <li className="nav-item">
-          <button className="nav-icon-btn" aria-label="Notificaciones">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              notifications
-            </span>
-            <span className="notification-badge">3</span>
-          </button>
+          <NotificationsPanel />
         </li>
 
         <li className="nav-item no-pulse">
@@ -182,7 +178,9 @@ const NavbarModulo = () => {
                             {item.type === "roleSwitch" ? (
                               <span
                                 className={`material-symbols-outlined role-switch-chevron ${
-                                  isRoleSwitchOpen ? "role-switch-chevron--open" : ""
+                                  isRoleSwitchOpen
+                                    ? "role-switch-chevron--open"
+                                    : ""
                                 }`}
                                 aria-hidden="true"
                               >
@@ -207,7 +205,9 @@ const NavbarModulo = () => {
                                   <div
                                     key={role}
                                     className={`role-switch-option ${
-                                      isActive ? "role-switch-option--active" : ""
+                                      isActive
+                                        ? "role-switch-option--active"
+                                        : ""
                                     }`}
                                     onClick={() => handleRoleSelect(role)}
                                   >
