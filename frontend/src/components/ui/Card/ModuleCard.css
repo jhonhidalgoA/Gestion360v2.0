@@ -37,8 +37,8 @@
 
 .card-icon {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 30px;
+  left: 30px;
   z-index: 1;
   transform-origin: top left;
   transition: transform .3s;

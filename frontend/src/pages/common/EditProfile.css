@@ -84,8 +84,6 @@
   transition: background var(--transition-fast);
 }
 
-
-
 .edit-perfil-close-btn .material-symbols-outlined {
   font-size: 20px;
 }
@@ -145,21 +143,39 @@
   padding-bottom: var(--space-5);
   margin-bottom: var(--space-5);
   border-bottom: 1px solid var(--border-color);
+  height: 120px;
 }
 
 .edit-perfil-avatar {
-  width: 64px;
-  height: 64px;
+  box-sizing: border-box;
+  width: 90px;
+  height: 90px;
+  margin: -12px 0; /* compensa el tamaño extra: la fila conserva su alto original */
+  padding: 0;
+  border: 4px solid var(--bg-page);
   border-radius: var(--border-radius-full);
   background: rgba(2, 62, 138, 0.1);
   color: var(--color-primary);
-  font-family: var(--font-heading);
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-bold);
+  box-shadow:
+    0 0 0 2px var(--color-primary),
+    0 4px 12px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.edit-perfil-avatar .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.edit-perfil-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .edit-perfil-avatar-label {
@@ -283,21 +299,30 @@
   cursor: not-allowed;
 }
 
-.input__meta {
+/* Inputs y selects del componente compartido, limitados a este panel */
+.edit-perfil-panel .input__label,
+.edit-perfil-panel .select__label {
+  padding-left: 0;
+  margin-bottom: 6px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+
+.edit-perfil-panel .input__field,
+.edit-perfil-panel .select__field {
+  height: 44px;
+  font-size: var(--fs-sm);
+}
+
+.edit-perfil-panel .input__meta,
+.edit-perfil-panel .select__meta {
+  min-height: 0;
   margin-top: 3px;
 }
 
-.input__error {
-  margin-top: 3px !important;
-  padding-top: 0 !important;
-  line-height: 1.4;
-}
-
-.select__meta {
-  margin-top: 3px;
-}
-
-.select__error {
+.edit-perfil-panel .input__error,
+.edit-perfil-panel .select__error {
   margin-top: 3px !important;
   padding-top: 0 !important;
   line-height: 1.4;

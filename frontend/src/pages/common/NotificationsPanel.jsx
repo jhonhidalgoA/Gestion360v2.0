@@ -107,7 +107,7 @@ export default function NotificationsPanel() {
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
       >
-        <FaBell size={18} />
+        <FaBell size={25} />
         {unreadCount > 0 && (
           <span className="notifications-badge">{unreadCount}</span>
         )}

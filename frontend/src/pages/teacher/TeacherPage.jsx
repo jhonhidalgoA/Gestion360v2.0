@@ -11,7 +11,8 @@ const TeacherPage = () => {
     year: "numeric",
     month: "long",
     day: "numeric",
-  });
+  })
+   .replace(/^./, (letra) => letra.toUpperCase());
 
   const menuItems = moduleData.teacher;
 

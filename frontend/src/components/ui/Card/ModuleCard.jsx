@@ -26,7 +26,7 @@ const ModuleCard = ({ item }) => {
           <span
             className="material-symbols-outlined card-icon"
             style={{
-              fontSize: item.iconSize || 80,
+              fontSize: item.iconSize || 70,
               color: item.iconColor || "#fff",
             }}
           >

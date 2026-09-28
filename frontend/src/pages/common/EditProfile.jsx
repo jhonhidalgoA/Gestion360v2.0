@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/components/hooks/useAuth";
@@ -22,6 +22,9 @@ const TABS = {
   SEGURIDAD: "seguridad",
 };
 
+const MAX_PHOTO_SIZE = 2 * 1024 * 1024;
+const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png"];
+
 const EditPerfil = ({ isOpen, onClose }) => {
   const { user, updateProfile, updatePassword } = useAuth();
 
@@ -29,6 +32,10 @@ const EditPerfil = ({ isOpen, onClose }) => {
   const [isSavingPersonal, setIsSavingPersonal] = useState(false);
   const [isSavingPassword, setIsSavingPassword] = useState(false);
   const [generalError, setGeneralError] = useState("");
+
+  const fileInputRef = useRef(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [photoError, setPhotoError] = useState("");
 
   const {
     register: registerProfile,
@@ -95,13 +102,23 @@ const EditPerfil = ({ isOpen, onClose }) => {
     }
   };
 
-  const getInitials = (fullName = "") =>
-    fullName
-      .trim()
-      .split(/\s+/)
-      .slice(0, 2)
-      .map((word) => word[0]?.toUpperCase() ?? "")
-      .join("");
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+      setPhotoError("Solo se permiten archivos JPG o PNG.");
+      return;
+    }
+    if (file.size > MAX_PHOTO_SIZE) {
+      setPhotoError("La imagen no puede superar 2MB.");
+      return;
+    }
+
+    setPhotoError("");
+    if (photoPreview) URL.revokeObjectURL(photoPreview);
+    setPhotoPreview(URL.createObjectURL(file));
+  };
 
   return (
     <>
@@ -144,12 +161,40 @@ const EditPerfil = ({ isOpen, onClose }) => {
           <form onSubmit={handleSubmitProfile(onSavePersonal)}>
             <div className="edit-perfil-body">
               <div className="edit-perfil-avatar-row">
-                <div className="edit-perfil-avatar">
-                  {getInitials(user?.fullName || "")}
-                </div>
+                <button
+                  type="button"
+                  className="edit-perfil-avatar"
+                  aria-label="Cambiar foto"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  {photoPreview ? (
+                    <img
+                      src={photoPreview}
+                      alt="Foto de perfil"
+                      className="edit-perfil-avatar-img"
+                    />
+                  ) : (
+                    <span
+                      className="material-symbols-outlined"
+                      aria-hidden="true"
+                    >
+                      photo_camera
+                    </span>
+                  )}
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  onChange={handlePhotoChange}
+                  hidden
+                />
                 <div>
                   <p className="edit-perfil-avatar-label">Cambiar foto</p>
                   <p className="edit-perfil-avatar-hint">JPG o PNG, máx 2MB</p>
+                  {photoError && (
+                    <p className="edit-perfil-error">{photoError}</p>
+                  )}
                 </div>
               </div>
 

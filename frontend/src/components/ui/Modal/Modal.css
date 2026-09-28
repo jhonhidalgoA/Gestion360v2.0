@@ -84,7 +84,7 @@
 
 .modal-close {
   background: transparent;
-  border: 1px solid var(--border-color); /* CAL-015: quitado el `border: none;` duplicado */
+  border: 1px solid var(--border-color); 
   cursor: pointer;
   color: var(--text-muted);
   width: 40px;
@@ -101,12 +101,12 @@
 
 .modal-close:hover {
   background: rgba(255, 255, 255, 0.12);
-  transform: rotate(90deg) scale(1.1); /* CAL-015: una sola declaración de transform */
+  transform: rotate(90deg) scale(1.1); 
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .modal-close:hover {
-    animation: pulse-border 1s infinite; /* CAL-014: fuera del media query, se ejecutaba siempre */
+    animation: pulse-border 1s infinite; 
   }
 }
 
