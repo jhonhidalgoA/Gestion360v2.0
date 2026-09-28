@@ -33,7 +33,7 @@
   width: 100%;
   padding: var(--space-3) var(--input-x);
   font-family: var(--font-body);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   line-height: var(--lh-normal);
   color: var(--text-primary);
   background: var(--form-control-bg, #ffffff);

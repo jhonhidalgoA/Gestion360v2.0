@@ -86,7 +86,8 @@ const ClassworkPage = () => {
 
   // 7. Lógica de Validación del Stepper
   const grupoAsignaturaOk = Boolean(grupoValue && asignaturaValue);
-  const fechasOk = grupoAsignaturaOk && Boolean(fechaInicioValue && fechaFinValue);
+  const fechasOk =
+    grupoAsignaturaOk && Boolean(fechaInicioValue && fechaFinValue);
   const temaDescripcionOk = fechasOk && Boolean(temaValue && descripcionValue);
   const estudiantesOk = temaDescripcionOk && selectedStudents.length > 0;
 
@@ -99,9 +100,7 @@ const ClassworkPage = () => {
   ]);
 
   const groupKey =
-    grupoValue && asignaturaValue
-      ? `${grupoValue}|${asignaturaValue}`
-      : "";
+    grupoValue && asignaturaValue ? `${grupoValue}|${asignaturaValue}` : "";
 
   const loadingStudents = groupKey !== "" && loadedKey !== groupKey;
   const selectedCount =
@@ -175,7 +174,6 @@ const ClassworkPage = () => {
     });
 
     formData.append("estudiantes", JSON.stringify(selectedStudents));
-    
 
     setTimeout(() => {
       setLoading((prev) => ({ ...prev, guardar: false }));
@@ -254,7 +252,7 @@ const ClassworkPage = () => {
                   iconPosition="left"
                   size="md"
                   className="btn-uniform-width"
-                  disabled={loading.guardar}
+                  disabled={!estudiantesOk || loading.guardar}
                 >
                   {loading.guardar ? "Enviando..." : "Enviar Tarea"}
                 </Button>
@@ -269,7 +267,7 @@ const ClassworkPage = () => {
                 <span className="form-section-title__badge">4</span>
                 <span className="form-section-title__text">Estudiantes</span>
               </div>
-             
+
               <Input
                 name="searchStudent"
                 leftIcon={TbSearch}
