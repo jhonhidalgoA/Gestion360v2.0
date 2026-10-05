@@ -2,14 +2,14 @@ import { z } from "zod";
 import {
   personNameField,
   emailField,
-  phoneField,
-  selectField,
+  phoneField,  
   passwordField,
 } from "./validators";
 
-import { optionsMap } from "@/data/DBdataSimulation"
+import { optionsMap } from "@/data/DBdataSimulation";
 
 const AREA_OPTIONS = optionsMap.asignaturas;
+const AREA_VALUES = AREA_OPTIONS.map((opt) => opt.value);
 
 export const profileFields = [
   { id: "nombre", label: "Nombre completo", type: "text", required: true },
@@ -47,7 +47,9 @@ export const profileSchema = z.object({
   nombre: personNameField("El nombre", { min: 3, max: 80 }),
   correo: emailField("El correo electrónico"),
   telefono: phoneField("El teléfono", { required: false }),
-  area: selectField("El área", { options: AREA_OPTIONS }),
+  area: z.enum(AREA_VALUES, {
+    errorMap: () => ({ message: "El área debe ser una de las opciones disponibles" }),
+  }),
 });
 
 const currentPasswordField = (label = "La contraseña actual") =>

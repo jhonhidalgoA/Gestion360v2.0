@@ -68,7 +68,7 @@
   background: var(--text-primary);
   color: var(--text-on-primary);  
   font-size: var(--fs-xs);         
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-bold);
   display: flex;
   align-items: center;
   justify-content: center;

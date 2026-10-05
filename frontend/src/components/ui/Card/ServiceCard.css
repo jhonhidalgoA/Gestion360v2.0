@@ -6,7 +6,7 @@
   background: var(--bg-subtle);
   width: 100%;
   max-width: 450px;
-  height: 280px;
+  height: 260px;
   padding: var(--space-10);
   margin: 0 auto;
   border-radius: var(--border-radius-md);
@@ -57,12 +57,47 @@
   text-decoration: none;
   color: var(--color-accent);
   align-self: center;
-  margin-bottom: calc(-1 * var(--space-2));
+  margin-top: var(--space-1);
   transition: color var(--transition-fast);
 }
 
 .service-card:hover .service-link {
   color: white;
+}
+
+/* Icono y título en una fila */
+.service-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.service-header .service-title {
+  margin-top: 0;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Franja inferior */
+.service-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-10)) calc(-1 * var(--space-10));
+  padding: var(--space-3) var(--space-10);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);  
+  border-radius: 0 0 calc(var(--border-radius-md) - 1px) calc(var(--border-radius-md) - 1px);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.service-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  flex-shrink: 0;
 }
 
 /* Móviles (hasta 480px) */
@@ -94,7 +129,12 @@
 
   .service-link {
     font-size: 0.8rem;
-    margin-top: 60px;
+    margin-top: 40px;
+  }
+
+  .service-status {
+    margin: 0 -30px -30px;
+    padding-inline: 30px;
   }
 }
 
@@ -127,5 +167,10 @@
   .service-link {
     font-size: 0.9rem;
     margin-top: 65px;
+  }
+
+  .service-status {
+    margin: 0 -35px -35px;
+    padding-inline: 35px;
   }
 }

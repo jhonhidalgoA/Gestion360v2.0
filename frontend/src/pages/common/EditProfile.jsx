@@ -15,6 +15,8 @@ import { FaSave } from "react-icons/fa";
 import Input from "@/components/ui/Input/Input";
 import Select from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
+import { optionsMap } from "@/data/DBdataSimulation";
+
 import "./EditProfile.css";
 
 const TABS = {
@@ -37,6 +39,15 @@ const EditPerfil = ({ isOpen, onClose }) => {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [photoError, setPhotoError] = useState("");
 
+  const normalizeArea = (userArea) => {
+    if (!userArea) return "";
+    const AREA_OPTIONS = optionsMap.asignaturas;
+    const found = AREA_OPTIONS.find(
+      (opt) => opt.label.toLowerCase().trim() === userArea.toLowerCase().trim(),
+    );
+    return found ? found.value : userArea;
+  };
+
   const {
     register: registerProfile,
     handleSubmit: handleSubmitProfile,
@@ -48,7 +59,7 @@ const EditPerfil = ({ isOpen, onClose }) => {
       nombre: user?.fullName || "",
       correo: user?.correo || "",
       telefono: user?.telefono || "",
-      area: user?.area || "",
+      area: normalizeArea(user?.area),
     },
     mode: "onChange",
   });

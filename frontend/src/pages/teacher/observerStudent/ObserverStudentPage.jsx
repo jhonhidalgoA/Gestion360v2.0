@@ -75,8 +75,28 @@ const ObserverStudentPage = () => {
     name: "periodo",
   });
 
+  const fechaValue = useWatch({
+    control,
+    name: "fecha",
+  });
+
+  const tipoDetalleValue = useWatch({
+    control,
+    name: "tipoDetalle",
+  });
+
+  const descripcionValue = useWatch({
+    control,
+    name: "descripcion",
+  });
+
   const cardsHabilitadas = Boolean(
     grupoValue && estudianteValue && periodoValue
+  );
+
+  // ✅ Campos obligatorios del detalle (fecha, tipoDetalle, descripcion)
+  const detalleCompleto = Boolean(
+    fechaValue && tipoDetalleValue && descripcionValue
   );
 
   const selectedType = observationTypes.find(
@@ -201,20 +221,26 @@ const ObserverStudentPage = () => {
       );
     }
 
-    const finalField = field.dynamicLabel
-      ? {
-          ...field,
-          label:
-            selectedFormConfig?.[field.dynamicLabel] ?? field.label,
-        }
-      : field;
+    const finalField = { ...field };
+
+    if (field.dynamicLabel) {
+      finalField.label =
+        selectedFormConfig?.[field.dynamicLabel] ?? field.label;
+    }
+
+    if (field.dynamicOptions) {
+      finalField.options =
+        selectedFormConfig?.[field.dynamicOptions] ?? [];
+    }
 
     return (
-      <FormField
+      <FormFieldCascada
         key={field.id}
         field={finalField}
         register={register}
         errors={errors}
+        control={control}
+        setValue={setValue}
       />
     );
   };
@@ -386,7 +412,12 @@ const ObserverStudentPage = () => {
                     iconPosition="left"
                     size="md"
                     className="btn-uniform-width"
-                    disabled={loading.guardar}
+                    disabled={loading.guardar || !detalleCompleto}
+                    title={
+                      !detalleCompleto
+                        ? "Completa Fecha, Tipo y Descripción primero"
+                        : undefined
+                    }
                   >
                     {loading.guardar
                       ? "Registrando..."

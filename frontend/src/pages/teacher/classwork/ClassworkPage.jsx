@@ -1,28 +1,33 @@
-// 1. Imports y Dependencias
+// Imports de React
 import { useState, useEffect } from "react";
+
+// Imports de librerías externas
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
+// Imports de iconos
 import { FaPaperPlane, FaUndo } from "react-icons/fa";
 import { TbSearch } from "react-icons/tb";
 
+// Imports de componentes propios
 import { Button } from "@/components/ui/Button/Button";
 import Coments from "@/components/ui/Coments/Coments";
+import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
 import Input from "@/components/ui/Input/Input";
 import Modal from "@/components/ui/Modal/Modal";
 import Stepper from "@/components/ui/Stepper/Stepper";
-
 import useStepper from "@/components/hooks/useStepper";
 import NavbarSection from "@/components/navbar/NavbarSection";
 
-import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
-
+// Imports de datos y schemas
 import { filterFormsData } from "@/data/filterFormsData";
 import { stepperData } from "@/data/stepperData";
 import { getStudentsByGroup } from "@/data/studentsData";
 
+// Imports de estilos
 import "./ClassworkPage.css";
 
+// Constantes
 const AVATAR_COLORS = [
   "var(--avatar-color-1)",
   "var(--avatar-color-2)",
@@ -32,6 +37,7 @@ const AVATAR_COLORS = [
   "var(--avatar-color-6)",
 ];
 
+// Funciones auxiliares
 const getInitials = (nombre) =>
   (nombre || "")
     .split(" ")
@@ -40,7 +46,7 @@ const getInitials = (nombre) =>
     .join("")
     .toUpperCase();
 
-// 3. Declaración del Componente
+// Componente principal
 const ClassworkPage = () => {
   const navigate = useNavigate();
   const { rows } = filterFormsData.tareas;

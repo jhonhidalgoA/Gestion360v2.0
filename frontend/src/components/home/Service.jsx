@@ -14,6 +14,7 @@ const Service = () => {
               title={item.title}
               subtitle={item.subtitle}
               linkText={item.linkText}
+              status={item.status}
             />
           </Link>
         ))}

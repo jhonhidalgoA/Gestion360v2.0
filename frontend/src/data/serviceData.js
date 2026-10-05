@@ -1,4 +1,3 @@
-
 export const serviceData = [
   {
     id: 1,
@@ -6,6 +5,7 @@ export const serviceData = [
     title: "Atención a Padres",  
     subtitle: "Comunicación", 
     linkText: "Consultar horarios y agenda citas",
+    status: "Atención: lun–vie, 8:00 a. m. – 12:00 p. m.",
     path: "/atencion-padres"
   },
   {
@@ -14,6 +14,7 @@ export const serviceData = [
     title: "Circulares", 
     subtitle: "Información",   
     linkText: "Revisa las últimas comunicaciónes",
+    status: "Nueva circular publicada hace 2 días",
     path: "/circulares"
   },
   
@@ -23,6 +24,7 @@ export const serviceData = [
     title: "Manual de Convivencia",
     subtitle: "Documentos",     
     linkText: "Consulta las normas y reglamentos",
+    status: "Versión vigente 2026",
     path: "/manual-convivencia"
   },
   {
@@ -31,6 +33,7 @@ export const serviceData = [
     title: "PEI",
     subtitle: "Documentos",      
     linkText: "Proyecto Educativo Institucional",
+    status: "Documento actualizado en 2026",
     path: "/pei"
   },
   
@@ -40,6 +43,7 @@ export const serviceData = [
     title: "Restaurante",  
     subtitle: "Servicios",    
     linkText: "Consultar el menú semanal",
+    status: "Menú de esta semana disponible",
     path: "/restaurante"
   },
   {
@@ -48,6 +52,7 @@ export const serviceData = [
     title: "Rutas Escolares", 
     subtitle: "Servicios",  
     linkText: "Información sobre el transporte escolar",
+    status: "Rutas activas esta semana",
     path: "/rutas-escolares"
   },
   ];

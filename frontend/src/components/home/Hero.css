@@ -1,39 +1,25 @@
 .hero {
     width: 100%;
     min-height: 100dvh;
-    background-image:
-        linear-gradient(rgba(8, 0, 58, 0.15), rgba(8, 0, 25, 0.15)),
-        url('../../assets/image/imagen1.webp');
+    background-image: url('../../assets/image/imagen1.webp');
     background-size: cover;
-    background-position: center top;  
+    background-position: center top;
     background-repeat: no-repeat;
     background-attachment: scroll;
     color: var(--text-on-primary);
     display: flex;
     flex-direction: column;
-    justify-content: center;  
+    justify-content: center;
     align-items: center;
-    padding: var(--navbar-h) 20px 40px;  
+    padding: var(--navbar-h) 20px 40px;
     box-sizing: border-box;
     text-align: center;
     position: relative;
     overflow: hidden;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(0, 0, 0, 0.4) 100%
-    );
-    z-index: 1;
-    pointer-events: none;
-}
-
+/* ✅ Overlay eliminado: la foto se ve limpia, sin oscurecido.
+   El contraste del texto ahora depende solo del text-shadow de .hero-text. */
 
 .hero > * {
     position: relative;
@@ -41,7 +27,7 @@
 }
 
 .button-hero {
-    margin-top: 30px;
+    margin-top: 60px;
     z-index: 2;
 }
 
@@ -60,7 +46,7 @@
     line-height: 1.15;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     margin-top: 20px;
-    word-break: break-word;  
+    word-break: break-word;
 }
 
 .hero-text p {
@@ -75,15 +61,13 @@
 /* Tablet */
 @media (min-width: 600px) {
     .hero {
-        background-image:
-            linear-gradient(rgba(8, 0, 58, 0.15), rgba(8, 0, 25, 0.15)),
-            url('../../assets/image/imagen11.jpg');
+        background-image: url('../../assets/image/imagen11.jpg');
         background-position: center;  /* centrado en tablet */
         padding: var(--navbar-h) 32px 60px;
     }
 
     .button-hero {
-        margin-top: 45px;
+        margin-top: 75px;
     }
 
     .hero-text h1 {
@@ -99,14 +83,12 @@
 /* Desktop */
 @media (min-width: 1024px) {
     .hero {
-        background-image:
-            linear-gradient(rgba(8, 0, 58, 0.15), rgba(8, 0, 25, 0.15)),
-            url('../../assets/image/imagen1.webp');
+        background-image: url('../../assets/image/imagen1.webp');
         padding: var(--navbar-h) 48px 80px;
     }
 
     .button-hero {
-        margin-top: 60px;
+        margin-top: 90px;
     }
 
     .hero-text h1 {
@@ -122,9 +104,7 @@
 /* Desktop 4K: 1920px+ */
 @media (min-width: 1920px) {
     .hero {
-        background-image:
-            linear-gradient(rgba(8, 0, 58, 0.15), rgba(8, 0, 25, 0.15)),
-            url('../../assets/image/imagen1.webp');
+        background-image: url('../../assets/image/imagen1.webp');
     }
 
     .hero-text h1 {
@@ -136,6 +116,6 @@
     }
 
     .button-hero {
-        margin-top: 80px;
+        margin-top: 110px;
     }
 }

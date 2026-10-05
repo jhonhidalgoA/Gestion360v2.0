@@ -45,7 +45,7 @@ const Navbar = ({ solid = false }) => {
                   to={item.to}
                   smooth={true}
                   duration={600}
-                  offset={-80}
+                  offset={-120}
                   className={item.cName}
                   onClick={handleClick}
                 >

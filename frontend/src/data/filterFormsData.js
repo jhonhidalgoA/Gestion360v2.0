@@ -255,6 +255,7 @@ export const filterFormsData = {
             type: "select",
             dynamicOptions: "grantedByOptions",
             dynamicLabel: "grantedByLabel",
+            dependsOn: "fecha",
             required: false,
           },
         ],
@@ -268,6 +269,7 @@ export const filterFormsData = {
             type: "select",
             dynamicOptions: "options",
             dynamicLabel: "fieldLabel",
+            dependsOn: "otorgadoPor",
             required: true,
           },
           {
@@ -275,6 +277,7 @@ export const filterFormsData = {
             type: "select",
             dynamicOptions: "correctiveOptions",
             dynamicLabel: "correctiveLabel",
+            dependsOn: "tipoDetalle",
             showFor: ["falta"],
             required: false,
           },
@@ -283,6 +286,7 @@ export const filterFormsData = {
             type: "select",
             dynamicOptions: "caseStatusOptions",
             dynamicLabel: "caseStatusLabel",
+            dependsOn: "medidaCorrectiva",
             showFor: ["falta"],
             required: false,
           },
@@ -296,6 +300,7 @@ export const filterFormsData = {
             type: "textarea",
             showFor: ["falta"],
             dynamicLabel: "resumenLabel",
+            dependsOn: "estadoCaso",
             rows: 3,
             required: true,
           },
@@ -308,6 +313,7 @@ export const filterFormsData = {
             id: "descripcion",
             type: "textarea",
             dynamicLabel: "descriptionLabel",
+            dependsOn: "tipoDetalle",
             placeholder: "Escribe aquí el detalle de la novedad...",
             rows: 4,
             required: true,
@@ -605,4 +611,3 @@ export const filterFormsData = {
     ],
   },
 };
-
