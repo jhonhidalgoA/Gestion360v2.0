@@ -55,7 +55,7 @@
 }
 
 .input__field--rounded {
-  border-radius: var(--form-control-radius-rounded);
+  border-radius: 9999px;
 }
 
 .input__field--square {

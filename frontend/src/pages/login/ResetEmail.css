@@ -112,21 +112,32 @@
 
 /* volver al login */
 .back-to-login {
-  margin-top: var(--space-3);
-  text-align: center;
+  align-self: flex-start;
 }
 
 .back-to-login a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   color: var(--color-primary-dark);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-sm);
   text-decoration: none;
   transition: color var(--transition-fast);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-bold);
+}
+
+.back-to-login__icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .back-to-login a:hover {
   color: var(--color-primary);
-  text-decoration: underline;
 }
 
 .social-photo p {

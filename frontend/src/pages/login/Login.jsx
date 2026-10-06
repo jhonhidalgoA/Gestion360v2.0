@@ -143,7 +143,7 @@ const Login = () => {
             leftIcon={TbUser}
             error={errors.username}
             disabled={bloqueado}
-            variant="square"
+            variant="rounded"
             register={register}
           />
 
@@ -155,7 +155,7 @@ const Login = () => {
             leftIcon={TbLock}
             error={errors.password}
             disabled={bloqueado}
-            variant="square"
+            variant="rounded"
             register={register}
           />
 

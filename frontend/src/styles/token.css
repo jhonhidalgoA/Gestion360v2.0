@@ -160,7 +160,15 @@
   --avatar-color-4: #8347d9;
   --avatar-color-5: #d97d1f;
   --avatar-color-6: #1ca5a0;
+   --avatar-color-6: #1ca5a0;
+
+   /* Variables adicionales para correcciones */
+   --color-surface: var(--bg-card);
+   --navbar-h-mobile: 64px;
+   --navbar-h-desktop: 80px;
+   --ease-default: cubic-bezier(0.2, 0, 0, 1);
 }
+
 
 .classwork-page {
   --color-module: #e8720a; 

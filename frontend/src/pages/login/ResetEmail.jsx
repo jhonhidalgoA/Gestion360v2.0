@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { TbMail } from "react-icons/tb";
+import { TbMail, TbArrowLeft } from "react-icons/tb";
 import Input from "@/components/ui/Input/Input";
 import { Button } from "@/components/ui/Button/Button";
 import "./ResetEmail.css";
@@ -31,12 +31,7 @@ const ResetEmail = () => {
   }, [cooldown]);
 
   const enviarSolicitud = () => {
-    setLoading(true);
-
-    // Simulación temporal mientras no hay backend conectado.
-    // Importante: la respuesta real del backend debe ser SIEMPRE
-    // el mismo mensaje exista o no el correo, para evitar
-    // enumeración de usuarios.
+    setLoading(true);   
     setTimeout(() => {
       setLoading(false);
       setEnviado(true);
@@ -72,6 +67,15 @@ const ResetEmail = () => {
     <div className="reset-password">
       <div className="container-reset">
         <form onSubmit={handleSubmit} className="form-reset" noValidate>
+          <div className="back-to-login">
+            <Link to="/login">
+              <span className="back-to-login__icon">
+                <TbArrowLeft size={18} aria-hidden="true" />
+              </span>
+              Iniciar sesión
+            </Link>
+          </div>
+
           <div className="title-reset">
             {!enviado && (
               <>
@@ -130,7 +134,7 @@ const ResetEmail = () => {
                   setError("");
                 }}
                 error={error}
-                variant="square"
+                variant="rounded"
               />
 
               
@@ -147,10 +151,6 @@ const ResetEmail = () => {
             
             </>
           )}
-
-          <div className="back-to-login">
-            <Link to="/login">← Volver a iniciar sesión</Link>
-          </div>
 
           <div className="social-photo">
             <p className="author">
