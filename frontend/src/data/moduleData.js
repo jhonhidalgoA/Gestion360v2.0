@@ -14,13 +14,13 @@ export const moduleData = {
           id: "grados",
           title: "Grados y Asignaturas",         
           icon: "menu_book",
-          to: "/admin/grados",
+          to: "/gradePageAdmin",
         },
         {
           id: "horarios",
           title: "Horarios",          
           icon: "hourglass_bottom",
-          to: "/admin/horarios",
+          to: "/schedulePageAdmin",
         },
         {
           id: "calendario",

@@ -25,8 +25,10 @@ import LessonPlanLibrary from "./pages/teacher/planning/components/LessonPlanLib
 
 
 import AdministradorPage from "./pages/administrador/AdministradorPage";
-import EnrollmentPageAdmin from "./pages/administrador/enrollment/EnrollmentPageAdmin";
+import EnrollmentPageAdmin from "./pages/administrador/enrollmentAdmin/EnrollmentPageAdmin";
 import SoportPage from "./pages/common/SupportPage";
+import GradePageAdmin from "./pages/administrador/gradeAdmin/GradePageAdmin";
+import SchedulePageAdmin from "./pages/administrador/scheduleAdmin/SchedulePageAdmin";
 
 
 
@@ -67,6 +69,9 @@ function App() {
 
         <Route path="/administrador" element={<AdministradorPage />} />
         <Route path="/enrollmentPageAdmin" element={<EnrollmentPageAdmin />} />
+        <Route path="/gradePageAdmin" element={<GradePageAdmin />} />
+        <Route path="/schedulePageAdmin" element={<SchedulePageAdmin />} />
+        
         
 
       </Routes>

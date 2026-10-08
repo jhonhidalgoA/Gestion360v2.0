@@ -4,6 +4,14 @@ export const navbarSectionData = {
       title: "Registro Matrícula Estudiante",
       color: "#1D6FB8",
     },
+      grade: {
+      title: "Grados y Asignaturas",
+      color: "#1D6FB8",
+    },
+     schedule: {
+      title: "Horarios",
+      color: "#1D6FB8",
+    },
   },
 
   teacher: {
