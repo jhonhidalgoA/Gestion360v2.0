@@ -67,23 +67,31 @@ const Login = () => {
       );
 
       if (usuario) {
+        // ✅ Guardar el usuario real en el navegador para que useAuth() pueda leerlo
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            fullName: usuario.name || usuario.username,
+            correo: `${usuario.username}@gestion360.com`,
+            role: usuario.role,
+            roles: [usuario.role],
+          }),
+        );
+
+        // Redirección según el rol
         switch (usuario.role) {
           case "administrador":
-            navigate("/admin");
+            navigate("/administrador");
             break;
-
           case "docente":
             navigate("/teacher");
             break;
-
           case "padre":
             navigate("/padre");
             break;
-
           case "estudiante":
             navigate("/estudiante");
             break;
-
           default:
             navigate("/");
         }
@@ -91,6 +99,7 @@ const Login = () => {
         return;
       }
 
+      // Si las credenciales son incorrectas
       const nuevosIntentos = intentosFallidos + 1;
       setIntentosFallidos(nuevosIntentos);
 
@@ -195,11 +204,19 @@ const Login = () => {
           <div className="social-photo">
             <p className="author">
               Image by{" "}
-              <a href="https://pixabay.com/users/vimbroisi-16343850/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099">
+              <a
+                href="https://pixabay.com/users/vimbroisi-16343850/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Vinicius Imbroisi
               </a>{" "}
               from{" "}
-              <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099">
+              <a
+                href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Pixabay
               </a>
             </p>

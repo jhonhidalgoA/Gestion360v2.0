@@ -18,7 +18,7 @@ const PlanningPage = () => {
 
   return (
     <div className="plan-page">
-      <NavbarSection sectionKey="planeacion" handleBack={handleBack} />
+      <NavbarSection sectionKey="planeacion" context="teacher" handleBack={handleBack} />
       <div className="planning-container">
         <div className="planning-title">
           <h2>¿Que deseas hacer?</h2>

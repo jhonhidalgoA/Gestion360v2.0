@@ -1,4 +1,4 @@
-import  ModuleCard from "@/components/ui/Card/ModuleCard";
+import  ModuleCard from "@/components/ui/Card/TeacherCard";
 import NavbarModulo from "@/components/navbar/NavbarModulo";
 
 import { moduleData } from "@/data/moduleData";

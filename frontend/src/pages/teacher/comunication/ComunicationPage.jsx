@@ -122,7 +122,7 @@ const ComunicationPage = () => {
 
   return (
     <div className="comunication-page">
-      <NavbarSection sectionKey="comunicacion" handleBack={handleBack} />
+      <NavbarSection sectionKey="comunicacion" context="teacher" handleBack={handleBack} />
 
       <Stepper
         className="comunication-stepper"

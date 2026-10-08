@@ -96,7 +96,7 @@ const ReportPage = () => {
 
   return (
     <div className="report-page">
-      <NavbarSection sectionKey="report" handleBack={handleBack} />
+      <NavbarSection sectionKey="report" context="teacher" handleBack={handleBack} />
       
       {/* ✅ Se elimina onSubmit vacío. Si es solo filtro reactivo, no necesita form wrapper, 
           pero se mantiene para consistencia con react-hook-form si se planea expandir */}

@@ -194,7 +194,7 @@ const ClassworkPage = () => {
 
   return (
     <div className="classwork-page">
-      <NavbarSection sectionKey="tasks" handleBack={handleBack} />
+      <NavbarSection sectionKey="tasks" context="teacher" handleBack={handleBack} />
 
       <Stepper
         className="classwork-stepper"

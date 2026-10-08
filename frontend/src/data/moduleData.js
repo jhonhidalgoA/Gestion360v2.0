@@ -1,48 +1,164 @@
 export const moduleData = {
-  admin: [
-    {
-      id: 1,
-      icon: "how_to_reg",
-      title: "Matrícula Estudiante",
-      path: "/matricula",
-      gradient: "linear-gradient(135deg, #F57C00)",
+  admin: {
+    academic: {
+      label: "Gestión académica", 
+      color: "#1D6FB8",      
+      items: [
+        {
+          id: "enrollment",
+          title: "Matrícula",          
+          icon: "how_to_reg",
+          to: "/enrollmentPageAdmin",         
+        },
+        {
+          id: "grados",
+          title: "Grados y Asignaturas",         
+          icon: "menu_book",
+          to: "/admin/grados",
+        },
+        {
+          id: "horarios",
+          title: "Horarios",          
+          icon: "hourglass_bottom",
+          to: "/admin/horarios",
+        },
+        {
+          id: "calendario",
+          title: "Calendario",         
+          icon: "calendar_month",
+          to: "/admin/calendario",
+        },
+        {
+          id: "calificaciones",
+          title: "Calificaciones y boletines",          
+          icon: "grading",
+          to: "/admin/calificaciones",
+        },
+        {
+          id: "asistencia",
+          title: "Asistencia",          
+          icon: "fact_check",
+          to: "/admin/asistencia",
+        },
+      ],
     },
-    {
-      id: 2,
-      icon: "app_registration",
-      title: "Registro Docente",
-      path: "/registro-docente",
-      gradient: "linear-gradient(135deg, #388E3C)",
+    personas: {
+      label: "Comunidad educativa",      
+      color:  "#B93368",
+      items: [
+        {
+          id: "estudiantes",
+          title: "Estudiantes",          
+          icon: "groups",
+          to: "/admin/estudiantes",
+        },
+        {
+          id: "docentes",
+          title: "Docentes",         
+          icon: "app_registration",
+          to: "/admin/docentes",
+        },
+        {
+          id: "acudientes",
+          title: "Acudientes",          
+          icon: "family_restroom",
+          to: "/admin/acudientes",
+        },
+        {
+          id: "usuarios",
+          title: "Usuarios y Roles",          
+          icon: "admin_panel_settings",
+          to: "/admin/usuarios",
+        },
+      ],
     },
-    {
-      id: 3,
-      icon: "hourglass_bottom",
-      title: "Horario Grados",
-      path: "/horario-grados",
-      gradient: "linear-gradient(135deg, #A9A9A9 )",
+    comunidad: {
+      label: "Institucional",      
+      color: "#1E9E74",
+      items: [
+        {
+          id: "comunicados",
+          title: "Comunicados",         
+          icon: "campaign",
+          to: "/admin/comunicados",
+        },
+        {
+          id: "menu",
+          title: "Menú Escolar",         
+          icon: "restaurant_menu",
+          to: "/admin/menu",
+        },
+        {
+          id: "transporte",
+          title: "Transporte",          
+          icon: "directions_bus",
+          to: "/admin/transporte",
+        },
+        {
+          id: "documentos",
+          title: "Documentos",          
+          icon: "folder_open",
+          to: "/admin/documentos",
+        },
+      ],
     },
-    {
-      id: 4,
-      icon: "schedule",
-      title: "Horario Docentes",
-      path: "/horario-docentes",
-      gradient: "linear-gradient(135deg, #FF00FF)",
+    sistema: {
+      label: "Sistema",
+      accentColor: "#475569",
+      color: "red",
+      items: [
+        {
+          id: "reportes",
+          title: "Reportes",          
+          icon: "bar_chart",
+          to: "/admin/report",
+        },
+        {
+          id: "configuracion",
+          title: "Configuración",    
+          icon: "settings",
+          to: "/admin/configuracion",
+        },
+        {
+          id: "auditoria",
+          title: "Auditoría",          
+          icon: "manage_search",
+          to: "/admin/auditoria",
+        },
+      ],
     },
-    {
-      id: 5,
-      icon: "calendar_month",
-      title: "Editar Calendario",
-      path: "/calendario",
-      gradient: "linear-gradient(135deg, #0D47A1)",
+    finanzas: {
+      label: "Finanzas",
+      accentColor: "#0f9b6e",
+      color: "green",
+      items: [
+        {
+          id: "pensiones",
+          title: "Pensiones y pagos",          
+          icon: "payments",
+          to: "/admin/pensiones",
+        },
+        {
+          id: "cartera",
+          title: "Cartera",        
+          icon: "account_balance_wallet",
+          to: "/admin/cartera",
+        },
+        {
+          id: "recibos",
+          title: "Recibos y facturación",        
+          icon: "receipt_long",
+          to: "/admin/recibos",
+        },
+        {
+          id: "tarifas",
+          title: "Conceptos y tarifas",         
+          icon: "sell",
+          to: "/admin/tarifas",
+        },
+      ],
     },
-    {
-      id: 6,
-      icon: "restaurant",
-      title: "Editar Menú Escolar",
-      path: "/menu-escolar",
-      gradient: "linear-gradient(135deg, #7B1FA2)",
-    },
-  ],
+  },
 
   teacher: [
     {
@@ -94,7 +210,6 @@ export const moduleData = {
       path: "/comunicationPage",
       gradient: "linear-gradient(135deg, #B93368)",
     },
-
     {
       id: 8,
       icon: "folder_eye",

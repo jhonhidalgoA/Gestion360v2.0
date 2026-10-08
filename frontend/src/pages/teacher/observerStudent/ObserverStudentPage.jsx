@@ -277,7 +277,7 @@ const ObserverStudentPage = () => {
   return (
     <div className="observer-page">
       <NavbarSection
-        sectionKey="observador"
+        sectionKey="observador" context="teacher"
         handleBack={handleBack}
       />
 

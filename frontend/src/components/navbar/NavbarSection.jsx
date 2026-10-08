@@ -9,7 +9,23 @@ const NavbarSection = ({ sectionKey, handleBack, context }) => {
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const data = navbarSectionData.teacher[sectionKey];
+  const data = navbarSectionData?.[context]?.[sectionKey];
+
+  if (!data) {
+    return (
+      <nav className="navbar-section">
+        <button className="navs-section__btn" onClick={handleBack}>
+          <span className="material-symbols-outlined icons-section">
+            arrow_back
+          </span>
+        </button>
+        <div className="navbar-content">
+          <h2 className="navbar-title">{sectionKey}</h2>
+        </div>
+      </nav>
+    );
+  }
+
   const { title, color } = data;
 
   const handleLogout = () => {
@@ -28,7 +44,8 @@ const NavbarSection = ({ sectionKey, handleBack, context }) => {
       <div className="navbar-content">
         <h2 className="navbar-title">
           {title}
-          {context && <span className="navbar-context"> / {context}</span>}
+          {/* ❌ Eliminada esta línea que mostraba "/ admin" */}
+          {/* {context && <span className="navbar-context"> / {context}</span>} */}
         </h2>
 
         <p>Sistema de Gestión Administrativa y Procesos Académicos</p>

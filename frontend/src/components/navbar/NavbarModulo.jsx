@@ -48,8 +48,8 @@ const NavbarModulo = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false); // ✅ 2. Nuevo estado
-  const [isRoleSwitchOpen, setIsRoleSwitchOpen] = useState(false); // ✅ Cambiar de rol (expandible)
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false); 
+  const [isRoleSwitchOpen, setIsRoleSwitchOpen] = useState(false); 
 
   const currentRole = roleConfig[user?.role] ?? defaultRoleConfig;
   const initials = useMemo(() => getInitials(user?.fullName), [user?.fullName]);

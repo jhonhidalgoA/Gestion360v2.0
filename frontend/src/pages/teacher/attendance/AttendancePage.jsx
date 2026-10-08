@@ -199,7 +199,7 @@ const AttendancePage = () => {
 
   return (
     <div className="attendance-page">
-      <NavbarSection sectionKey="asistencia" handleBack={handleBack} />
+      <NavbarSection sectionKey="asistencia" context="teacher" handleBack={handleBack} />
 
       <form onSubmit={handleSubmit(handleGuardar)}>
         <div className="assessment-container">

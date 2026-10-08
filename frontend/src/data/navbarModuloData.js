@@ -85,7 +85,7 @@ export const roleConfig = {
   administrador: {
     moduleLabel: "Administrador",
     roleTitle: "Administrador del Sistema",
-    homePath: "/admin",
+    homePath: "/administrador",
     menuItems: ["editarPerfil", "cambiarPassword", "configuracion", "cambiarRol", "contactarSoporte"],
   },
   docente: {

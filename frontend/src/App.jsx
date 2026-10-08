@@ -10,6 +10,7 @@ import ScrollToTop from "@/components/common/ScrollToTop";
 import EnrollmentWizardPage from '@pages/enrollment/EnrollmentWizardPage';
 import ConfirmationPage from '@pages/ConfirmationPage'
 import ApplicationStatusPage from '@pages/ApplicationStatusPage';
+
 import TeacherPage from "./pages/teacher/TeacherPage";
 import AssessmentPage from "./pages/teacher/assesment/AssessmentPage";
 import AttendancePage from "./pages/teacher/attendance/AttendancePage";
@@ -18,9 +19,14 @@ import ClassworkPage from "./pages/teacher/classwork/ClassworkPage";
 import ReportPage from "./pages/teacher/reportPage/ReportPage";
 import ComunicationPage from "./pages/teacher/comunication/ComunicationPage"
 import ObserverStudentPage from "./pages/teacher/observerStudent/ObserverStudentPage";
-import LessonPlanPage from "./pages/teacher/planning/components/LessonPlanPage"
-import LessonPlanLibrary from "./pages/teacher/planning/components/LessonPlanLibrary"
-import SoportPage from "./pages/common/SupportPage"
+import LessonPlanPage from "./pages/teacher/planning/components/LessonPlanPage";
+import LessonPlanLibrary from "./pages/teacher/planning/components/LessonPlanLibrary";
+
+
+
+import AdministradorPage from "./pages/administrador/AdministradorPage";
+import EnrollmentPageAdmin from "./pages/administrador/enrollment/EnrollmentPageAdmin";
+import SoportPage from "./pages/common/SupportPage";
 
 
 
@@ -46,6 +52,7 @@ function App() {
         <Route path="/matricula/nueva" element={<EnrollmentWizardPage />} />
         <Route path="/matricula/confirmacion" element={<ConfirmationPage />} />
         <Route path="/matricula/seguimiento" element={<ApplicationStatusPage />} />
+
         <Route path="/teacher" element={<TeacherPage />} />
         <Route path="/assessmentPage" element={<AssessmentPage />} />
         <Route path="/attendancePage" element={<AttendancePage />} />
@@ -57,6 +64,10 @@ function App() {
         <Route path="/LessonPlanPage" element={<LessonPlanPage />}/>
         <Route path="/LessonPlanLibrary" element={<LessonPlanLibrary />}/>
         <Route path="/soport" element={<SoportPage />} />
+
+        <Route path="/administrador" element={<AdministradorPage />} />
+        <Route path="/enrollmentPageAdmin" element={<EnrollmentPageAdmin />} />
+        
 
       </Routes>
     </Router>

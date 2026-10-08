@@ -3,13 +3,13 @@ const usersData = [
     username: "11112222",
     password: "11112222",
     role: "administrador",
-    name: "Administrador",
+    name: "Sofia Giraldo H.",
   },
   {
     username: "75065705",
     password: "75065705",
     role: "docente",
-    name: "Docente",
+    name: "Jhon Fredy Hidalgo A.",
   },
   {
     username: "30000001",
