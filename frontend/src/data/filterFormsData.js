@@ -135,7 +135,7 @@ export const filterFormsData = {
             label: "Fecha de Fin:",
             required: true,
             dependsOn: "fechaInicio",
-            placeholder: "Seleccione fecha de fin", // ✅ Agregado
+            placeholder: "Seleccione fecha de fin",
           },
         ],
       },
@@ -608,6 +608,139 @@ export const filterFormsData = {
           },
         ],
       },
+    ],
+  },
+ enrollmentStudent: {
+  sectionTitle: "1. Información del Estudiante",
+  rows: [
+    {
+      id: "basicData",
+      className: "form-row-4",
+      fields: [
+        { id: "enrollmentDate", type: "date", label: "Fecha de Matrícula:" },
+        {
+          id: "studentCode",
+          type: "text",
+          label: "Código:",          
+        },
+        {
+          id: "firstName",
+          type: "text",
+          label: "Nombres:",
+          required: true,
+          dependsOn: "studentCode",
+        },
+        {
+          id: "lastName",
+          type: "text",
+          label: "Apellidos:",
+          required: true,
+          dependsOn: "firstName",
+        },
+      ],
+    },
+    {
+      id: "personalData",
+      className: "form-row-4",
+      fields: [
+        {
+          id: "birthDate",
+          type: "date",
+          label: "Fecha de Nacimiento:",
+          required: true,
+          dependsOn: "lastName",
+        },
+        {
+          id: "age",
+          type: "text",
+          label: "Edad:",
+          required: true,
+        },
+        {
+          id: "gender",
+          type: "select",
+          label: "Género:",
+          optionsKey: "genders",
+          required: true,
+          dependsOn: "birthDate", // depende de birthDate (no de age) porque age se autocalcula
+        },
+        {
+          id: "birthPlace",
+          type: "text",
+          label: "Lugar de Nacimiento:",
+          required: true,
+          dependsOn: "gender",
+        },
+      ],
+    },
+    {
+      id: "contactData",
+      className: "form-row-4",
+      fields: [
+        {
+          id: "documentType",
+          type: "select",
+          label: "Tipo de Documento:",
+          optionsKey: "documentTypes",
+          required: true,
+          dependsOn: "birthPlace",
+        },
+        {
+          id: "documentNumber",
+          type: "text",
+          label: "Número de Documento:",
+          required: true,
+          dependsOn: "documentType",
+        },
+        {
+          id: "phone",
+          type: "tel",
+          label: "Teléfono:",
+          required: true,
+          dependsOn: "documentNumber",
+        },
+        {
+          id: "email",
+          type: "email",
+          label: "Correo Electrónico:",
+          placeholder: "ejemplo@dominio.com",
+          required: true,
+          dependsOn: "phone",
+        },
+      ],
+    },
+  ],
+},
+  schedules: {
+    rows: [      
+        {
+        id: "academicData",
+        className: "form-row-4",
+        fields: [
+          {
+            id: "grade",
+            type: "select",
+            label: "Grado al que ingresa:",
+            optionsKey: "grades",
+            required: true,
+          },
+          { id: "group", type: "text", label: "Grupo:", required: true },
+          {
+            id: "shift",
+            type: "select",
+            label: "Jornada:",
+            optionsKey: "shifts",
+            required: true,
+          },
+          {
+            id: "enrollmentType",
+            type: "select",
+            label: "Tipo de Matrícula:",
+            optionsKey: "enrollmentTypes",
+            required: true,
+          },
+        ],
+      },      
     ],
   },
 };

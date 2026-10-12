@@ -1,0 +1,123 @@
+.enrollment-container {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+  max-width: 1800px;
+  margin: var(--space-5) auto;
+  padding: var(--space-6);
+  background: var(--bg-card, #ffffff);
+  border-radius: var(--border-radius-md, 8px);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.enrollment-stepper {
+  margin-top: 120px;  
+}
+
+.enrollment-student {
+  display: flex;
+  gap: var(--space-1);
+  align-items: flex-start; 
+}
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex-shrink: 0; 
+  width: 100px;  
+  margin-right: 20px;
+}
+
+.photo-upload__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  border: 2px dashed var(--border-color, #ccc);
+  border-radius: var(--border-radius-md, 8px);
+  background-color: var(--bg-page, #f9f9f9);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-upload__box:hover {
+  border-color: var(--color-primary, #2E86AB);
+  background-color: rgba(46, 134, 171, 0.05);
+}
+
+.photo-upload__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.photo-upload__icon {
+  font-size: 48px;
+  color: var(--text-muted, #888);
+  margin-bottom: var(--space-2);
+}
+
+.photo-upload__text {
+  font-size: var(--fs-sm, 0.875rem);
+  color: var(--text-muted, #666);
+  text-align: center;
+  padding: 0 var(--space-2);
+}
+
+.photo-upload__input {
+  display: none; 
+}
+
+
+.enrollment-student__fields {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1); 
+}
+
+.form-row-4 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: var(--space-4) !important;
+  width: 100%;
+}
+
+.enrollment-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+}
+
+
+.enrollment-buttons:has(:only-child) {
+  justify-content: flex-end;
+}
+
+/* Campos que se llenan solos: verde cuando tienen valor */
+.input .input__field.input__field--auto {
+  background: color-mix(in srgb, var(--color-success) 8%, white);
+  border-color: var(--color-success);
+  cursor: default;
+}
+
+/* Sin selector de calendario en los campos automáticos */
+.input .input__field.input__field--auto::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Edad vacía: aspecto neutro, para que no parezca un campo editable */
+.input .input__field.input__field--auto:placeholder-shown {
+  background: var(--bg-subtle);
+  border-color: var(--border-color-grey);
+}
+
+

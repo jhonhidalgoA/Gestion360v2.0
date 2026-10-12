@@ -68,7 +68,7 @@ const ComunicationPage = () => {
         ...data.map((e) => {
           const [nombres, ...apellidosArr] = e.nombre.split(" ");
           return {
-            value: String(e.id), // ✅ el <select> siempre devuelve string
+            value: String(e.id),
             label: `${apellidosArr.join(" ")} ${nombres}`,
           };
         }),

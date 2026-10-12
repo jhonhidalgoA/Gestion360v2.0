@@ -1,4 +1,3 @@
-
 export const dbaPensamientoNumerico = {
   grado1: [
     {
@@ -364,7 +363,7 @@ const flattenDba = (dbaSource) =>
     items.map((item) => ({
       value: item.id,
       label: `${grado.replace("grado", "Grado ")} — ${item.enunciado}`,
-    }))
+    })),
   );
 
 const flattenEvidencias = (dbaSource) =>
@@ -374,7 +373,7 @@ const flattenEvidencias = (dbaSource) =>
       item.evidencias.map((evidencia, i) => ({
         value: `${item.id}-ev${i}`,
         label: evidencia,
-      }))
+      })),
     );
 
 // --- optionsMap ---
@@ -394,7 +393,7 @@ export const optionsMap = {
     { value: "undecimo", label: "Undécimo" },
   ],
 
-  asignaturas: [    
+  asignaturas: [
     { value: "ciencias_naturales", label: "Ciencias Naturales" },
     { value: "biologia", label: "Biología" },
     { value: "quimica", label: "Química" },
@@ -431,6 +430,36 @@ export const optionsMap = {
     { value: "1", label: "1 hora" },
     { value: "2", label: "2 horas" },
     { value: "3", label: "3 horas" },
+  ],
+
+  genders: [
+    { value: "male", label: "Masculino" },
+    { value: "female", label: "Femenino" },
+    { value: "non_binary", label: "No binario" },
+  ],
+
+  documentTypes: [
+    { value: "RC", label: "Registro Civil (RC)" },
+    { value: "TI", label: "Tarjeta de Identidad (TI)" },
+    { value: "CC", label: "Cédula de Ciudadanía (CC)" },
+    { value: "CE", label: "Cédula de Extranjería (CE)" },
+    { value: "PEP", label: "Permiso Especial de Permanencia (PEP)" },
+  ],
+
+  shifts: [
+    { value: "single", label: "Única" },
+    { value: "morning", label: "Mañana" },
+    { value: "afternoon", label: "Tarde" },
+    { value: "night", label: "Nocturna" },
+    { value: "saturday", label: "Sabatino" },
+  ],
+
+  enrollmentTypes: [
+    { value: "new", label: "Nuevo" },
+    { value: "repeating", label: "Repitente" },
+    { value: "promoted", label: "Promovido" },
+    { value: "readmission", label: "Re-ingreso" },
+    { value: "validation", label: "Validación" },
   ],
 
   typePlan: [
@@ -507,8 +536,6 @@ export const ASIGNATURA_ESTANDARES_MAP = {
   ciencias_sociales: "estandaresCienciasSociales",
 };
 
-
-
 export const observationFormConfig = {
   reconocimiento: {
     fieldLabel: "Tipo de reconocimiento:",
@@ -571,7 +598,7 @@ export const observationFormConfig = {
 
 export const planLibrary = [
   {
-    id: 1,    
+    id: 1,
     asignatura: "matematicas",
     tema: "Fracciones",
     grupo: "tercero",
@@ -582,7 +609,7 @@ export const planLibrary = [
     actualizado: "Actualizado hace 2 días",
   },
   {
-    id: 2,    
+    id: 2,
     asignatura: "ciencias_naturales",
     tema: "Ecosistemas",
     grupo: "cuarto",
@@ -593,7 +620,7 @@ export const planLibrary = [
     actualizado: "Actualizado hace 5 horas",
   },
   {
-    id: 3,  
+    id: 3,
     asignatura: "matematicas",
     tema: "Ecuaciones lineales",
     grupo: "sexto",
@@ -604,7 +631,7 @@ export const planLibrary = [
     actualizado: "Actualizado hace 2 días",
   },
   {
-    id: 4,    
+    id: 4,
     asignatura: "ciencias_sociales",
     tema: "Historia de Colombia",
     grupo: "cuarto",
@@ -624,88 +651,388 @@ export const state_label = {
 
 const mockStudents = [
   // Preescolar
-  { id: 1, nombre: "Emilia Rodríguez Vargas", grupo: "preescolar", estado: "Estudiante activo" },
-  { id: 2, nombre: "Mateo González Herrera", grupo: "preescolar", estado: "Estudiante activo" },
-  { id: 3, nombre: "Salomé Martínez Castro", grupo: "preescolar", estado: "Estudiante activo" },
-  { id: 4, nombre: "Samuel Herrera Cárdenas", grupo: "preescolar", estado: "Estudiante activo" },
-  { id: 5, nombre: "Antonella Vargas Rojas", grupo: "preescolar", estado: "Estudiante activo" },
+  {
+    id: 1,
+    nombre: "Emilia Rodríguez Vargas",
+    grupo: "preescolar",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 2,
+    nombre: "Mateo González Herrera",
+    grupo: "preescolar",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 3,
+    nombre: "Salomé Martínez Castro",
+    grupo: "preescolar",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 4,
+    nombre: "Samuel Herrera Cárdenas",
+    grupo: "preescolar",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 5,
+    nombre: "Antonella Vargas Rojas",
+    grupo: "preescolar",
+    estado: "Estudiante activo",
+  },
 
   // Primero
-  { id: 6, nombre: "Sofía Ramírez López", grupo: "primero", estado: "Estudiante activo" },
-  { id: 7, nombre: "Tomás Restrepo Morales", grupo: "primero", estado: "Estudiante activo" },
-  { id: 8, nombre: "Valentina Castro Jiménez", grupo: "primero", estado: "Estudiante activo" },
-  { id: 9, nombre: "Juan David Morales Sánchez", grupo: "primero", estado: "Estudiante activo" },
-  { id: 10, nombre: "Mariana López Torres", grupo: "primero", estado: "Estudiante activo" },
+  {
+    id: 6,
+    nombre: "Sofía Ramírez López",
+    grupo: "primero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 7,
+    nombre: "Tomás Restrepo Morales",
+    grupo: "primero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 8,
+    nombre: "Valentina Castro Jiménez",
+    grupo: "primero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 9,
+    nombre: "Juan David Morales Sánchez",
+    grupo: "primero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 10,
+    nombre: "Mariana López Torres",
+    grupo: "primero",
+    estado: "Estudiante activo",
+  },
 
   // Segundo
-  { id: 11, nombre: "Isabella Torres Gómez", grupo: "segundo", estado: "Estudiante activo" },
-  { id: 12, nombre: "Nicolás Gómez Pérez", grupo: "segundo", estado: "Estudiante activo" },
-  { id: 13, nombre: "Luciana Pérez Moreno", grupo: "segundo", estado: "Estudiante activo" },
-  { id: 14, nombre: "Santiago Moreno Sánchez", grupo: "segundo", estado: "Estudiante activo" },
-  { id: 15, nombre: "Gabriela Sánchez Martínez", grupo: "segundo", estado: "Estudiante activo" },
+  {
+    id: 11,
+    nombre: "Isabella Torres Gómez",
+    grupo: "segundo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 12,
+    nombre: "Nicolás Gómez Pérez",
+    grupo: "segundo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 13,
+    nombre: "Luciana Pérez Moreno",
+    grupo: "segundo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 14,
+    nombre: "Santiago Moreno Sánchez",
+    grupo: "segundo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 15,
+    nombre: "Gabriela Sánchez Martínez",
+    grupo: "segundo",
+    estado: "Estudiante activo",
+  },
 
   // Tercero
-  { id: 16, nombre: "Martina Cárdenas Valencia", grupo: "tercero", estado: "Estudiante activo" },
-  { id: 17, nombre: "Alejandro Rojas Jiménez", grupo: "tercero", estado: "Estudiante activo" },
-  { id: 18, nombre: "Sara Jiménez Ospina", grupo: "tercero", estado: "Estudiante activo" },
-  { id: 19, nombre: "Daniel Valencia Ortiz", grupo: "tercero", estado: "Estudiante activo" },
-  { id: 20, nombre: "Manuela Ortiz Vélez", grupo: "tercero", estado: "Estudiante activo" },
+  {
+    id: 16,
+    nombre: "Martina Cárdenas Valencia",
+    grupo: "tercero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 17,
+    nombre: "Alejandro Rojas Jiménez",
+    grupo: "tercero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 18,
+    nombre: "Sara Jiménez Ospina",
+    grupo: "tercero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 19,
+    nombre: "Daniel Valencia Ortiz",
+    grupo: "tercero",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 20,
+    nombre: "Manuela Ortiz Vélez",
+    grupo: "tercero",
+    estado: "Estudiante activo",
+  },
 
   // Cuarto
-  { id: 21, nombre: "Laura Vélez Arias", grupo: "cuarto", estado: "Estudiante activo" },
-  { id: 22, nombre: "Juan Esteban Muñoz Duarte", grupo: "cuarto", estado: "Estudiante activo" },
-  { id: 23, nombre: "Catalina Arias Navarro", grupo: "cuarto", estado: "Estudiante activo" },
-  { id: 24, nombre: "Felipe Navarro Correa", grupo: "cuarto", estado: "Estudiante activo" },
-  { id: 25, nombre: "Juliana Correa Molina", grupo: "cuarto", estado: "Estudiante activo" },
+  {
+    id: 21,
+    nombre: "Laura Vélez Arias",
+    grupo: "cuarto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 22,
+    nombre: "Juan Esteban Muñoz Duarte",
+    grupo: "cuarto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 23,
+    nombre: "Catalina Arias Navarro",
+    grupo: "cuarto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 24,
+    nombre: "Felipe Navarro Correa",
+    grupo: "cuarto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 25,
+    nombre: "Juliana Correa Molina",
+    grupo: "cuarto",
+    estado: "Estudiante activo",
+  },
 
   // Quinto
-  { id: 26, nombre: "María José Londoño Patiño", grupo: "quinto", estado: "Estudiante activo" },
-  { id: 27, nombre: "Sebastián Patiño Giraldo", grupo: "quinto", estado: "Estudiante activo" },
-  { id: 28, nombre: "Ana Sofía Giraldo Restrepo", grupo: "quinto", estado: "Estudiante activo" },
-  { id: 29, nombre: "Miguel Ángel Duarte Salazar", grupo: "quinto", estado: "Estudiante activo" },
-  { id: 30, nombre: "Gabriela Restrepo Quintero", grupo: "quinto", estado: "Estudiante activo" },
+  {
+    id: 26,
+    nombre: "María José Londoño Patiño",
+    grupo: "quinto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 27,
+    nombre: "Sebastián Patiño Giraldo",
+    grupo: "quinto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 28,
+    nombre: "Ana Sofía Giraldo Restrepo",
+    grupo: "quinto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 29,
+    nombre: "Miguel Ángel Duarte Salazar",
+    grupo: "quinto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 30,
+    nombre: "Gabriela Restrepo Quintero",
+    grupo: "quinto",
+    estado: "Estudiante activo",
+  },
 
   // Sexto
-  { id: 31, nombre: "Samuel Arango Mejía", grupo: "sexto", estado: "Estudiante activo" },
-  { id: 32, nombre: "Valeria Quintero Ospina", grupo: "sexto", estado: "Estudiante activo" },
-  { id: 33, nombre: "Mateo Salazar Castaño", grupo: "sexto", estado: "Estudiante activo" },
-  { id: 34, nombre: "Mariana Ospina Rincón", grupo: "sexto", estado: "Estudiante activo" },
-  { id: 35, nombre: "Nicolás Mejía Arboleda", grupo: "sexto", estado: "Estudiante activo" },
+  {
+    id: 31,
+    nombre: "Samuel Arango Mejía",
+    grupo: "sexto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 32,
+    nombre: "Valeria Quintero Ospina",
+    grupo: "sexto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 33,
+    nombre: "Mateo Salazar Castaño",
+    grupo: "sexto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 34,
+    nombre: "Mariana Ospina Rincón",
+    grupo: "sexto",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 35,
+    nombre: "Nicolás Mejía Arboleda",
+    grupo: "sexto",
+    estado: "Estudiante activo",
+  },
 
   // Séptimo
-  { id: 36, nombre: "Sofía Restrepo Vélez", grupo: "septimo", estado: "Estudiante activo" },
-  { id: 37, nombre: "Juan Sebastián López Vargas", grupo: "septimo", estado: "Estudiante activo" },
-  { id: 38, nombre: "Camila Hernández Ruiz", grupo: "septimo", estado: "Estudiante activo" },
-  { id: 39, nombre: "Daniel Felipe Vargas Molina", grupo: "septimo", estado: "Estudiante activo" },
-  { id: 40, nombre: "Isabella Rincón Cardona", grupo: "septimo", estado: "Estudiante activo" },
+  {
+    id: 36,
+    nombre: "Sofía Restrepo Vélez",
+    grupo: "septimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 37,
+    nombre: "Juan Sebastián López Vargas",
+    grupo: "septimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 38,
+    nombre: "Camila Hernández Ruiz",
+    grupo: "septimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 39,
+    nombre: "Daniel Felipe Vargas Molina",
+    grupo: "septimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 40,
+    nombre: "Isabella Rincón Cardona",
+    grupo: "septimo",
+    estado: "Estudiante activo",
+  },
 
   // Octavo
-  { id: 41, nombre: "Santiago Castaño Echeverri", grupo: "octavo", estado: "Estudiante activo" },
-  { id: 42, nombre: "María Fernanda Ruiz Gómez", grupo: "octavo", estado: "Estudiante activo" },
-  { id: 43, nombre: "Andrés Felipe Gómez Molina", grupo: "octavo", estado: "Estudiante activo" },
-  { id: 44, nombre: "Laura Sofía Molina Torres", grupo: "octavo", estado: "Estudiante activo" },
-  { id: 45, nombre: "Tomás Echeverri Salazar", grupo: "octavo", estado: "Estudiante activo" },
+  {
+    id: 41,
+    nombre: "Santiago Castaño Echeverri",
+    grupo: "octavo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 42,
+    nombre: "María Fernanda Ruiz Gómez",
+    grupo: "octavo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 43,
+    nombre: "Andrés Felipe Gómez Molina",
+    grupo: "octavo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 44,
+    nombre: "Laura Sofía Molina Torres",
+    grupo: "octavo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 45,
+    nombre: "Tomás Echeverri Salazar",
+    grupo: "octavo",
+    estado: "Estudiante activo",
+  },
 
   // Noveno
-  { id: 46, nombre: "Valentina Zapata Arboleda", grupo: "noveno", estado: "Estudiante activo" },
-  { id: 47, nombre: "Sebastián Arboleda Castaño", grupo: "noveno", estado: "Estudiante activo" },
-  { id: 48, nombre: "Mariana Vélez Londoño", grupo: "noveno", estado: "Estudiante activo" },
-  { id: 49, nombre: "Juan José Cardona Ríos", grupo: "noveno", estado: "Estudiante activo" },
-  { id: 50, nombre: "Sofía Londoño Restrepo", grupo: "noveno", estado: "Estudiante activo" },
+  {
+    id: 46,
+    nombre: "Valentina Zapata Arboleda",
+    grupo: "noveno",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 47,
+    nombre: "Sebastián Arboleda Castaño",
+    grupo: "noveno",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 48,
+    nombre: "Mariana Vélez Londoño",
+    grupo: "noveno",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 49,
+    nombre: "Juan José Cardona Ríos",
+    grupo: "noveno",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 50,
+    nombre: "Sofía Londoño Restrepo",
+    grupo: "noveno",
+    estado: "Estudiante activo",
+  },
 
   // Décimo
-  { id: 51, nombre: "Valentina Restrepo Muñoz", grupo: "decimo", estado: "Estudiante activo" },
-  { id: 52, nombre: "Samuel Ortiz Cárdenas", grupo: "decimo", estado: "Estudiante activo" },
-  { id: 53, nombre: "María José Gómez Ríos", grupo: "decimo", estado: "Estudiante activo" },
-  { id: 54, nombre: "Juan Esteban Cárdenas Rojas", grupo: "decimo", estado: "Estudiante activo" },
-  { id: 55, nombre: "Isabella Zapata Correa", grupo: "decimo", estado: "Estudiante activo" },
+  {
+    id: 51,
+    nombre: "Valentina Restrepo Muñoz",
+    grupo: "decimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 52,
+    nombre: "Samuel Ortiz Cárdenas",
+    grupo: "decimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 53,
+    nombre: "María José Gómez Ríos",
+    grupo: "decimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 54,
+    nombre: "Juan Esteban Cárdenas Rojas",
+    grupo: "decimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 55,
+    nombre: "Isabella Zapata Correa",
+    grupo: "decimo",
+    estado: "Estudiante activo",
+  },
 
   // Undécimo
-  { id: 56, nombre: "Camila Londoño Arango", grupo: "undecimo", estado: "Estudiante activo" },
-  { id: 57, nombre: "Sebastián Patiño Vargas", grupo: "undecimo", estado: "Estudiante activo" },
-  { id: 58, nombre: "Nicolás Arango Mejía", grupo: "undecimo", estado: "Estudiante activo" },
-  { id: 59, nombre: "Sofía Correa Valencia", grupo: "undecimo", estado: "Estudiante activo" },
-  { id: 60, nombre: "Andrés Felipe Ríos Castaño", grupo: "undecimo", estado: "Estudiante activo" },
+  {
+    id: 56,
+    nombre: "Camila Londoño Arango",
+    grupo: "undecimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 57,
+    nombre: "Sebastián Patiño Vargas",
+    grupo: "undecimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 58,
+    nombre: "Nicolás Arango Mejía",
+    grupo: "undecimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 59,
+    nombre: "Sofía Correa Valencia",
+    grupo: "undecimo",
+    estado: "Estudiante activo",
+  },
+  {
+    id: 60,
+    nombre: "Andrés Felipe Ríos Castaño",
+    grupo: "undecimo",
+    estado: "Estudiante activo",
+  },
 ];
 
 // Hoy: simula la API con datos de prueba.

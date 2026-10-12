@@ -1,7 +1,6 @@
 .plan-page {
-  --notice-color: red; /* ✅ Usa el color del navbar */
+  --notice-color: red;
 }
-
 
 .planning-container {
   display: flex;

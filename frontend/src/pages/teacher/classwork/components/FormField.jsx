@@ -1,7 +1,7 @@
 import Select from "@/components/ui/Select/Select";
 import Input from "@/components/ui/Input/Input";
 import Textarea from "@/components/ui/Textarea/Textarea";
-import { optionsMap } from "@/data/DBdataSimulation"; // ✅ antes: "@/data/optionsData" (archivo obsoleto, no el que usas)
+import { optionsMap } from "@/data/DBdataSimulation"; 
 import "./FormField.css";
 
 const FormField = ({ field, register, errors }) => {
@@ -16,7 +16,7 @@ const FormField = ({ field, register, errors }) => {
       <Select
         label={field.label}
         name={field.id}
-        options={field.options ?? optionsMap[field.optionsKey]} // ✅ prioriza options explícito (caso Estudiante), si no cae al optionsMap estático
+        options={field.options ?? optionsMap[field.optionsKey]} 
         register={register}
         rules={effectiveRules}
         error={error}
@@ -72,6 +72,8 @@ const FormField = ({ field, register, errors }) => {
       variant="square"
       required={field.required}
       disabled={field.disabled}
+      readOnly={field.readOnly}
+      className={field.inputClassName}
     />
   );
 };
