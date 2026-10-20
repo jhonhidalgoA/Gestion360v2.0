@@ -462,6 +462,55 @@ export const optionsMap = {
     { value: "validation", label: "Validación" },
   ],
 
+  institutionTypes: [
+    { value: "publica", label: "Pública (Oficial)" },
+    { value: "privada", label: "Privada (No oficial)" },
+  ],
+
+  healthRegimes: [
+    { value: "Contributivo", label: "Contributivo" },
+    { value: "Subsidiado", label: "Subsidiado" },
+    { value: "Especial", label: "Especial" },
+    { value: "Excepción", label: "Excepción" },
+    { value: "No afiliado", label: "No afiliado" },
+  ],
+
+  bloodGroups: [
+    { value: "A+", label: "A+" },
+    { value: "A-", label: "A-" },
+    { value: "B+", label: "B+" },
+    { value: "B-", label: "B-" },
+    { value: "AB+", label: "AB+" },
+    { value: "AB-", label: "AB-" },
+    { value: "O+", label: "O+" },
+    { value: "O-", label: "O-" },
+  ],
+
+  ethnicGroups: [
+    { value: "Indígena", label: "Indígena" },
+    { value: "Negro", label: "Negro" },
+    { value: "Afrocolombiano", label: "Afrocolombiano" },
+    { value: "Raizal", label: "Raizal" },
+    { value: "Palenquero", label: "Palenquero" },
+    { value: "Rrom (Gitano)", label: "Rrom (Gitano)" },
+    { value: "Ninguno", label: "Ninguno de los anteriores" },
+    { value: "No informa", label: "No informa" },
+  ],
+
+  strata: [
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+    { value: "6", label: "6" },
+  ],
+
+  zones: [
+    { value: "Urbana", label: "Urbana" },
+    { value: "Rural", label: "Rural" },
+  ],
+
   typePlan: [
     { value: "clase", label: "Clase" },
     { value: "taller", label: "Taller" },
@@ -650,7 +699,6 @@ export const state_label = {
 };
 
 const mockStudents = [
-  // Preescolar
   {
     id: 1,
     nombre: "Emilia Rodríguez Vargas",
@@ -1035,8 +1083,6 @@ const mockStudents = [
   },
 ];
 
-// Hoy: simula la API con datos de prueba.
-// Mañana: reemplaza el interior por axios.get(`/api/estudiantes?grupo=${grupo}`)
 export const getStudentsByGroup = (grupo) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -1044,3 +1090,15 @@ export const getStudentsByGroup = (grupo) => {
     }, 800);
   });
 };
+
+const GROUPS_PER_GRADE = 5;
+
+export const groupsByGrade = Object.fromEntries(
+  optionsMap.grupos.map((grade, index) => [
+    grade.value,
+    Array.from({ length: GROUPS_PER_GRADE }, (_, n) => {
+      const code = String(index * 100 + n + 1).padStart(3, "0");
+      return { value: code, label: code };
+    }),
+  ]),
+);

@@ -4,9 +4,9 @@ import FormField from "@/pages/teacher/classwork/components/FormField";
 
 const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
   const dependValue = useWatch({ control, name: field.dependsOn || "" });
-  
-  const isDisabled = field.dependsOn 
-    ? dependValue === undefined || dependValue === "" 
+
+  const isDisabled = field.dependsOn
+    ? dependValue === undefined || dependValue === ""
     : false;
 
   const isFirstRender = useRef(true);
@@ -14,13 +14,17 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
 
   useEffect(() => {
     if (field.dependsOn) {
-      if (!isFirstRender.current && prevDependValue.current !== dependValue) {
+      if (
+        !isFirstRender.current &&
+        prevDependValue.current !== dependValue &&
+        field.type === "select"
+      ) {
         setValue(field.id, "");
       }
       prevDependValue.current = dependValue;
       isFirstRender.current = false;
     }
-  }, [dependValue, field.dependsOn, field.id, setValue]);
+  }, [dependValue, field.dependsOn, field.id, field.type, setValue]);
 
   return (
     <FormField
@@ -28,7 +32,6 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
       field={{
         ...field,
         disabled: isDisabled,
-       
       }}
       register={register}
       errors={errors}
@@ -37,5 +40,3 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
 };
 
 export default FormFieldCascada;
-
-

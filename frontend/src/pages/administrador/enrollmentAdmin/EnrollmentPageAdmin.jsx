@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { filterFormsData } from "@/data/filterFormsData";
+import { groupsByGrade } from "@/data/DBdataSimulation";
 import { stepperData } from "@/data/stepperData";
-import PhotoUpload from "@/components/ui/PhotoUpload/PhotoUpload";
 import { Button } from "@/components/ui/Button/Button";
 
+import PhotoUpload from "@/components/ui/PhotoUpload/PhotoUpload";
 import NavbarSection from "@/components/navbar/NavbarSection";
 import Stepper from "@/components/ui/Stepper/Stepper";
 import FormFieldCascada from "@/components/ui/FormFieldCascada/FormFieldCascada";
@@ -24,7 +25,7 @@ const formatDate = (date) => {
 // Función para generar código de matrícula
 const generateEnrollmentCode = () => {
   const year = new Date().getFullYear();
-  const random = Math.floor(Math.random() * 90000) + 10000; // Número aleatorio de 5 dígitos
+  const random = Math.floor(Math.random() * 90000) + 10000;
   return `MAT-${year}-${random}`;
 };
 
@@ -33,7 +34,7 @@ const calculateAge = (birthDateStr) => {
   if (!birthDateStr) return "";
 
   const [year, month, day] = birthDateStr.split("-").map(Number);
-  if (!year || year < 1900) return ""; // evita edades absurdas mientras se escribe el año
+  if (!year || year < 1900) return "";
 
   const birthDate = new Date(year, month - 1, day);
   const today = new Date();
@@ -51,19 +52,55 @@ const calculateAge = (birthDateStr) => {
   return age >= 0 ? age.toString() : "";
 };
 
+const allFilled = (values) =>
+  values.every((value) => String(value ?? "").trim() !== "");
+
 const EnrollmentPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate("/administrador");
 
-  const { rows, sectionTitle } = filterFormsData.enrollmentStudent;
+  // Pantalla visible: 1 = Datos Estudiante, 2 = Información Matrícula, 3 = Información General
+  const [screen, setScreen] = useState(1);
+  const totalSteps = 4;
 
-  const allFields = rows.flatMap((row) => row.fields);
-  const requiredIds = allFields.filter((f) => f.required).map((f) => f.id);
+  // Pantalla 1
+  const { rows, sectionTitle, documentsSection } =
+    filterFormsData.enrollmentStudent;
+  const studentFields = rows.flatMap((row) => row.fields);
 
-  const defaultValues = allFields.reduce((acc, field) => {
-    acc[field.id] = "";
-    return acc;
-  }, {});
+  // Pantalla 2
+  const enrollmentInfo = filterFormsData.schedules;
+  const infoFields = enrollmentInfo.sections
+    .flatMap((section) => section.rows)
+    .flatMap((row) => row.fields);
+
+  // Pantalla 3
+  const generalInfo = filterFormsData.general;
+  const generalFields = generalInfo.sections
+    .flatMap((section) => section.rows)
+    .flatMap((row) => row.fields);
+
+  const studentRequiredIds = studentFields
+    .filter((f) => f.required)
+    .map((f) => f.id);
+  const infoRequiredIds = infoFields.filter((f) => f.required).map((f) => f.id);
+  const generalRequiredIds = generalFields
+    .filter((f) => f.required)
+    .map((f) => f.id);
+
+  // Un solo formulario para todas las pantallas
+  // "documents" arranca como lista vacía (ids de los documentos entregados)
+  const defaultValues = [
+    ...studentFields,
+    ...infoFields,
+    ...generalFields,
+  ].reduce(
+    (acc, field) => {
+      acc[field.id] = "";
+      return acc;
+    },
+    { documents: [] },
+  );
 
   const {
     register,
@@ -77,6 +114,9 @@ const EnrollmentPage = () => {
 
   // Observar fecha de nacimiento para calcular edad
   const birthDateValue = useWatch({ control, name: "birthDate" });
+
+  const gradeValue = useWatch({ control, name: "grade" });
+  const groupOptions = groupsByGrade[gradeValue] ?? [];
 
   // Auto-completar fecha de matrícula (hoy) y código al montar
   useEffect(() => {
@@ -94,20 +134,45 @@ const EnrollmentPage = () => {
     setValue("age", age, { shouldValidate: age !== "" });
   }, [birthDateValue, setValue]);
 
-  const requiredValues = useWatch({ control, name: requiredIds });
+  const studentValues = useWatch({ control, name: studentRequiredIds });
+  const infoValues = useWatch({ control, name: infoRequiredIds });
+  const generalValues = useWatch({ control, name: generalRequiredIds });
 
-  const studentOk = requiredValues.every(
-    (value) => String(value ?? "").trim() !== "",
-  );
-  const generalOk = false;
-  const familyOk = false;
+  const studentOk = allFilled(studentValues);
+  const infoOk = allFilled(infoValues);
+  const generalOk = allFilled(generalValues);
 
-  const currentStep = !studentOk ? 1 : !generalOk ? 2 : !familyOk ? 3 : 4;
-  const totalSteps = 4;
+  const screenOkByStep = { 1: studentOk, 2: infoOk, 3: generalOk };
+  const screenOk = screenOkByStep[screen] ?? false;
+
+  // El stepper sigue a la pantalla visible
+  const currentStep = screen;
+
+  const goPrev = () => {
+    if (screen > 1) setScreen(screen - 1);
+  };
 
   const goNext = () => {
-    console.log("Avanzar al siguiente paso");
+    if (!screenOk) return;
+    if (screen < 3) {
+      setScreen(screen + 1);
+    } else {
+      // Aquí irá el paso 4 (Datos Familiares)
+      console.log("Avanzar al siguiente paso");
+    }
   };
+
+  // El grupo recibe sus opciones según el grado elegido
+  const renderField = (field) => (
+    <FormFieldCascada
+      key={field.id}
+      field={field.id === "group" ? { ...field, options: groupOptions } : field}
+      register={register}
+      errors={errors}
+      control={control}
+      setValue={setValue}
+    />
+  );
 
   return (
     <div className="enrollment-page">
@@ -123,42 +188,121 @@ const EnrollmentPage = () => {
       />
       <div className="enrollment-container">
         <form noValidate>
-          {sectionTitle && (
-            <h3 className="form-section-title">{sectionTitle}</h3>
-          )}
-
-          <div className="enrollment-student">
-            <PhotoUpload name="photo" register={register} />
-
-            <div className="enrollment-student__fields">
-              {rows.map((row) => (
-                <div className={row.className} key={row.id}>
-                  {row.fields.map((field) => (
-                    <FormFieldCascada
-                      key={field.id}
-                      field={field}
-                      register={register}
-                      errors={errors}
-                      control={control}
-                      setValue={setValue}
-                    />
+          <div className="enrollment-screens">
+            {/*  Pantalla 1: Datos del estudiante  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 1 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              {sectionTitle && (
+                <h3 className="form-section-title">{sectionTitle}</h3>
+              )}
+              <div className="enrollment-student">
+                <PhotoUpload name="photo" register={register} />
+                <div className="enrollment-student__fields">
+                  {rows.map((row) => (
+                    <div className={row.className} key={row.id}>
+                      {row.fields.map(renderField)}
+                    </div>
                   ))}
+
+                  {/* Documentos entregados: debajo de los select */}
+                  {documentsSection && (
+                    <section className="enrollment-documents">
+                      <h4 className="enrollment-section__title">
+                        {documentsSection.title}
+                      </h4>
+                      <div className="enrollment-documents__list">
+                        {documentsSection.options.map((doc) => (
+                          <label
+                            className="enrollment-documents__item"
+                            key={doc.id}
+                          >
+                            <input
+                              type="checkbox"
+                              value={doc.id}
+                              {...register("documents")}
+                            />
+                            <span>{doc.label}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </section>
+                  )}
                 </div>
+              </div>
+            </div>
+
+            {/*  Pantalla 2: Información de la matrícula  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 2 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              <h3 className="form-section-title">
+                {enrollmentInfo.sectionTitle}
+              </h3>
+              {enrollmentInfo.sections.map((section) => (
+                <section className="enrollment-section" key={section.id}>
+                  <h4 className="enrollment-section__title">{section.title}</h4>
+                  {section.rows.map((row) => (
+                    <div className={row.className} key={row.id}>
+                      {row.fields.map(renderField)}
+                    </div>
+                  ))}
+                </section>
+              ))}
+            </div>
+
+            {/*  Pantalla 3: Información general  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 3 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              <h3 className="form-section-title">{generalInfo.sectionTitle}</h3>
+              {generalInfo.sections.map((section) => (
+                <section className="enrollment-section" key={section.id}>
+                  {section.title && (
+                    <h4 className="enrollment-section__title">
+                      {section.title}
+                    </h4>
+                  )}
+                  {section.rows.map((row) => (
+                    <div className={row.className} key={row.id}>
+                      {row.fields.map(renderField)}
+                    </div>
+                  ))}
+                </section>
               ))}
             </div>
           </div>
 
-          {/* Botones de navegación (esta es la primera pantalla: sin "Atrás") */}
+          {/* Botones de navegación */}
           <div className="enrollment-buttons">
+            {screen > 1 && (
+              <Button
+                type="button"
+                variant="dark"
+                shape="rounded"
+                className="btn-uniform-width"
+                size="md"
+                onClick={goPrev}
+              >
+                Atrás
+              </Button>
+            )}
+
             <Button
               type="button"
               variant="primary"
               shape="rounded"
               className="btn-uniform-width"
               size="md"
-              disabled={!studentOk}
+              disabled={!screenOk}
               title={
-                !studentOk
+                !screenOk
                   ? "Completa todos los campos obligatorios primero"
                   : undefined
               }

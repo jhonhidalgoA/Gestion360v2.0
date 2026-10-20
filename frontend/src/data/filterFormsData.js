@@ -610,137 +610,334 @@ export const filterFormsData = {
       },
     ],
   },
- enrollmentStudent: {
-  sectionTitle: "1. Información del Estudiante",
-  rows: [
-    {
-      id: "basicData",
-      className: "form-row-4",
-      fields: [
-        { id: "enrollmentDate", type: "date", label: "Fecha de Matrícula:" },
-        {
-          id: "studentCode",
-          type: "text",
-          label: "Código:",          
-        },
-        {
-          id: "firstName",
-          type: "text",
-          label: "Nombres:",
-          required: true,
-          dependsOn: "studentCode",
-        },
-        {
-          id: "lastName",
-          type: "text",
-          label: "Apellidos:",
-          required: true,
-          dependsOn: "firstName",
-        },
-      ],
-    },
-    {
-      id: "personalData",
-      className: "form-row-4",
-      fields: [
-        {
-          id: "birthDate",
-          type: "date",
-          label: "Fecha de Nacimiento:",
-          required: true,
-          dependsOn: "lastName",
-        },
-        {
-          id: "age",
-          type: "text",
-          label: "Edad:",
-          required: true,
-        },
-        {
-          id: "gender",
-          type: "select",
-          label: "Género:",
-          optionsKey: "genders",
-          required: true,
-          dependsOn: "birthDate", // depende de birthDate (no de age) porque age se autocalcula
-        },
-        {
-          id: "birthPlace",
-          type: "text",
-          label: "Lugar de Nacimiento:",
-          required: true,
-          dependsOn: "gender",
-        },
-      ],
-    },
-    {
-      id: "contactData",
-      className: "form-row-4",
-      fields: [
-        {
-          id: "documentType",
-          type: "select",
-          label: "Tipo de Documento:",
-          optionsKey: "documentTypes",
-          required: true,
-          dependsOn: "birthPlace",
-        },
-        {
-          id: "documentNumber",
-          type: "text",
-          label: "Número de Documento:",
-          required: true,
-          dependsOn: "documentType",
-        },
-        {
-          id: "phone",
-          type: "tel",
-          label: "Teléfono:",
-          required: true,
-          dependsOn: "documentNumber",
-        },
-        {
-          id: "email",
-          type: "email",
-          label: "Correo Electrónico:",
-          placeholder: "ejemplo@dominio.com",
-          required: true,
-          dependsOn: "phone",
-        },
-      ],
-    },
-  ],
-},
-  schedules: {
-    rows: [      
-        {
-        id: "academicData",
+
+  enrollmentStudent: {
+    sectionTitle: "1. Información del Estudiante",
+    rows: [
+      {
+        id: "basicData",
         className: "form-row-4",
         fields: [
           {
-            id: "grade",
-            type: "select",
-            label: "Grado al que ingresa:",
-            optionsKey: "grades",
-            required: true,
-          },
-          { id: "group", type: "text", label: "Grupo:", required: true },
-          {
-            id: "shift",
-            type: "select",
-            label: "Jornada:",
-            optionsKey: "shifts",
-            required: true,
+            id: "enrollmentDate",
+            type: "date",
+            label: "Fecha de Matrícula:",
+            readOnly: true,
+            inputClassName: "input__field--auto",
           },
           {
-            id: "enrollmentType",
-            type: "select",
-            label: "Tipo de Matrícula:",
-            optionsKey: "enrollmentTypes",
+            id: "studentCode",
+            type: "text",
+            label: "Código:",
+            readOnly: true,
+            inputClassName: "input__field--auto",
+          },
+          {
+            id: "firstName",
+            type: "text",
+            label: "Nombres:",
             required: true,
+            dependsOn: "studentCode",
+          },
+          {
+            id: "lastName",
+            type: "text",
+            label: "Apellidos:",
+            required: true,
+            dependsOn: "firstName",
           },
         ],
-      },      
+      },
+      {
+        id: "personalData",
+        className: "form-row-4",
+        fields: [
+          {
+            id: "birthDate",
+            type: "date",
+            label: "Fecha de Nacimiento:",
+            required: true,
+            dependsOn: "lastName",
+          },
+          {
+            id: "age",
+            type: "text",
+            label: "Edad:",
+            required: true,
+            readOnly: true,
+            inputClassName: "input__field--auto",
+          },
+          {
+            id: "gender",
+            type: "select",
+            label: "Género:",
+            optionsKey: "genders",
+            required: true,
+            dependsOn: "birthDate",
+          },
+          {
+            id: "birthPlace",
+            type: "text",
+            label: "Lugar de Nacimiento:",
+            required: true,
+            dependsOn: "gender",
+          },
+        ],
+      },
+      {
+        id: "contactData",
+        className: "form-row-4",
+        fields: [
+          {
+            id: "documentType",
+            type: "select",
+            label: "Tipo de Documento:",
+            optionsKey: "documentTypes",
+            required: true,
+            dependsOn: "birthPlace",
+          },
+          {
+            id: "documentNumber",
+            type: "text",
+            label: "Número de Documento:",
+            required: true,
+            dependsOn: "documentType",
+          },
+          {
+            id: "phone",
+            type: "tel",
+            label: "Teléfono:",
+            required: true,
+            dependsOn: "documentNumber",
+          },
+          {
+            id: "email",
+            type: "email",
+            label: "Correo Electrónico:",
+            placeholder: "ejemplo@dominio.com",
+            required: true,
+            dependsOn: "phone",
+          },
+        ],
+      },
+    ],
+    documentsSection: {
+      title: "DOCUMENTOS ENTREGADOS",
+      options: [
+        { id: "gradesCertificate", label: "Certificado de notas" },
+        { id: "identityDocument", label: "Documento de identidad" },
+        { id: "peaceAndSafe", label: "Paz y salvo" },
+        { id: "vaccinationCard", label: "Carnet de vacunación" },
+      ],
+    },
+  },
+  schedules: {
+    sectionTitle: "2. Información de la Matrícula",
+    sections: [
+      {
+        id: "enrollmentData",
+        rows: [
+          {
+            id: "academicData",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "grade",
+                type: "select",
+                label: "Grado al que ingresa:",
+                optionsKey: "grupos",
+                required: true,
+              },
+              {
+                id: "group",
+                type: "select",
+                label: "Grupo:",
+                required: true,
+                dependsOn: "grade",
+              },
+              {
+                id: "shift",
+                type: "select",
+                label: "Jornada:",
+                optionsKey: "shifts",
+                required: true,
+                dependsOn: "group",
+              },
+              {
+                id: "enrollmentType",
+                type: "select",
+                label: "Tipo de Matrícula:",
+                optionsKey: "enrollmentTypes",
+                required: true,
+                dependsOn: "shift",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "origin",
+        rows: [
+          {
+            id: "originRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "previousSchool",
+                type: "text",
+                label: "Institución de procedencia:",
+                required: false,
+                dependsOn: "enrollmentType",
+              },
+              {
+                id: "institutionType",
+                type: "select",
+                label: "Tipo de institución:",
+                optionsKey: "institutionTypes",
+                required: false,
+                dependsOn: "previousSchool",
+              },
+              {
+                id: "lastGrade",
+                type: "select",
+                label: "Último grado cursado:",
+                optionsKey: "grupos",
+                required: false,
+                dependsOn: "institutionType",
+              },
+              {
+                id: "previousYear",
+                type: "number",
+                label: "Año:",
+                required: false,
+                dependsOn: "lastGrade",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "notes",
+        rows: [
+          {
+            id: "notesRow",
+            fields: [
+              {
+                id: "enrollmentNotes",
+                type: "textarea",
+                label: "Observaciones de la matrícula:",
+                required: false,
+                rows: 3,
+                dependsOn: "previousYear",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  general: {
+    sectionTitle: "3. Información general del estudiante",
+    sections: [
+      {
+        id: "generalInformation",
+        rows: [
+          {
+            id: "residenceRow",
+            className: "form-row-5",
+            fields: [
+              {
+                id: "residenceAddress",
+                type: "text",
+                label: "Dirección de Residencia:",
+                required: true,
+              },
+              {
+                id: "neighborhood",
+                type: "text",
+                label: "Barrio:",
+                required: true,
+              },
+              {
+                id: "locality",
+                type: "text",
+                label: "Localidad:",
+                required: true,
+              },
+              {
+                id: "stratum",
+                type: "select",
+                label: "Estrato:",
+                optionsKey: "strata",
+                required: true,
+              },
+              {
+                id: "zone",
+                type: "select",
+                label: "Zona:",
+                optionsKey: "zones",
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "referentialInformation",
+        rows: [
+          {
+            id: "referentialRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "eps",
+                type: "text",
+                label: "EPS:",
+                required: false,
+              },
+              {
+                id: "healthRegime",
+                type: "select",
+                label: "Régimen de salud:",
+                optionsKey: "healthRegimes",
+                required: false,
+              },
+              {
+                id: "bloodGroup",
+                type: "select",
+                label: "Grupo sanguíneo:",
+                optionsKey: "bloodGroups",
+                required: false,
+              },
+              {
+                id: "ethnicGroup",
+                type: "select",
+                label: "Grupo étnico:",
+                optionsKey: "ethnicGroups",
+                required: false,
+              },
+            ],
+          },
+        ],
+      },
+       {
+        id: "notes",
+        rows: [
+          {
+            id: "notesRow",
+            fields: [
+              {
+                id: "enrollmentNotes",
+                type: "textarea",
+                label: "Alergias, medicamentos o condiciones a tener en cuenta:",
+                required: false,
+                rows: 3,
+                dependsOn: "previousYear",
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 };

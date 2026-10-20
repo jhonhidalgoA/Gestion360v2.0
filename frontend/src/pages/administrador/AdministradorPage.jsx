@@ -22,12 +22,12 @@ const AdministradorPage = () => {
 
   const secciones = moduleData.admin;
 
-  const seccionesFiltradas = Object.values(secciones)
-    .map((seccion) => {
+  const seccionesFiltradas = Object.entries(secciones)
+    .map(([clave, seccion]) => {
       const itemsFiltrados = seccion.items.filter((item) =>
         item.title.toLowerCase().includes(searchAdmin.toLowerCase()),
       );
-      return { ...seccion, items: itemsFiltrados };
+      return { ...seccion, clave, items: itemsFiltrados };
     })
     .filter((seccion) => seccion.items.length > 0);
 
@@ -37,19 +37,20 @@ const AdministradorPage = () => {
       <div className="admin-container">
         <div className="admin-header">
           <h1>Bienvenido Administrador</h1>
+          <div className="admin-search">
+            <Input
+              name="searchAdmin"
+              leftIcon={TbSearch}
+              placeholder="¿Qué necesitas gestionar hoy?"
+              wrapperClassName="admin-search-input"
+              variant="square"
+              value={searchAdmin}
+              onChange={(e) => setSearchAdmin(e.target.value)}
+            />
+          </div>
           <p className="current-date">{fechaActual}</p>
         </div>
-        <div className="admin-search">
-          <Input
-            name="searchAdmin"
-            leftIcon={TbSearch}
-            placeholder="¿Qué necesitas gestionar hoy?"
-            wrapperClassName="admin-search-input"
-            variant="square"
-            value={searchAdmin}
-            onChange={(e) => setSearchAdmin(e.target.value)}
-          />
-        </div>
+
         <div className="admin-content">
           {seccionesFiltradas.map((seccion) => (
             <section key={seccion.label} className="admin-section">
@@ -59,7 +60,7 @@ const AdministradorPage = () => {
               >
                 {seccion.label}
               </h2>
-              <div className="admin-grid">
+              <div className={`admin-grid admin-grid--${seccion.clave}`}>
                 {seccion.items.map((item) => (
                   <AdminCard key={item.id} item={item} color={seccion.color} />
                 ))}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 
@@ -21,23 +21,41 @@ const STEP_KEYS = {
   4: "contentEvaluation",
 };
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = Object.keys(STEP_KEYS).length;
+
+const ASIGNATURA_FIELD = "asignatura";
+const ESTANDAR_FIELD = "estandar";
+
+// react-hook-form solo lee defaultValues en el primer render, por eso se
+// definen una vez para todos los pasos. Los valores se conservan entre pasos
+// porque RHF retiene los campos desmontados (shouldUnregister: false).
+const DEFAULT_VALUES = Object.values(STEP_KEYS)
+  .flatMap((key) => filterFormsData[key]?.rows ?? [])
+  .flatMap((row) => row.fields ?? [])
+  .reduce((acc, field) => {
+    acc[field.id] = "";
+    return acc;
+  }, {});
+
+const getEstandarOptions = (asignatura) => {
+  const estandaresKey = ASIGNATURA_ESTANDARES_MAP[asignatura];
+  return estandaresKey ? optionsMap[estandaresKey] ?? [] : [];
+};
+
+// PENDIENTE: no existe un servicio de envío. Este es el único punto a
+// implementar. Cuando exista, hacerla async y marcar el plan como finalizado
+// solo si el envío tiene éxito. Hoy NO se guarda nada.
+const submitLessonPlan = (plan) => {
+  console.log("Plan completo:", plan);
+};
 
 const LessonPlanPage = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [planData, setPlanData] = useState({});
   const [isFinished, setIsFinished] = useState(false);
 
   const stepKey = STEP_KEYS[currentStep];
   const rows = filterFormsData[stepKey]?.rows ?? [];
-
-  const defaultValues = rows
-    .flatMap((row) => row.fields ?? [])
-    .reduce((acc, field) => {
-      acc[field.id] = planData[field.id] ?? "";
-      return acc;
-    }, {});
 
   const {
     register,
@@ -46,22 +64,28 @@ const LessonPlanPage = () => {
     setValue,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues,
+    defaultValues: DEFAULT_VALUES,
     mode: "onChange",
   });
 
-  const asignaturaValue = useWatch({ control, name: "asignatura" });
+  const asignaturaValue = useWatch({ control, name: ASIGNATURA_FIELD });
+
+  // Si cambia la asignatura, el estándar elegido deja de ser válido.
+  const prevAsignatura = useRef(asignaturaValue);
+  useEffect(() => {
+    if (prevAsignatura.current !== asignaturaValue) {
+      prevAsignatura.current = asignaturaValue;
+      setValue(ESTANDAR_FIELD, "");
+    }
+  }, [asignaturaValue, setValue]);
 
   const handleBack = () => navigate("/planningPage");
 
   const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
 
   const onNext = (data) => {
-    const updatedPlan = { ...planData, ...data };
-    setPlanData(updatedPlan);
-
     if (currentStep === TOTAL_STEPS) {
-      console.log("Plan completo:", updatedPlan);
+      submitLessonPlan(data);
       setIsFinished(true);
       return;
     }
@@ -69,17 +93,29 @@ const LessonPlanPage = () => {
   };
 
   const renderField = (field) => {
-    const processedField = { ...field };
-
-    if (field.id === "estandar") {
-      const estandaresKey = ASIGNATURA_ESTANDARES_MAP[asignaturaValue];
-      processedField.options = estandaresKey ? optionsMap[estandaresKey] ?? [] : [];
+    if (field.id !== ESTANDAR_FIELD) {
+      return (
+        <FormFieldCascada
+          field={field}
+          register={register}
+          errors={errors}
+          control={control}
+          setValue={setValue}
+        />
+      );
     }
+
+    const options = getEstandarOptions(asignaturaValue);
+    const hasOptions = options.length > 0;
 
     return (
       <FormFieldCascada
-        key={field.id}
-        field={processedField}
+        field={{
+          ...field,
+          options,
+          required: hasOptions,
+          validation: hasOptions ? field.validation : {},
+        }}
         register={register}
         errors={errors}
         control={control}
@@ -99,7 +135,6 @@ const LessonPlanPage = () => {
       />
       <form key={currentStep} onSubmit={handleSubmit(onNext)} noValidate>
         <div className="plan-container">
-          {/* ✅ Mensaje visible en TODOS los pasos */}
           <div className="report-main">
             <Coments text="Selecciona y completa los campos para crear el plan de clase." />
           </div>

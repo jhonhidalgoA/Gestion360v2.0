@@ -1,7 +1,7 @@
 .stepper-container {
   width: 98%;
   margin: 0 auto;
-  padding: 10px;
+  padding: 2px;
   border-radius: 10px;
   background: var(--color-neutral);
   box-sizing: border-box;
@@ -10,7 +10,7 @@
 .stepper {
   display: flex;
   width: 100%;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-3) var(--space-2);
   margin: 0;
   box-sizing: border-box;
 }
