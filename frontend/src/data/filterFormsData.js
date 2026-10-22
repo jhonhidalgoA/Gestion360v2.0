@@ -887,7 +887,7 @@ export const filterFormsData = {
         rows: [
           {
             id: "referentialRow",
-            className: "form-row-4",
+            className: "form-row-5",
             fields: [
               {
                 id: "eps",
@@ -916,23 +916,341 @@ export const filterFormsData = {
                 optionsKey: "ethnicGroups",
                 required: false,
               },
+              {
+                id: " victimStatus",
+                type: "select",
+                label: "Información Referencial:",
+                optionsKey: "victimStatus",
+                required: false,
+              },
             ],
           },
         ],
       },
-       {
-        id: "notes",
+
+      {
+        id: "familyAndEducationalSupport",
         rows: [
           {
-            id: "notesRow",
+            id: "familyAndEducationalSupportRow",
+            className: "form-row-4",
             fields: [
               {
-                id: "enrollmentNotes",
-                type: "textarea",
-                label: "Alergias, medicamentos o condiciones a tener en cuenta:",
+                id: "hasSiblingsAtSchool",
+                type: "toggle",
+                label: "¿Tiene hermanos en el colegio?",
                 required: false,
-                rows: 3,
-                dependsOn: "previousYear",
+              },
+              {
+                id: "siblingsDetails",
+                type: "text",
+                label: "¿Cuáles?",
+                placeholder: "Nombres",
+                required: false,
+              },
+              {
+                id: "requiresPedagogicalSupport",
+                type: "toggle",
+                label: "¿Requiere apoyo pedagógico ?",
+                required: false,
+              },
+              {
+                id: "pedagogicalSupportDetails",
+                type: "text",
+                label: "Detalle:",
+                placeholder: "Descripción breve",
+                required: false,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  father: {
+    sectionTitle: "4. Información del padre",
+    sections: [
+      {
+        id: "fatherData",
+        rows: [
+          {
+            id: "fatherIdentityRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "fatherNames",
+                type: "text",
+                label: "Nombres:",
+                placeholder: "Nombres completos",
+                required: true,
+              },
+              {
+                id: "fatherLastNames",
+                type: "text",
+                label: "Apellidos:",
+                placeholder: "Apellidos completos",
+                required: true,
+              },
+              {
+                id: "fatherDocumentType",
+                type: "select",
+                label: "Tipo de documento:",
+                optionsKey: "documentTypes",
+                required: true,
+              },
+              {
+                id: "fatherDocumentNumber",
+                type: "text",
+                label: "Número de documento:",
+                placeholder: "Sin puntos ni espacios",
+                required: true,
+              },
+            ],
+          },
+          {
+            id: "fatherContactRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "fatherMobile",
+                type: "text",
+                label: "Celular / WhatsApp:",
+                placeholder: "300 000 0000",
+                required: true,
+              },
+
+              {
+                id: "fatherEmail",
+                type: "text",
+                label: "Correo electrónico:",
+                placeholder: "nombre@correo.com",
+                required: true,
+              },
+              {
+                id: "fatherEducationLevel",
+                type: "select",
+                label: "Nivel educativo:",
+                optionsKey: "educationLevels",
+                required: false,
+              },
+              {
+                id: "fatherProfession",
+                type: "text",
+                label: "Profesión:",
+                placeholder: "Ingrese la profesión u oficio",
+                required: false,
+              },
+            ],
+          },
+          {
+            id: "fatherWorkRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "fatherOccupation",
+                type: "text",
+                label: "Ocupación:",
+                placeholder: "Ej. Contador",
+                required: false,
+              },
+
+              {
+                id: "fatherLivesWithStudent",
+                type: "toggle",
+                label: "¿Vive con el estudiante?",
+                required: false,
+              },
+              {
+                id: "fatherAddress",
+                type: "text",
+                label: "Dirección de residencia:",
+                placeholder: "Calle, número, barrio",
+                required: true,
+              },
+              {
+                id: "fatherCity",
+                type: "text",
+                label: "Ciudad:",
+                placeholder: "Ciudad",
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  mother: {
+    sectionTitle: "5. Información de la madre",
+    sections: [
+      {
+        id: "motherData",
+        rows: [
+          {
+            id: "motherIdentityRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "motherNames",
+                type: "text",
+                label: "Nombres:",
+                placeholder: "Nombres completos",
+                required: true,
+              },
+              {
+                id: "motherLastNames",
+                type: "text",
+                label: "Apellidos:",
+                placeholder: "Apellidos completos",
+                required: true,
+              },
+              {
+                id: "motherDocumentType",
+                type: "select",
+                label: "Tipo de documento:",
+                optionsKey: "documentTypes",
+                required: true,
+              },
+              {
+                id: "motherDocumentNumber",
+                type: "text",
+                label: "Número de documento:",
+                placeholder: "Sin puntos ni espacios",
+                required: true,
+              },
+            ],
+          },
+          {
+            id: "motherContactRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "motherMobile",
+                type: "text",
+                label: "Celular / WhatsApp:",
+                placeholder: "300 000 0000",
+                required: true,
+              },              
+              {
+                id: "motherEmail",
+                type: "text",
+                label: "Correo electrónico:",
+                placeholder: "nombre@correo.com",
+                required: true,
+              },
+              {
+                id: "motherEducationLevel",
+                type: "select",
+                label: "Nivel educativo:",
+                optionsKey: "educationLevels",
+                required: false,
+              },
+               {
+                id: "motherProfession",
+                type: "text",
+                label: "Profesión:",
+                placeholder: "Ingrese la profesión u oficio",
+                required: false,
+              },
+            ],
+          },
+          {
+            id: "motherWorkRow",
+            className: "form-row-4",
+            fields: [
+              {
+                id: "motherOccupation",
+                type: "text",
+                label: "Ocupación:",
+                placeholder: "Ej. Contadora",
+                required: false,
+              },              
+              {
+                id: "motherLivesWithStudent",
+                type: "toggle",
+                label: "¿Vive con el estudiante?",
+                required: false,
+              },
+              {
+                id: "motherAddress",
+                type: "text",
+                label: "Dirección de residencia:",
+                placeholder: "Calle, número, barrio",
+                required: true,
+              },
+              {
+                id: "motherCity",
+                type: "text",
+                label: "Ciudad:",
+                placeholder: "Ciudad",
+                required: true,
+              },
+            ],
+          },
+         
+        ],
+      },
+    ],
+  },
+    emergency: {
+    id: "emergencyContact",
+    title: "Contacto de emergencia",
+    columns: [
+      {
+        id: "emergencyContact1",
+        title: "Contacto 1",
+        rows: [
+          {
+            id: "emergencyRow",
+            className: "form-row-3",
+            fields: [
+              {
+                id: "emergencyName",
+                type: "text",
+                label: "Nombre completo:",
+                required: true,
+              },
+              {
+                id: "emergencyRelationship",
+                type: "text",
+                label: "Parentesco:",
+                required: true,
+              },
+              {
+                id: "emergencyPhone",
+                type: "text",
+                label: "Celular / WhatsApp:",
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "emergencyContact2",
+        title: "Contacto 2 (opcional)",
+        rows: [
+          {
+            id: "emergencyRow2",
+            className: "form-row-3",
+            fields: [
+              {
+                id: "emergencyName2",
+                type: "text",
+                label: "Nombre completo:",
+                required: false,
+              },
+              {
+                id: "emergencyRelationship2",
+                type: "text",
+                label: "Parentesco:",
+                required: false,
+              },
+              {
+                id: "emergencyPhone2",
+                type: "text",
+                label: "Celular / WhatsApp:",
+                required: false,
               },
             ],
           },

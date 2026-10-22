@@ -26,10 +26,12 @@ export const stepperData = {
     { id: 4, label: "Contenidos y Evaluación" },
   ],
 
-  enrollmentPageAdmin:[
+  enrollmentPageAdmin: [
     { id: 1, label: "Datos Estudiante" },
     { id: 2, label: "Información Matrícula" },
-    { id: 3, label: "Información General" },   
-    { id: 4, label: "Datos Familiares" },  
-  ]
+    { id: 3, label: "Información General" },
+    { id: 4, label: "Información del Padre" },
+    { id: 5, label: "Información de la Madre" },
+    { id: 6, label: "Contacto" },
+  ],
 };

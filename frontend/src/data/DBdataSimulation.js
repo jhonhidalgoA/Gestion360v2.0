@@ -488,14 +488,42 @@ export const optionsMap = {
 
   ethnicGroups: [
     { value: "Indígena", label: "Indígena" },
-    { value: "Negro", label: "Negro" },
     { value: "Afrocolombiano", label: "Afrocolombiano" },
     { value: "Raizal", label: "Raizal" },
     { value: "Palenquero", label: "Palenquero" },
     { value: "Rrom (Gitano)", label: "Rrom (Gitano)" },
-    { value: "Ninguno", label: "Ninguno de los anteriores" },
-    { value: "No informa", label: "No informa" },
+    { value: "Ninguno", label: "Ninguno de los anteriores" },    
+    { value: "No aplica", label: "No aplica" },
   ],
+
+  victimStatus: [
+    { value: "Victima", label: "Víctima del conflicto armado" },
+    {
+      value: "Desplazamiento forzado",
+      label: "Víctima de desplazamiento forzado",
+    },
+    {
+      value: "Incluida RUV",
+      label: "Incluida en el Registro Único de Víctimas (RUV)",
+    },
+    { value: "No incluida RUV", label: "No incluida en el RUV" },
+    { value: "icbf", label: "Proveniente de ICBF" },
+    { value: "No aplica", label: "No aplica" },
+  ],
+
+  educationLevels: [
+  { value: "Ninguno", label: "Ninguno" },  
+  { value: "Básica primaria", label: "Básica primaria" },
+  { value: "Básica secundaria", label: "Básica secundaria" },
+  { value: "Media académica", label: "Media académica" },  
+  { value: "Técnico laboral", label: "Técnico laboral" },
+  { value: "Técnico profesional", label: "Técnico profesional" },
+  { value: "Tecnológico", label: "Tecnológico" },
+  { value: "Profesional universitario", label: "Profesional universitario" },
+  { value: "Especialización", label: "Especialización" },
+  { value: "Maestría", label: "Maestría" },
+  { value: "Doctorado", label: "Doctorado" },  
+],
 
   strata: [
     { value: "1", label: "1" },

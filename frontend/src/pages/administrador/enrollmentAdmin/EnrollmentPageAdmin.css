@@ -99,6 +99,8 @@
 }
 
 
+
+
 .enrollment-buttons {
   display: flex;
   justify-content: space-between;
@@ -181,6 +183,27 @@
   background: revert;
   accent-color: var(--color-primary, #1c6fb9);
   cursor: pointer;
+}
+
+.enrollment-family {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.enrollment-family__column {
+  min-width: 0;
+}
+
+.enrollment-family__emergency {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .enrollment-family {
+    grid-template-columns: 1fr;
+  }
 }
 
 

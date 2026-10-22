@@ -59,6 +59,37 @@ const FormField = ({ field, register, errors }) => {
       />
     );
   }
+    if (field.type === "toggle") {
+    return (
+      <div className="toggle-field">
+        <span className="toggle-field__label">
+          {field.label}
+          {field.required && <span className="toggle-field__required"> *</span>}
+        </span>
+        <div
+          className="toggle-field__options"
+          role="radiogroup"
+          aria-label={field.label}
+        >
+          {[
+            { value: "si", text: "Sí" },
+            { value: "no", text: "No" },
+          ].map((option) => (
+            <label className="toggle-field__option" key={option.value}>
+              <input
+                type="radio"
+                value={option.value}
+                disabled={field.disabled}
+                {...register(field.id, effectiveRules)}
+              />
+              <span>{option.text}</span>
+            </label>
+          ))}
+        </div>
+        {error && <p className="toggle-field__error">{error.message}</p>}
+      </div>
+    );
+  }
 
   return (
     <Input

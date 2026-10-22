@@ -59,9 +59,10 @@ const EnrollmentPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate("/administrador");
 
-  // Pantalla visible: 1 = Datos Estudiante, 2 = Información Matrícula, 3 = Información General
+  // Pantalla visible: 1 = Datos Estudiante, 2 = Información Matrícula, 3 = Información General,
+  // 4 = Información del Padre, 5 = Información de la Madre, 6 = Contacto
   const [screen, setScreen] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 6;
 
   // Pantalla 1
   const { rows, sectionTitle, documentsSection } =
@@ -80,11 +81,38 @@ const EnrollmentPage = () => {
     .flatMap((section) => section.rows)
     .flatMap((row) => row.fields);
 
+  // Pantalla 4
+  const fatherInfo = filterFormsData.father;
+  const fatherFields = fatherInfo.sections
+    .flatMap((section) => section.rows)
+    .flatMap((row) => row.fields);
+
+  // Pantalla 5
+  const motherInfo = filterFormsData.mother;
+  const motherFields = motherInfo.sections
+    .flatMap((section) => section.rows)
+    .flatMap((row) => row.fields);
+
+  // Pantalla 6: dos contactos lado a lado
+  const emergencyInfo = filterFormsData.emergency;
+  const emergencyFields = emergencyInfo.columns.flatMap((column) =>
+    column.rows.flatMap((row) => row.fields),
+  );
+
   const studentRequiredIds = studentFields
     .filter((f) => f.required)
     .map((f) => f.id);
   const infoRequiredIds = infoFields.filter((f) => f.required).map((f) => f.id);
   const generalRequiredIds = generalFields
+    .filter((f) => f.required)
+    .map((f) => f.id);
+  const fatherRequiredIds = fatherFields
+    .filter((f) => f.required)
+    .map((f) => f.id);
+  const motherRequiredIds = motherFields
+    .filter((f) => f.required)
+    .map((f) => f.id);
+  const emergencyRequiredIds = emergencyFields
     .filter((f) => f.required)
     .map((f) => f.id);
 
@@ -94,6 +122,9 @@ const EnrollmentPage = () => {
     ...studentFields,
     ...infoFields,
     ...generalFields,
+    ...fatherFields,
+    ...motherFields,
+    ...emergencyFields,
   ].reduce(
     (acc, field) => {
       acc[field.id] = "";
@@ -137,12 +168,25 @@ const EnrollmentPage = () => {
   const studentValues = useWatch({ control, name: studentRequiredIds });
   const infoValues = useWatch({ control, name: infoRequiredIds });
   const generalValues = useWatch({ control, name: generalRequiredIds });
+  const fatherValues = useWatch({ control, name: fatherRequiredIds });
+  const motherValues = useWatch({ control, name: motherRequiredIds });
+  const emergencyValues = useWatch({ control, name: emergencyRequiredIds });
 
   const studentOk = allFilled(studentValues);
   const infoOk = allFilled(infoValues);
   const generalOk = allFilled(generalValues);
+  const fatherOk = allFilled(fatherValues);
+  const motherOk = allFilled(motherValues);
+  const emergencyOk = allFilled(emergencyValues);
 
-  const screenOkByStep = { 1: studentOk, 2: infoOk, 3: generalOk };
+  const screenOkByStep = {
+    1: studentOk,
+    2: infoOk,
+    3: generalOk,
+    4: fatherOk,
+    5: motherOk,
+    6: emergencyOk,
+  };
   const screenOk = screenOkByStep[screen] ?? false;
 
   // El stepper sigue a la pantalla visible
@@ -154,11 +198,8 @@ const EnrollmentPage = () => {
 
   const goNext = () => {
     if (!screenOk) return;
-    if (screen < 3) {
+    if (screen < totalSteps) {
       setScreen(screen + 1);
-    } else {
-      // Aquí irá el paso 4 (Datos Familiares)
-      console.log("Avanzar al siguiente paso");
     }
   };
 
@@ -189,6 +230,7 @@ const EnrollmentPage = () => {
       <div className="enrollment-container">
         <form noValidate>
           <div className="enrollment-screens">
+            
             {/*  Pantalla 1: Datos del estudiante  */}
             <div
               className={`enrollment-screen${
@@ -276,6 +318,78 @@ const EnrollmentPage = () => {
                   ))}
                 </section>
               ))}
+            </div>
+
+            {/*  Pantalla 4: Información del padre  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 4 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              <h3 className="form-section-title">{fatherInfo.sectionTitle}</h3>
+              {fatherInfo.sections.map((section) => (
+                <section className="enrollment-section" key={section.id}>
+                  {section.title && (
+                    <h4 className="enrollment-section__title">
+                      {section.title}
+                    </h4>
+                  )}
+                  {section.rows.map((row) => (
+                    <div className={row.className} key={row.id}>
+                      {row.fields.map(renderField)}
+                    </div>
+                  ))}
+                </section>
+              ))}
+            </div>
+
+            {/*  Pantalla 5: Información de la madre  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 5 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              <h3 className="form-section-title">{motherInfo.sectionTitle}</h3>
+              {motherInfo.sections.map((section) => (
+                <section className="enrollment-section" key={section.id}>
+                  {section.title && (
+                    <h4 className="enrollment-section__title">
+                      {section.title}
+                    </h4>
+                  )}
+                  {section.rows.map((row) => (
+                    <div className={row.className} key={row.id}>
+                      {row.fields.map(renderField)}
+                    </div>
+                  ))}
+                </section>
+              ))}
+            </div>
+
+            {/*  Pantalla 6: Contacto de emergencia  */}
+            <div
+              className={`enrollment-screen${
+                screen !== 6 ? " enrollment-screen--hidden" : ""
+              }`}
+            >
+              <h3 className="form-section-title">{emergencyInfo.title}</h3>
+              <div className="enrollment-family">
+                {emergencyInfo.columns.map((column) => (
+                  <section
+                    className="enrollment-section enrollment-family__column"
+                    key={column.id}
+                  >
+                    <h4 className="enrollment-section__title">
+                      {column.title}
+                    </h4>
+                    {column.rows.map((row) => (
+                      <div className={row.className} key={row.id}>
+                        {row.fields.map(renderField)}
+                      </div>
+                    ))}
+                  </section>
+                ))}
+              </div>
             </div>
           </div>
 
