@@ -6,7 +6,9 @@ const FormFieldCascada = ({ field, register, errors, control, setValue }) => {
   const dependValue = useWatch({ control, name: field.dependsOn || "" });
 
   const isDisabled = field.dependsOn
-    ? dependValue === undefined || dependValue === ""
+    ? field.enabledWhen !== undefined
+      ? dependValue !== field.enabledWhen
+      : dependValue === undefined || dependValue === ""
     : false;
 
   const isFirstRender = useRef(true);

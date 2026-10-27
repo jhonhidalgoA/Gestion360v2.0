@@ -123,9 +123,14 @@
   outline-offset: -2px;
 }
 
+.toggle-field__options:has(input:disabled) {
+  background: var(--bg-subtle);
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
 .toggle-field__option input:disabled + span {
   cursor: not-allowed;
-  opacity: 0.5;
 }
 
 .toggle-field__error {

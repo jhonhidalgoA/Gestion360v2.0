@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { TbCertificate, TbId, TbFileCheck, TbVaccine } from "react-icons/tb";
 
 import { filterFormsData } from "@/data/filterFormsData";
 import { groupsByGrade } from "@/data/DBdataSimulation";
@@ -55,6 +56,43 @@ const calculateAge = (birthDateStr) => {
 const allFilled = (values) =>
   values.every((value) => String(value ?? "").trim() !== "");
 
+// Icono de cada documento entregado, según su id
+const documentIcons = {
+  gradesCertificate: TbCertificate,
+  identityDocument: TbId,
+  peaceAndSafe: TbFileCheck,
+  vaccinationCard: TbVaccine,
+};
+
+const useParentResidence = ({
+  control,
+  setValue,
+  livesName,
+  addressName,
+  cityName,
+}) => {
+  const lives = useWatch({ control, name: livesName });
+  const studentAddress = useWatch({ control, name: "residenceAddress" });
+
+  useEffect(() => {
+    if (lives === "no") {
+      setValue(addressName, "", { shouldValidate: false });
+      setValue(cityName, "", { shouldValidate: false });
+    }
+    if (lives === "si") {
+      setValue(cityName, "", { shouldValidate: false });
+    }
+  }, [lives, addressName, cityName, setValue]);
+
+  useEffect(() => {
+    if (lives === "si") {
+      setValue(addressName, studentAddress ?? "", { shouldValidate: true });
+    }
+  }, [lives, studentAddress, addressName, setValue]);
+
+  return lives;
+};
+
 const EnrollmentPage = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate("/administrador");
@@ -99,6 +137,11 @@ const EnrollmentPage = () => {
     column.rows.flatMap((row) => row.fields),
   );
 
+  const authorizedInfo = filterFormsData.authorized;
+  const authorizedFields = authorizedInfo.persons.flatMap(
+    (person) => person.fields,
+  );
+
   const studentRequiredIds = studentFields
     .filter((f) => f.required)
     .map((f) => f.id);
@@ -106,18 +149,11 @@ const EnrollmentPage = () => {
   const generalRequiredIds = generalFields
     .filter((f) => f.required)
     .map((f) => f.id);
-  const fatherRequiredIds = fatherFields
-    .filter((f) => f.required)
-    .map((f) => f.id);
-  const motherRequiredIds = motherFields
-    .filter((f) => f.required)
-    .map((f) => f.id);
   const emergencyRequiredIds = emergencyFields
     .filter((f) => f.required)
     .map((f) => f.id);
 
-  // Un solo formulario para todas las pantallas
-  // "documents" arranca como lista vacía (ids de los documentos entregados)
+  
   const defaultValues = [
     ...studentFields,
     ...infoFields,
@@ -125,6 +161,7 @@ const EnrollmentPage = () => {
     ...fatherFields,
     ...motherFields,
     ...emergencyFields,
+    ...authorizedFields,
   ].reduce(
     (acc, field) => {
       acc[field.id] = "";
@@ -143,11 +180,44 @@ const EnrollmentPage = () => {
     mode: "onChange",
   });
 
+  // Padre: dirección y ciudad según si vive con el estudiante
+  const fatherLives = useParentResidence({
+    control,
+    setValue,
+    livesName: "fatherLivesWithStudent",
+    addressName: "fatherAddress",
+    cityName: "fatherCity",
+  });
+
+  // Madre: dirección y ciudad según si vive con el estudiante
+  const motherLives = useParentResidence({
+    control,
+    setValue,
+    livesName: "motherLivesWithStudent",
+    addressName: "motherAddress",
+    cityName: "motherCity",
+  });
+
+  // Si vive con el estudiante, la ciudad no es obligatoria
+  const fatherRequiredIds = fatherFields
+    .filter(
+      (f) => f.required && !(fatherLives === "si" && f.id === "fatherCity"),
+    )
+    .map((f) => f.id);
+
+  const motherRequiredIds = motherFields
+    .filter(
+      (f) => f.required && !(motherLives === "si" && f.id === "motherCity"),
+    )
+    .map((f) => f.id);
+
   // Observar fecha de nacimiento para calcular edad
   const birthDateValue = useWatch({ control, name: "birthDate" });
 
   const gradeValue = useWatch({ control, name: "grade" });
   const groupOptions = groupsByGrade[gradeValue] ?? [];
+  const deliveredDocuments = useWatch({ control, name: "documents" });
+  const deliveredCount = deliveredDocuments?.length ?? 0;
 
   // Auto-completar fecha de matrícula (hoy) y código al montar
   useEffect(() => {
@@ -230,7 +300,6 @@ const EnrollmentPage = () => {
       <div className="enrollment-container">
         <form noValidate>
           <div className="enrollment-screens">
-            
             {/*  Pantalla 1: Datos del estudiante  */}
             <div
               className={`enrollment-screen${
@@ -249,26 +318,44 @@ const EnrollmentPage = () => {
                     </div>
                   ))}
 
-                  {/* Documentos entregados: debajo de los select */}
                   {documentsSection && (
                     <section className="enrollment-documents">
-                      <h4 className="enrollment-section__title">
-                        {documentsSection.title}
-                      </h4>
+                      <div className="enrollment-documents__header">
+                        <h4 className="enrollment-section__title">
+                          {documentsSection.title}
+                        </h4>
+                        <span className="enrollment-documents__count">
+                          {deliveredCount} de {documentsSection.options.length}{" "}
+                          entregados
+                        </span>
+                      </div>
                       <div className="enrollment-documents__list">
-                        {documentsSection.options.map((doc) => (
-                          <label
-                            className="enrollment-documents__item"
-                            key={doc.id}
-                          >
-                            <input
-                              type="checkbox"
-                              value={doc.id}
-                              {...register("documents")}
-                            />
-                            <span>{doc.label}</span>
-                          </label>
-                        ))}
+                        {documentsSection.options.map((doc) => {
+                          const Icon = documentIcons[doc.id];
+                          return (
+                            <label
+                              className="enrollment-documents__item"
+                              key={doc.id}
+                            >
+                              <input
+                                type="checkbox"
+                                value={doc.id}
+                                {...register("documents")}
+                              />
+                              <span
+                                className="enrollment-documents__box"
+                                aria-hidden="true"
+                              />
+                              {Icon && (
+                                <Icon
+                                  className="enrollment-documents__icon"
+                                  aria-hidden="true"
+                                />
+                              )}
+                              <span>{doc.label}</span>
+                            </label>
+                          );
+                        })}
                       </div>
                     </section>
                   )}
@@ -390,6 +477,31 @@ const EnrollmentPage = () => {
                   </section>
                 ))}
               </div>
+
+              {/* Personas autorizadas para recoger: foto + nombre + parentesco */}
+              <section className="enrollment-section enrollment-authorized">
+                <h4 className="enrollment-section__title">
+                  {authorizedInfo.title}
+                </h4>
+                <div className="enrollment-authorized__list">
+                  {authorizedInfo.persons.map((person) => (
+                    <div
+                      className="enrollment-authorized__person"
+                      key={person.id}
+                    >
+                      <div className="enrollment-authorized__photo">
+                        <PhotoUpload
+                          name={person.photoName}
+                          register={register}
+                        />
+                      </div>
+                      <div className="enrollment-authorized__fields">
+                        {person.fields.map(renderField)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
 
